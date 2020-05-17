@@ -1,0 +1,25 @@
+@startuml(id=System)
+scale max 1748x1240
+title System Landscape
+
+skinparam {
+  shadowing false
+  arrowColor #707070
+  actorBorderColor #707070
+  componentBorderColor #707070
+  rectangleBorderColor #707070
+  noteBackgroundColor #ffffff
+  noteBorderColor #707070
+}
+rectangle "Player1" <<Person>> as 2 #lightpink
+rectangle "Player2" <<Person>> as 3 #lightpink
+rectangle 1 <<Software System>> #lightgreen [
+        Spartacus
+  --
+  Application that combines
+  both client and server
+  iplementations
+]
+2 .[#707070].> 1 
+3 .[#707070].> 1 
+@enduml

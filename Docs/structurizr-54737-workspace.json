@@ -1,0 +1,66 @@
+{
+    "id": 54737,
+    "name": "Workspace 54737",
+    "description": "An empty workspace.",
+    "revision": 2,
+    "lastModifiedDate": "2020-05-17T14:58:16Z",
+    "lastModifiedUser": "bodik@list.ru",
+    "lastModifiedAgent": "structurizr-web/1892",
+    "model": {
+        "people": [
+            {
+                "id": "2",
+                "tags": "Element,Person",
+                "name": "Player1",
+                "location": "Unspecified"
+            },
+            {
+                "id": "3",
+                "tags": "Element,Person",
+                "name": "Player2",
+                "location": "Unspecified"
+            }
+        ],
+        "softwareSystems": [
+            {
+                "id": "1",
+                "tags": "Element,Software System",
+                "name": "Spartacus",
+                "description": "Application that combines both client and server iplementations",
+                "relationships": [
+                    {
+                        "id": "4",
+                        "tags": "Relationship",
+                        "sourceId": "1",
+                        "destinationId": "2",
+                        "interactionStyle": "Synchronous"
+                    }
+                ],
+                "location": "Unspecified"
+            }
+        ],
+        "deploymentNodes": []
+    },
+    "documentation": {
+        "sections": [],
+        "decisions": [],
+        "images": []
+    },
+    "views": {
+        "configuration": {
+            "branding": {},
+            "styles": {
+                "elements": [],
+                "relationships": []
+            },
+            "terminology": {}
+        },
+        "systemLandscapeViews": [],
+        "systemContextViews": [],
+        "containerViews": [],
+        "componentViews": [],
+        "dynamicViews": [],
+        "deploymentViews": [],
+        "filteredViews": []
+    }
+}
