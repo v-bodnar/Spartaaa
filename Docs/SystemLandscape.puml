@@ -14,7 +14,7 @@ skinparam {
 rectangle "Player1" <<Person>> as 2 #lightpink
 rectangle "Player2" <<Person>> as 3 #lightpink
 rectangle 1 <<Software System>> #lightgreen [
-    Spartacus Test Changes
+        Spartacus
   --
   Application that combines
   both client and server
