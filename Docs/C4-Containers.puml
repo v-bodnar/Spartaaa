@@ -1,0 +1,35 @@
+@startuml(id=SpartacusApp)
+scale max 1748x1240
+title Spartacus - Containers
+
+skinparam {
+  shadowing false
+  arrowColor #707070
+  actorBorderColor #707070
+  componentBorderColor #707070
+  rectangleBorderColor #707070
+  noteBackgroundColor #ffffff
+  noteBorderColor #707070
+}
+package "Spartacus" <<Software System>> {
+  rectangle 11 <<MongoDB>> #dddddd [
+    Database
+    --
+    MongoDB database
+  ]
+  rectangle 8 <<Container>> #dddddd [
+    Spartacus Server
+    --
+    Spartacus server-side web
+    application, written in Java
+  ]
+  rectangle 7 <<WebSocket, JS>> #dddddd [
+    Spartacus client
+    --
+    Spartacus client-side web
+    application, written in JS
+  ]
+}
+8 .[#707070].> 11 
+7 .[#707070].> 8 
+@enduml

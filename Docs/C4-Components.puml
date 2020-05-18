@@ -1,0 +1,19 @@
+@startuml(id=Model)
+scale max 1748x1240
+title Spartacus - Spartacus Server - Components
+
+skinparam {
+  shadowing false
+  arrowColor #707070
+  actorBorderColor #707070
+  componentBorderColor #707070
+  rectangleBorderColor #707070
+  noteBackgroundColor #ffffff
+  noteBorderColor #707070
+}
+package "Spartacus Server" <<Container>> {
+  component "Game" <<Component>> as 14 #dddddd
+  component "Model" <<Component>> as 10 #dddddd
+}
+14 .[#707070].> 10 
+@enduml
