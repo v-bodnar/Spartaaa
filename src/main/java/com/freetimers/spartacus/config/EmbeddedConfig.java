@@ -1,4 +1,4 @@
-package com.freetimers.spartaa.config;
+package com.freetimers.spartacus.config;
 
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
