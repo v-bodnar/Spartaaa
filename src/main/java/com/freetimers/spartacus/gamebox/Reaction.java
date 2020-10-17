@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 public class Reaction extends IntrigueCard {
     private final Predicate predicate;
 
-    public Reaction(Predicate predicate, byte requiredInfluance, byte price, String description) {
-        super(requiredInfluance, price, description);
+    public Reaction(Predicate predicate, int requiredInfluence, int price, String title, String description) {
+        super(requiredInfluence, price, title, description);
         this.predicate = predicate;
     }
 

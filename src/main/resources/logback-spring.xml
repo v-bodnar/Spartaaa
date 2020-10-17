@@ -26,6 +26,6 @@
     </root>
 
     <logger name="com.freetimers.spartacus" additivity="false" level="debug">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </logger>
 </configuration>

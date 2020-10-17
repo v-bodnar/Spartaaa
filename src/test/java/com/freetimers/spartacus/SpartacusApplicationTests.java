@@ -56,4 +56,5 @@ class SpartacusApplicationTests {
 		assertEquals(3, repository.findAll().size());
 	}
 
+
 }

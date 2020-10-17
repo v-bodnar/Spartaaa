@@ -1,8 +1,14 @@
 package com.freetimers.spartacus.gamebox;
 
 public interface Card {
-    byte getPrice();
+
+    int getPrice();
 
     String getDescription();
+
+    String getId();
+
+    String getTitle();
+
 }
 
