@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'com.com.freetimers'
+group = 'com.freetimers'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '14'
 
