@@ -1,5 +1,6 @@
 package com.freetimers.spartacus.gamebox;
 
+import com.freetimers.spartacus.aop.Translate;
 import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
@@ -23,12 +24,14 @@ public abstract class AbstractCard implements Card {
         return price;
     }
 
+    @Translate
     @Override
     public String getDescription() {
         return description;
     }
 
     @Override
+    @Translate
     public String getTitle() {
         return title;
     }
