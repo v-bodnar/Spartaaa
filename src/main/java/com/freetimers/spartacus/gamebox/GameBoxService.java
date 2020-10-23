@@ -1,5 +1,6 @@
 package com.freetimers.spartacus.gamebox;
 
+import com.freetimers.spartacus.aop.Translate;
 import com.freetimers.spartacus.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,12 +33,19 @@ public class GameBoxService {
             schemeRepo.save(testOfTheBrotherhood);
             Scheme setHandToPurpose = new Scheme(4, 2, "card.setHandToPurpose.title", "Target Dominus may exhaust any 3 of their slaves, gladiators or guards to gain 1 influence");
             schemeRepo.save(setHandToPurpose);
-            Scheme epicSpecctacle = new Scheme(0,2,"Epic spectacle","+2 influence to target Dominus with at least 5 ready Gladiators");
+            Scheme epicSpecctacle = new Scheme(0, 2, "Epic spectacle", "+2 influence to target Dominus with at least 5 ready Gladiators");
             schemeRepo.save(epicSpecctacle);
             //Scheme partyFavors = new Scheme(4,1, "Party favors", "Target Dominus may discard");
+            Gladiator syrianWarrior = new Gladiator(2, "card.syrianWarrior.title", "card.startingGladiator");
+            gladiatorsRepo.save(syrianWarrior);
+            getTitle(syrianWarrior);
 
         }
 
+    }
+    @Translate
+    public String getTitle(Card card){
+        return card.getTitle();
     }
 
 
