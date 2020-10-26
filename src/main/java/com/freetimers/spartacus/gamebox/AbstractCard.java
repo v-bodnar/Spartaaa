@@ -1,19 +1,27 @@
 package com.freetimers.spartacus.gamebox;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
+import java.util.Optional;
+
 @Document
 public class AbstractCard implements Card {
-    private final int price;
+    @Id
+    private final String id;
+    private final Integer price;
+    private final String descriptionKey;
     private final String description;
+    private final String titleKey;
     private final String title;
-    private final @Id String id;
 
-    public AbstractCard(String id, int price, String title, String description) {
+    public AbstractCard(String id, String titleKey, String title, String descriptionKey, String description, Integer price) {
         this.id = id;
-        this.price = price;
+        this.price = Objects.requireNonNull(price);
+        this.descriptionKey = Objects.requireNonNull(descriptionKey);
+        this.titleKey = Objects.requireNonNull(titleKey);
         this.description = description;
         this.title = title;
     }
@@ -24,18 +32,26 @@ public class AbstractCard implements Card {
     }
 
     @Override
-    public String getDescription() {
-        return description;
+    public String getDescriptionKey() {
+        return descriptionKey;
     }
 
     @Override
-    public String getTitle() {
-        return title;
+    public String getTitleKey() {
+        return titleKey;
     }
 
     @Override
-    public String getId() {
-        return id;
+    public Optional<String>  getId() {
+        return Optional.ofNullable(id);
+    }
+
+    public Optional<String>  getDescription() {
+        return Optional.ofNullable(description);
+    }
+
+    public Optional<String> getTitle() {
+        return Optional.ofNullable(title);
     }
 
     @Override
@@ -43,24 +59,28 @@ public class AbstractCard implements Card {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AbstractCard that = (AbstractCard) o;
-        return price == that.price &&
+        return Objects.equals(id, that.id) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(descriptionKey, that.descriptionKey) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(id, that.id);
+                Objects.equals(titleKey, that.titleKey) &&
+                Objects.equals(title, that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(price, description, title, id);
+        return Objects.hash(id, price, descriptionKey, description, titleKey, title);
     }
 
     @Override
     public String toString() {
         return "AbstractCard{" +
-                "price=" + price +
+                "id='" + id + '\'' +
+                ", price=" + price +
+                ", descriptionKey='" + descriptionKey + '\'' +
                 ", description='" + description + '\'' +
+                ", titleKey='" + titleKey + '\'' +
                 ", title='" + title + '\'' +
-                ", id='" + id + '\'' +
                 '}';
     }
 }

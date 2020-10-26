@@ -4,7 +4,6 @@ import com.freetimers.spartacus.repository.GladiatorsRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.MessageSource;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -28,7 +27,7 @@ public class GameBoxServiceTest {
         //when
         Optional<Gladiator> syrianWarrior = gladiatorsRepo.findFirstByTitle("card.syrianWarrior.title");
         assertTrue(syrianWarrior.isPresent());
-        String syrianWarriorTitle = syrianWarrior.get().getTitle();
+        String syrianWarriorTitle = syrianWarrior.get().getTitleKey();
 
         //then
         assertEquals("Syrian warrior", syrianWarriorTitle);
@@ -41,7 +40,7 @@ public class GameBoxServiceTest {
         //when
         Optional<Gladiator> syrianWarrior = gladiatorsRepo.findFirstByTitle("card.syrianWarrior.title");
         assertTrue(syrianWarrior.isPresent());
-        String syrianWarriorTitle = syrianWarrior.get().getTitle();
+        String syrianWarriorTitle = syrianWarrior.get().getTitleKey();
 
         //then
         assertEquals("Сирийский воин", syrianWarriorTitle);

@@ -1,14 +1,19 @@
 package com.freetimers.spartacus.gamebox;
 
+import java.util.Optional;
+
 public interface Card {
 
     int getPrice();
 
-    String getDescription();
+    String getDescriptionKey();
 
-    String getId();
+    Optional<String> getId();
 
-    String getTitle();
+    String getTitleKey();
 
+    Optional<String> getTitle();
+
+    Optional<String> getDescription();
 }
 

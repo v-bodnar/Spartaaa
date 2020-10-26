@@ -31,14 +31,18 @@ public class GameBoxService {
     @PostConstruct
     public void setUp() {
         if (schemeRepo.findAll().size() != 100) {
-            Scheme testOfTheBrotherhood = new Scheme(null,1, 2, "Test of the brotherhood", "Target Dominus gains +1 influence foe every 2 gladiators they exhaust");
+            Scheme testOfTheBrotherhood = Scheme.of("Test of the brotherhood","Target Dominus gains " +
+                    "+1 influence foe every 2 gladiators they exhaust",2, 1);
             schemeRepo.save(testOfTheBrotherhood);
-            Scheme setHandToPurpose = new Scheme(null,4, 2, "card.setHandToPurpose.title", "Target Dominus may exhaust any 3 of their slaves, gladiators or guards to gain 1 influence");
+            Scheme setHandToPurpose = Scheme.of("card.scheme.setHandToPurpose.title","card.scheme.setHandToPurpose.description"
+                    ,2,4);
             schemeRepo.save(setHandToPurpose);
-            Scheme epicSpecctacle = new Scheme(null,0, 2, "Epic spectacle", "+2 influence to target Dominus with at least 5 ready Gladiators");
+            Scheme epicSpecctacle =Scheme.of("Epic spectacle","+2 influence to target Dominus with" +
+                    " at least 5 ready Gladiators",2,0);
             schemeRepo.save(epicSpecctacle);
-            //Scheme partyFavors = new Scheme(4,1, "Party favors", "Target Dominus may discard");
-            Gladiator syrianWarrior = new Gladiator(null,2, "card.syrianWarrior.title", "card.startingGladiator");
+            Scheme partyFavors = Scheme.of("Party favors","Target Dominus may discard",1,4);
+            Gladiator syrianWarrior = Gladiator.of( "card.gladiator.syrianWarrior.title", "card.gladiator.startingGladiator",
+                    2, 2,2,3);
             gladiatorsRepo.save(syrianWarrior);
             getTitle(syrianWarrior);
 
@@ -50,7 +54,7 @@ public class GameBoxService {
         logger.debug("get called");
         if (card == null)
             return "";
-        return card.getTitle();
+        return card.getTitleKey();
     }
 
 

@@ -4,6 +4,6 @@ public class Game {
     private Deck<MarketCard> marketDeck=new Deck<>();
     private Deck<IntrigueCard> intrigueDeck=new Deck<>();
     public void initialize(){
-        marketDeck.addCard(new Slave(null, (int) 2, "Title:", "Description"));
+
     }
 }

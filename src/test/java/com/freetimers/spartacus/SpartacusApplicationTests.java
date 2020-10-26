@@ -1,10 +1,6 @@
 package com.freetimers.spartacus;
 
-import com.freetimers.spartacus.gamebox.Gladiator;
-import com.freetimers.spartacus.gamebox.Scheme;
 import com.freetimers.spartacus.model.TestEntity;
-import com.freetimers.spartacus.repository.GladiatorsRepo;
-import com.freetimers.spartacus.repository.SchemeRepo;
 import com.freetimers.spartacus.repository.TestRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,20 +27,12 @@ class SpartacusApplicationTests {
     @Autowired
     private TestRepository repository;
 
-    @Autowired
-    private GladiatorsRepo gladiatorsRepo;
-
-    @Autowired
-    private SchemeRepo schemeRepo;
-
     @Value("spring.mongodb.embedded.storage.databaseDir")
     private String testDbPath;
 
     @BeforeEach
     public void cleanUpDb() {
         repository.deleteAll();
-        schemeRepo.deleteAll();
-        gladiatorsRepo.deleteAll();
     }
 
     @AfterTestExecution
@@ -65,11 +53,6 @@ class SpartacusApplicationTests {
         TestEntity testEntity2 = TestEntity.of();
         TestEntity testEntity3 = TestEntity.of();
 
-        Gladiator syrianWarrior = new Gladiator(null, 2, "card.syrianWarrior.title", "card.startingGladiator");
-        gladiatorsRepo.save(syrianWarrior);
-
-        Scheme testOfTheBrotherhood = new Scheme(null, 1, 2, "Test of the brotherhood", "Target Dominus gains +1 influence foe every 2 gladiators they exhaust");
-        schemeRepo.save(testOfTheBrotherhood);
 
         // when
         repository.save(testEntity1);
@@ -78,9 +61,6 @@ class SpartacusApplicationTests {
 
         // then
         assertEquals(3, repository.findAll().size());
-        assertEquals(1, gladiatorsRepo.findAll().size());
-        assertEquals(1, schemeRepo.findAll().size());
     }
-
 
 }

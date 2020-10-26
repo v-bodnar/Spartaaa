@@ -16,8 +16,8 @@ public class TranslationService {
         this.messageSource = messageSource;
     }
 
-    public String translate(String translatableString) {
-        return Optional.ofNullable(messageSource.getMessage(translatableString, null, null, Locale.getDefault()))
-                .orElseGet(() -> messageSource.getMessage(translatableString, null, String.format("No translation for:%s", translatableString), Locale.US));
+    public String translate(String translatableKey) {
+        return Optional.ofNullable(messageSource.getMessage(translatableKey, null, null, Locale.getDefault()))
+                .orElseGet(() -> messageSource.getMessage(translatableKey, null, String.format("No translation for:%s", translatableKey), Locale.US));
     }
 }
