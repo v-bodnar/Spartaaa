@@ -1,22 +1,21 @@
 package com.freetimers.spartacus.gamebox;
 
-import com.freetimers.spartacus.aop.Translate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
-
-public abstract class AbstractCard implements Card {
+@Document
+public class AbstractCard implements Card {
     private final int price;
     private final String description;
     private final String title;
-    @Id
-    private String id;
+    private final @Id String id;
 
-    public AbstractCard(int price, String title, String description) {
+    public AbstractCard(String id, int price, String title, String description) {
+        this.id = id;
         this.price = price;
         this.description = description;
         this.title = title;
-
     }
 
     @Override
@@ -24,14 +23,12 @@ public abstract class AbstractCard implements Card {
         return price;
     }
 
-    @Translate
     @Override
     public String getDescription() {
         return description;
     }
 
     @Override
-    @Translate
     public String getTitle() {
         return title;
     }

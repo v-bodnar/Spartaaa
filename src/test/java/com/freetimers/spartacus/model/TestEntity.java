@@ -7,15 +7,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class TestEntity {
 
     @Id
-    private String id;
+    private final String id;
+
+    public TestEntity(String id) {
+        this.id = id;
+    }
+
+    public static TestEntity of(){
+        return new TestEntity(null);
+    }
 
     public String getId() {
         return id;
-    }
-
-    public TestEntity setId(String id) {
-        this.id = id;
-        return this;
     }
 
     @Override
