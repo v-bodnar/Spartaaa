@@ -1,0 +1,47 @@
+@startuml
+
+title Game - Class Diagram
+
+
+class Game {
+  -List<Dominus> selectedDdominusList
+  -List<Dominus> dominusList 
+  +String getId()
+  +boolean authorize(String password)
+  +void selectDominus(Player player)
+  +GameState getGameState()
+  +Phase getPhase()
+  +Integer getRound()
+  +void chooseGladiatorsToRelease()
+  +Dominus getActiveDominus()
+  +void requestHelp(Dominus source, Dominus target, IntrigueCard intrigue)
+  +CompletionStage<Void> playIntrigue(Dominus source, Dominus target, IntrigueCard intrigue)
+  +void sellIntrigue(IntrigueCard intrigue)
+  +void useDominusSkill(Dominus dominus)
+  +CompletionStage<Void> playReaction(ReactionCard reaction, IntrigueCard intrigueTarget)
+  +void finishTurn(Dominus dominus)
+  +getDominus(String playerName)
+  
+}
+
+class Dominus{
+ -Dominus name
+ -Player activePlayer
+ -Ability ability
+ -List<Gladiators> gladiators
+ -List<Slaves> slaves
+ -Integer money
+ -List<Card> hand
+ -List<Card> property
+ -Integer influence
+}
+class Player{
+ -String name
+ -String sessionToken
+ -PlayerState state
+ -String avatar
+}
+enum GameState
+enum Phase
+
+@enduml
