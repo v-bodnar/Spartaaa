@@ -16,6 +16,10 @@ public class TranslationService {
         this.messageSource = messageSource;
     }
 
+    /**
+     * @param translatableKey-key for which translation service will search translation
+     * @return returns translated String for given key;
+     */
     public String translate(String translatableKey) {
         return Optional.ofNullable(messageSource.getMessage(translatableKey, null, null, Locale.getDefault()))
                 .orElseGet(() -> messageSource.getMessage(translatableKey, null, String.format("No translation for:%s", translatableKey), Locale.US));

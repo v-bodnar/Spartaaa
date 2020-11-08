@@ -1,6 +1,6 @@
 package com.freetimers.spartacus.gamebox;
 
-import com.freetimers.spartacus.repository.GladiatorsRepo;
+import com.freetimers.spartacus.repository.GladiatorRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GameBoxServiceTest {
 
     @Autowired
-    public GladiatorsRepo gladiatorsRepo;
+    public GladiatorRepo gladiatorRepo;
 
     @Autowired
     public GameBoxService gameBoxService;
@@ -25,7 +25,7 @@ public class GameBoxServiceTest {
         //given
         Locale.setDefault(Locale.US);
         //when
-        Optional<Gladiator> syrianWarrior = gladiatorsRepo.findFirstByTitle("card.syrianWarrior.title");
+        Optional<Gladiator> syrianWarrior = gladiatorRepo.findFirstByTitle("card.syrianWarrior.title");
         assertTrue(syrianWarrior.isPresent());
         String syrianWarriorTitle = syrianWarrior.get().getTitleKey();
 
@@ -38,7 +38,7 @@ public class GameBoxServiceTest {
         //given
         Locale.setDefault(new Locale("ru"));
         //when
-        Optional<Gladiator> syrianWarrior = gladiatorsRepo.findFirstByTitle("card.syrianWarrior.title");
+        Optional<Gladiator> syrianWarrior = gladiatorRepo.findFirstByTitle("card.syrianWarrior.title");
         assertTrue(syrianWarrior.isPresent());
         String syrianWarriorTitle = syrianWarrior.get().getTitleKey();
 

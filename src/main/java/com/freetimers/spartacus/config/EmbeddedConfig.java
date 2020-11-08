@@ -1,7 +1,6 @@
 package com.freetimers.spartacus.config;
 
-import com.freetimers.spartacus.mongodb.GladiatorConverter;
-import com.freetimers.spartacus.mongodb.TranslationService;
+import com.freetimers.spartacus.mongodb.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +30,12 @@ public class EmbeddedConfig {
     public MongoCustomConversions mongoCustomConversions() {
         List<Converter<?, ?>> converterList = new ArrayList<>();
         converterList.add(new GladiatorConverter(translationService));
+        converterList.add(new SlaveConverter(translationService));
+        converterList.add(new EquipConverter(translationService));
+        converterList.add(new SchemeConverter(translationService));
+        converterList.add(new ReactionConverter(translationService));
         return new MongoCustomConversions(converterList);
+
     }
 
 }

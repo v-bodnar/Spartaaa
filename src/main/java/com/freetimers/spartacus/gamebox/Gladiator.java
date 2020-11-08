@@ -12,7 +12,8 @@ public class Gladiator extends MarketCard {
     private final Integer defence;
     private final Integer speed;
 
-    public Gladiator(String id, String titleKey, String title, String descriptionKey, String description, Integer price, Integer attack, Integer defence, Integer speed) {
+    public Gladiator(String id, String titleKey, String title, String descriptionKey, String description, Integer price,
+                     Integer attack, Integer defence, Integer speed) {
         super(id, titleKey, title, descriptionKey, description, price);
         this.attack = attack;
         this.defence = defence;
@@ -57,6 +58,6 @@ public class Gladiator extends MarketCard {
                 "attack=" + attack +
                 ", defence=" + defence +
                 ", speed=" + speed +
-                '}';
+                "} " + super.toString();
     }
 }

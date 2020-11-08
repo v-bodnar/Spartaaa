@@ -14,6 +14,10 @@ public class Equip extends MarketCard {
         this.type = type;
     }
 
+    public static Equip of(String titleKey, String descriptionKey, Integer price, EquipType type){
+        return new Equip(null, titleKey,null, descriptionKey, null, price, type);
+    }
+
     public EquipType getType() {
         return type;
     }

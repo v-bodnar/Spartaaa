@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface GladiatorsRepo extends MongoRepository<Gladiator, String> {
+public interface GladiatorRepo extends MongoRepository<Gladiator, String> {
     Optional<Gladiator> findFirstByTitle(String title);
 }

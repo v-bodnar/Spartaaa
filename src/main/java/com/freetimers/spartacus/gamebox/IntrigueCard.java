@@ -21,7 +21,7 @@ public abstract class IntrigueCard extends AbstractCard {
         return requiredInfluenceCondition;
     }
 
-    enum RequiredInfluenceCondition{
+    public enum RequiredInfluenceCondition{
         MORE_THEN, MORE_OR_EQUAL, LESS_THEN
     }
 

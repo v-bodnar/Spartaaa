@@ -1,9 +1,9 @@
 package com.freetimers.spartacus.repository;
 
-import com.freetimers.spartacus.gamebox.Slave;
+import com.freetimers.spartacus.gamebox.Equip;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SlavesRepo extends MongoRepository<Slave, String> {
+public interface EquipmentRepo extends MongoRepository<Equip, String> {
 }
