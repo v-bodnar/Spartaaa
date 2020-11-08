@@ -1,0 +1,65 @@
+@startuml
+
+title Game - Class Diagram
+
+
++interface GameBox {
+  + List<IntrigueCard> getIntrigueCards()
+  + List<MarkedCard> getMarkedCards()
+  + List<DominusCard> getDominusCards()
+}
+
+~class CoreGameBox implements GameBox{
+  -List<IntrigueCard>
+  -List<MarkedCard>
+  -List<DominusCard>
+}
+
+interface Card{
+    + String getId();
+    + String getTitle();
+    + String getDescription();
+    + int getPrice();
+}
+
+abstract class AbstractCard implements Card{
+    + @Id String id;
+    + String title;
+    + String description;
+    + int price;
+}
+
+
+abstract class MarketCard implements AbstractCard{
+}
+
+abstract class IntrigueCard implements AbstractCard{
+    - int requiredInfluence
+    + int getRequiredInfluence()
+}
+
+class Equip implements MarketCard{
+    - EquipType equipType
+    + EquipType getType()
+}
+
+class Gladiator implements MarketCard{
+}
+
+class Slave implements MarketCard{
+}
+
+class Reaction implements IntrigueCard{
+}
+
+class Scheme implements IntrigueCard{
+}
+
+class DominusCard implements AbstractCard{
+    -int startingGold
+    -int startingGladiators
+    -int slaves
+    -int guards
+    + getters
+}
+@enduml
