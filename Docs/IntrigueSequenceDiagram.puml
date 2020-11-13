@@ -1,0 +1,106 @@
+@startuml
+title
+This example is for two players game, the same behavior is applied
+end title
+
+actor Player1
+rnote over Server
+ Server:
+    - deals 3 Intrigue cards to each player
+    - turn order is determined (first round random, subsequent based on host token)
+endrnote
+
+Server -> Player1: Event(IntriguePhaseStarted)
+& Server -> Player2: Event<IntriguePhaseStarted>
+Player1 -> Player1: showIntriguesScreen
+activate Player1
+& Player2 -> Player2: showIntriguesScreen
+activate Player2
+alt if Active Player
+    alt if Influence Condition Met
+        rnote over Player1
+         Player1:
+            - selects card to play
+            - depending on the Actions type of a card:
+              - Selects target dominus for Action
+              - Selects multiple target dominus for Action
+              - Selects target dominus per Action
+              - Selects multiple target dominus per Action
+        endrnote
+        Player1 -> Server: playIntrigueCard(IntrigueDto)
+        Server -> Server: startIntrigueAutoSuccessTimer
+        Server -> Player1: Event(IntrigueCardPlayed)
+        Server -> Player2: Event(IntrigueCardPlayed)
+            alt if decides to play reaction
+                    Player2 -> Server: playIntrigueCard(IntrigueDto)
+                    alt if "JupitersCock" in hand may
+                        Player1 -> Server: playIntrigue "JupitersCock"
+                        rnote over Server
+                        Server:
+                            - resolves intrigue actions
+                            - sets intrigue state to success
+                            - stops intrigue timer
+                            - discards cards
+                        endrnote
+                        Server -> Player1: Event(IntrigueSuccess)
+                        Server -> Player2: Event(IntrigueSuccess)
+                    else
+                        rnote over Server
+                        Server:
+                            - sets intrigue state to failed
+                            - stops intrigue timer
+                            - discards cards
+                        endrnote
+
+                        Server -> Player1: Event(IntrigueFailed)
+                        Server -> Player2: Event(IntrigueFailed)
+                    end
+                else Player2 does not play reaction
+                    Player1 -> Server: pass (or timer expires, whatever goes first)
+                    rnote over Server
+                    Server:
+                        - resolves intrigue actions
+                        - sets intrigue state to success
+                        - stops intrigue timer
+                        - discards cards
+                    endrnote
+                    Server -> Player1: Event(IntrigueSuccess)
+                    Server -> Player2: Event(IntrigueSuccess)
+            end
+    else influence condition not met
+        Player1 -> Server: requestSupport(IntrigueDto)
+        Server -> Player2: Event<SupportRequested>
+        alt if support accepted
+            Player2 -> Server: support accepted
+            Server -> Server: playIntrigueCard(IntrigueDto)
+            rnote over Server
+                intrigue initiated in the same way as influence conditions are met
+            endrnote
+        else support declined
+            rnote over Server
+            Server:
+                - sets intrigue state declined
+                - scheme returned to players hand
+            endrnote
+            Server -> Player1: Event(IntrigueDeclined)
+            Server -> Player2: Event(IntrigueDeclined)
+        end
+    end
+else not Active Player
+    alt if reaction card meets conditions player may
+        Player2 -> Server: playIntrigueCard(IntrigueDto)
+        rnote over Server
+            resolves in the same way as Scheme
+        endrnote
+    end
+end
+
+Player1 -> Server: endTurn().
+Server -> Server: setNewActivePlayer
+Server -> Player1: Event(IntrigueTurnFinished)
+Server -> Player2: Event(IntrigueTurnFinished)
+rnote over Server
+     the same loop continues until all players finished their turns
+endrnote
+
+@enduml

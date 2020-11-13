@@ -81,7 +81,8 @@ title Game - Class Diagram
 ~class Intrigue{
   -IntrigueState intrigueState
   -Dominus source
-  -Dominus target
+  -Dominus support
+  -List<Actions> resolvedAction
   -Scheme scheme
   -List<Reaction> reactions
   ~getters()

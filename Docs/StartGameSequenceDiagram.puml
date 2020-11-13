@@ -16,10 +16,10 @@ rnote over Server
     -generates password
     -creates and shuffles deck
     -decides on available Houses
-    -sets GameState to NEW
+    -sets GameDto to NEW
     -links gameId and players name with players ws session
 endrnote
-Server->Player1: GameState, List<Dominus> available dominus list
+Server->Player1: GameDto, List<Dominus> available dominus list
 Player1->Server: selectDominus(Dominus selectedDominus)
 
 == waiting for players ==
@@ -36,10 +36,10 @@ rnote over Server
     -checks given password
     -links gameId and players name with players ws session
 endrnote
-Server -> Player2:GameState, List<Dominus> available dominus list
+Server -> Player2:GameDto, List<Dominus> available dominus list
 Player2->Server: selectDominus(Dominus selectedDominus)
-Server->Player1: GameState (server notifies all players about joined player)
-Server->Player2: GameState (server notifies all players about joined player)
+Server->Player1: GameDto (server notifies all players about joined player)
+Server->Player2: GameDto (server notifies all players about joined player)
 Player1->Player1: startGame button active
 Player1->Server: startGame()
 rnote over Server
@@ -47,8 +47,8 @@ rnote over Server
     -deals cards according Dominus description
     -deals money according Dominus description
 endrnote
-Server->Player1: GameState (server notifies all players about game started)
-Server->Player2: GameState (server notifies all players about game started)
+Server->Player1: GameDto (server notifies all players about game started)
+Server->Player2: GameDto (server notifies all players about game started)
 Player1->Player1: show Intrigue Phase screen
 Player2->Player2: show Intrigue Phase screen
 @enduml

@@ -44,15 +44,44 @@ class Equip implements MarketCard{
 }
 
 class Gladiator implements MarketCard{
+    - Condition condition
+    + Condition getCondition()
 }
 
 class Slave implements MarketCard{
+    - Condition condition
+    + Condition getCondition()
 }
 
 class Reaction implements IntrigueCard{
+    -List<Action> actions
+    + List<Action> getActions()
 }
 
 class Scheme implements IntrigueCard{
+    -List<Action> actions
+    + List<Action> getActions()
+}
+
+interface Action{
+    + boolean testInfluenceCondition()
+}
+
+interface SingleTargetAction extends Action{
+    + CompletionStage<Action> resolveAction(Dominus targetDominus)
+}
+
+interface MultiTargetAction extends Action{
+    + CompletionStage<Action> resolveAction(List<Dominus> targetDominus)
+}
+
+interface AutoTargetAction extends Action{
+    + CompletionStage<Action> resolveAction()
+}
+
+class GainInfluenceAction implements SingleTargetAction{
+    - Predicate predicate
+    - int influence
 }
 
 class DominusCard implements AbstractCard{
@@ -61,5 +90,11 @@ class DominusCard implements AbstractCard{
     -int slaves
     -int guards
     + getters
+}
+
+enum Condition{
+    READY,
+    INJURED,
+    EXHAUSTED
 }
 @enduml
