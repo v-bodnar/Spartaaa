@@ -3,11 +3,12 @@ package com.freetimers.spartacus.gamebox;
 import com.freetimers.spartacus.repository.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
 
-//@Service
+@Service
 public class GameBoxService {
     private final ReactionRepo reactionRepo;
     private final SchemeRepo schemeRepo;
@@ -18,7 +19,7 @@ public class GameBoxService {
 
 
     @Autowired
-    public GameBoxService(Logger logger, ReactionRepo reactionRepo, SchemeRepo schemeRepo, EquipmentRepo euqipmentsRepo, GladiatorRepo gladiatorRepo, SlaveRepo slaveRepo) {
+    public GameBoxService(Logger logger, ReactionRepo reactionRepo, SchemeRepo schemeRepo, EquipmentRepo equipmentRepo, GladiatorRepo gladiatorRepo, SlaveRepo slaveRepo) {
         this.logger = logger;
         this.reactionRepo = reactionRepo;
         this.schemeRepo = schemeRepo;
@@ -29,6 +30,7 @@ public class GameBoxService {
 
     @PostConstruct
     public void setUp() {
+        cleanUpRepos(); //todo, remove after all cards are implemented
         if (schemeRepo.findAll().size() != 100) {
             /////////////////////////////SCHEME/////////////////////////////
             Scheme testOfTheBrotherhood = Scheme.of("Test of the brotherhood.", "Target Dominus gains " +
@@ -107,6 +109,14 @@ public class GameBoxService {
             getTitle(net);
         }
 
+    }
+
+    public void cleanUpRepos(){
+        this.reactionRepo.deleteAll();
+        this.gladiatorRepo.deleteAll();
+        this.schemeRepo.deleteAll();
+        this.slaveRepo.deleteAll();
+        this.equipmentRepo.deleteAll();
     }
 
     public String getTitle(Card card) {
