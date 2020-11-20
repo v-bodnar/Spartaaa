@@ -2,99 +2,103 @@
 
 title Game - Class Diagram
 
+package "com.freetimers.spartacus.gamebox"{
+    +interface GameBox {
+      + List<IntrigueCard> getIntrigueCards()
+      + List<MarkedCard> getMarkedCards()
+      + List<DominusCard> getDominusCards()
+    }
 
-+interface GameBox {
-  + List<IntrigueCard> getIntrigueCards()
-  + List<MarkedCard> getMarkedCards()
-  + List<DominusCard> getDominusCards()
-}
+    ~class CoreGameBox implements GameBox{
+      -List<IntrigueCard>
+      -List<MarkedCard>
+      -List<DominusCard>
+    }
 
-~class CoreGameBox implements GameBox{
-  -List<IntrigueCard>
-  -List<MarkedCard>
-  -List<DominusCard>
-}
+    interface Card{
+        + String getId();
+        + String getTitle();
+        + String getDescription();
+        + int getPrice();
+    }
 
-interface Card{
-    + String getId();
-    + String getTitle();
-    + String getDescription();
-    + int getPrice();
-}
-
-abstract class AbstractCard implements Card{
-    + @Id String id;
-    + String title;
-    + String description;
-    + int price;
-}
+    abstract class AbstractCard implements Card{
+        + @Id String id;
+        + String title;
+        + String description;
+        + int price;
+    }
 
 
-abstract class MarketCard implements AbstractCard{
-}
+    abstract class MarketCard implements AbstractCard{
+    }
 
-abstract class IntrigueCard implements AbstractCard{
-    - int requiredInfluence
-    + int getRequiredInfluence()
-}
+    abstract class IntrigueCard implements AbstractCard{
+        - int requiredInfluence
+        + int getRequiredInfluence()
+    }
 
-class Equip implements MarketCard{
-    - EquipType equipType
-    + EquipType getType()
-}
+    class Equip implements MarketCard{
+        - EquipType equipType
+        + EquipType getType()
+    }
 
-class Gladiator implements MarketCard{
-    - Condition condition
-    + Condition getCondition()
-}
+    class Gladiator implements MarketCard{
+        - Condition condition
+        + Condition getCondition()
+    }
 
-class Slave implements MarketCard{
-    - Condition condition
-    + Condition getCondition()
-}
+    class Slave implements MarketCard{
+        - Condition condition
+        + Condition getCondition()
+    }
 
-class Reaction implements IntrigueCard{
-    -List<Action> actions
-    + List<Action> getActions()
-}
+    class Reaction implements IntrigueCard{
+        -List<Action> actions
+        + List<Action> getActions()
+    }
 
-class Scheme implements IntrigueCard{
-    -List<Action> actions
-    + List<Action> getActions()
-}
+    class Scheme implements IntrigueCard{
+        -List<Action> actions
+        + List<Action> getActions()
+    }
 
-interface Action{
-    + boolean testInfluenceCondition()
-}
+    interface Action{
+        + boolean testInfluenceCondition()
+    }
 
-interface SingleTargetAction extends Action{
-    + CompletionStage<Action> resolveAction(Dominus targetDominus)
-}
+    interface SingleTargetAction extends Action{
+        + CompletionStage<Action> resolveAction(Dominus targetDominus)
+    }
 
-interface MultiTargetAction extends Action{
-    + CompletionStage<Action> resolveAction(List<Dominus> targetDominus)
-}
+    interface MultiTargetAction extends Action{
+        + CompletionStage<Action> resolveAction(List<Dominus> targetDominus)
+    }
 
-interface AutoTargetAction extends Action{
-    + CompletionStage<Action> resolveAction()
-}
+    interface AutoTargetAction extends Action{
+        + CompletionStage<Action> resolveAction()
+    }
 
-class GainInfluenceAction implements SingleTargetAction{
-    - Predicate predicate
-    - int influence
-}
+    class GainInfluenceAction implements SingleTargetAction{
+        - Predicate predicate
+        - int influence
+    }
 
-class DominusCard implements AbstractCard{
-    -int startingGold
-    -int startingGladiators
-    -int slaves
-    -int guards
-    + getters
-}
+    class DominusCard implements AbstractCard{
+        -int startingGold
+        -int startingGladiators
+        -int slaves
+        -int guards
+        + getters
+    }
 
-enum Condition{
-    READY,
-    INJURED,
-    EXHAUSTED
+    enum Condition{
+        READY,
+        INJURED,
+        EXHAUSTED
+    }
+
+    Slave *-- Condition
+    Gladiator *-- Condition
 }
 @enduml

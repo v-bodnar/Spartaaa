@@ -2,140 +2,177 @@
 
 title Game - Class Diagram
 
+package "com.freetimers.spartacus.game"{
+    +class GameFactory{
+        Game createGame(Deck<IntrigueCard> intrigueDeck, Deck<MarketCard> marketDeck, Deck<DominusCard> dominusDeck)
+    }
 
-+class Game {
-  -Instant startTime
-  -Instant finishedTime
-  -List<Dominus> dominusList
-  -Deck<MarketCard> marketDeck
-  -Deck<IntrigueCard> intrigueDeck
-  -Phase gamePhase
-  -State gameState
-  -List<UpkeepPhase> upkeepPhase
-  -List<IntriguePhase> intriguePhase
-  -List<MarketPhase> intriguePhase
-  -List<ArenaPhase> intriguePhase
-  +String getId()
-  +boolean connect(String password)
-  +void selectDominus(Player player)
-  +int getRound()
-'  Upkeep
-  +void chooseGladiatorsToRelease(Dominus target)
-'  Intrigue phase
-  +void chooseGladiatorsToRelease(Dominus target)
-  +Dominus getActiveDominus()
-  +void requestHelp(Dominus source, Dominus target, IntrigueCard intrigue)
-  +CompletionStage<Void> playIntrigue(Dominus source, Dominus target, IntrigueCard intrigue)
-  +void sellIntrigue(IntrigueCard intrigue)
-  +void useDominusSkill(Dominus dominus)
-  +CompletionStage<Void> playReaction(Dominus source, ReactionCard reaction, IntrigueCard intrigueTarget)
-  +void finishTurn(Dominus dominus)
-'  MarketPhase
-  +CompletionStage<Void> makeOffer(Offer offer)
-  +void acceptOffer(Offer offer)
-  +void declineOffer(Offer offer)
-  +void sellCard(Dominus source, Card card)
-  +void finishTrading(Dominus dominus)
-  +void makeBet(Dominus source, int goldCoins)
-}
+    GameFactory *-- Game
 
-~class Dominus{
- -DominusCard dominusCard
- -Player activePlayer
- -List<Gladiators> gladiators
- -List<Slaves> slaves
- -List<Equip> equip
- -List<IntrigueCard> hand
- -Integer guardsNumber
- -Integer goldCoins
- -Integer influence
- -boolean arenaHost
- ~void giveGold(int goldCoins)
- ~void takeGold(int goldCoins)
- ~void increaseInfluence(int influence)
- ~void decreaseInfluence(int influence)
- ~void giveCard(Card card)
- ~void takeCard(Card card)
- ~void moveGuardFromHand()
-}
+    +interface Game {
+      +String getId()
+      +boolean connect(String password)
+      +void selectDominus(Player player)
+      +int getRound()
+    '  Upkeep
+      +void chooseGladiatorsToRelease(Dominus target)
+    '  Intrigue phase
+      +void chooseGladiatorsToRelease(Dominus target)
+      +Dominus getActiveDominus()
+      +void requestHelp(Dominus source, Dominus target, IntrigueCard intrigue)
+      +CompletionStage<Void> playIntrigue(Dominus source, Dominus target, IntrigueCard intrigue)
+      +void sellIntrigue(IntrigueCard intrigue)
+      +void useDominusSkill(Dominus dominus)
+      +CompletionStage<Void> playReaction(Dominus source, ReactionCard reaction, IntrigueCard intrigueTarget)
+      +void finishTurn(Dominus dominus)
+    '  MarketPhase
+      +CompletionStage<Void> makeOffer(Offer offer)
+      +void acceptOffer(Offer offer)
+      +void declineOffer(Offer offer)
+      +void sellCard(Dominus source, Card card)
+      +void finishTrading(Dominus dominus)
+      +void makeBet(Dominus source, int goldCoins)
+    }
 
-~class Player{
- -String name
- -String sessionToken
- -String avatar
- ~getters()
-}
+    ~class CoreGame extends Game{
+      -Instant startTime
+      -Instant finishedTime
+      -List<Dominus> dominusList
+      -Deck<MarketCard> marketDeck
+      -Deck<IntrigueCard> intrigueDeck
+      -Phase gamePhase
+      -State gameState
+      -List<UpkeepPhase> upkeepPhase
+      -List<IntriguePhase> intriguePhase
+      -List<MarketPhase> marketPhase
+      -List<ArenaPhase> arenaePhase
+    }
 
-~class IntriguePhase{
- List<Intrigue> intrigues
- ~Dominus getActiveDominus()
- ~boolean isDominusActive()
- ~void requestHelp(Intrigue intrigue)
- ~CompletionStage<Void> playIntrigue(Intrigue intrigue)
- ~void sellIntrigue(IntrigueCard intrigue)
- ~void useDominusSkill(Dominus dominus)
- ~void playReaction(Intrigue intrigue)
- ~void finishTurn(Dominus dominus)
-}
+    CoreGame *-- Dominus
+    CoreGame *-- Phase
+    CoreGame *-- UpkeepPhase
+    CoreGame *-- IntriguePhase
+    CoreGame *-- MarketPhase
+    CoreGame *-- ArenaPhase
+    CoreGame *-- State
 
-~class Intrigue{
-  -IntrigueState intrigueState
-  -Dominus source
-  -Dominus support
-  -List<Actions> resolvedAction
-  -Scheme scheme
-  -List<Reaction> reactions
-  ~getters()
-  playReaction(Intrigue intrigue)
-}
+    ~class Dominus{
+     -DominusCard dominusCard
+     -Player activePlayer
+     -List<GladiatorCard> gladiators
+     -List<SlaveCard> slaves
+     -List<EquipCard> equip
+     -List<IntrigueCard> hand
+     -Integer guardsNumber
+     -Integer goldCoins
+     -Integer influence
+     -boolean arenaHost
+     ~void giveGold(int goldCoins)
+     ~void takeGold(int goldCoins)
+     ~void increaseInfluence(int influence)
+     ~void decreaseInfluence(int influence)
+     ~void giveCard(Card card)
+     ~void takeCard(Card card)
+     ~void moveGuardFromHand()
+    }
 
-~class MarketPhase{
-    -List<MarketCard> auction
-    -MarketCard revealedMarkedCard
-    -List<Dominus, MarketCard> completedTrades
-    -List<Offer> offersMade
-    -Map<Dominus, goldCoins> stash
-    ~makeOffer(Offer offer)
-    ~void acceptOffer(Offer offer)
-    ~void declineOffer(Offer offer)
-    ~void finishTrading(Dominus dominus)
-    ~void makeBet(Dominus source, int goldCoins)
-}
+    Dominus*--Player
 
-~class Offer{
-    -String id
-    -Dominus source
-    -Card card
-    -Integer goldCoins
-    -Dominus target
-    -OfferState state
-    ~getters()
-}
+    ~class Player{
+     -String name
+     -String sessionToken
+     -String avatar
+     ~getters()
+    }
 
-enum IntrigueState{
-    ACTIVE
-    SUCCESS
-    FAILURE
-}
-enum OfferState{
-    ACTIVE
-    DECLINED
-}
+    ~class UpkeepPhase{
+      ~void chooseGladiatorsToRelease(Dominus target)
+    }
 
-enum State{
-    NEW
-    STARTED
-    PAUSED
-    ABANDONED
-    FINISHED
-}
+    UpkeepPhase*--Dominus
 
-enum Phase{
-    LOBBY
-    INTRIGUE
-    MARKET
-    ARENA
-    AWARDS
-}
+    ~class IntriguePhase{
+     List<Intrigue> intrigues
+     ~Dominus getActiveDominus()
+     ~boolean isDominusActive()
+     ~void requestHelp(Intrigue intrigue)
+     ~CompletionStage<Void> playIntrigue(Intrigue intrigue)
+     ~void sellIntrigue(IntrigueCard intrigue)
+     ~void useDominusSkill(Dominus dominus)
+     ~void playReaction(Intrigue intrigue)
+     ~void finishTurn(Dominus dominus)
+    }
 
+    IntriguePhase*-- Dominus
+    IntriguePhase*-- Intrigue
+
+    ~class Intrigue{
+      -IntrigueState intrigueState
+      -Dominus source
+      -Dominus support
+      -List<Actions> resolvedAction
+      -Scheme scheme
+      -List<Reaction> reactions
+      ~getters()
+      playReaction(Intrigue intrigue)
+    }
+
+    Intrigue *-- IntrigueState
+    Intrigue *-- Dominus
+
+    ~class MarketPhase{
+        -List<MarketCard> auction
+        -MarketCard revealedMarkedCard
+        -List<Dominus, MarketCard> completedTrades
+        -List<Offer> offersMade
+        -Map<Dominus, goldCoins> stash
+        ~makeOffer(Offer offer)
+        ~void acceptOffer(Offer offer)
+        ~void declineOffer(Offer offer)
+        ~void finishTrading(Dominus dominus)
+        ~void makeBet(Dominus source, int goldCoins)
+    }
+
+    MarketPhase *-- Dominus
+    MarketPhase *-- Offer
+
+    ~class Offer{
+        -String id
+        -Dominus source
+        -Card card
+        -Integer goldCoins
+        -Dominus target
+        -OfferState state
+        ~getters()
+    }
+
+    Offer *-- OfferState
+    Offer *-- Dominus
+
+    enum IntrigueState{
+        ACTIVE
+        SUCCESS
+        FAILURE
+    }
+    enum OfferState{
+        ACTIVE
+        DECLINED
+    }
+
+    enum State{
+        NEW
+        STARTED
+        PAUSED
+        ABANDONED
+        FINISHED
+    }
+
+    enum Phase{
+        LOBBY
+        INTRIGUE
+        MARKET
+        ARENA
+        AWARDS
+    }
+}
 @enduml
