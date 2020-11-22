@@ -64,22 +64,9 @@ package "com.freetimers.spartacus.gamebox"{
     }
 
     interface Action{
-        + boolean testInfluenceCondition()
     }
 
-    interface SingleTargetAction extends Action{
-        + CompletionStage<Action> resolveAction(Dominus targetDominus)
-    }
-
-    interface MultiTargetAction extends Action{
-        + CompletionStage<Action> resolveAction(List<Dominus> targetDominus)
-    }
-
-    interface AutoTargetAction extends Action{
-        + CompletionStage<Action> resolveAction()
-    }
-
-    class GainInfluenceAction implements SingleTargetAction{
+    class GainInfluenceAction implements Action{
         - Predicate predicate
         - int influence
     }
