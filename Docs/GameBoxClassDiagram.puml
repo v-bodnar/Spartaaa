@@ -23,10 +23,10 @@ package "com.freetimers.spartacus.gamebox"{
     }
 
     abstract class AbstractCard implements Card{
-        + @Id String id;
-        + String title;
-        + String description;
-        + int price;
+        - @Id String id;
+        - String title;
+        - String description;
+        - int price;
     }
 
 
@@ -39,8 +39,10 @@ package "com.freetimers.spartacus.gamebox"{
     }
 
     class Equip implements MarketCard{
+        - Condition condition
         - EquipType equipType
         + EquipType getType()
+        + Condition getCondition()
     }
 
     class Gladiator implements MarketCard{
@@ -58,6 +60,13 @@ package "com.freetimers.spartacus.gamebox"{
         + List<Action> getActions()
     }
 
+    class Guard implements IntrigueCard{
+        -List<Action> actions
+        - Condition condition
+        + List<Action> getActions()
+        + Condition getCondition()
+    }
+
     class Scheme implements IntrigueCard{
         -List<Action> actions
         + List<Action> getActions()
@@ -70,8 +79,18 @@ package "com.freetimers.spartacus.gamebox"{
         - Predicate predicate
         - int influence
     }
+    class GainGoldAction implements Action{
+            - Predicate predicate
+            - int gold
+    }
 
-    class DominusCard implements AbstractCard{
+    class FailSchemeAction implements Action{
+    }
+
+    class DominusBoard{
+        - @Id String id;
+        - String title;
+        - String description;
         -int startingGold
         -int startingGladiators
         -int slaves
@@ -85,6 +104,8 @@ package "com.freetimers.spartacus.gamebox"{
         EXHAUSTED
     }
 
+    Guard *-- Condition
+    Equip *-- Condition
     Slave *-- Condition
     Gladiator *-- Condition
 }
