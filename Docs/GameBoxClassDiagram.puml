@@ -31,6 +31,8 @@ package "com.freetimers.spartacus.gamebox"{
 
 
     abstract class MarketCard implements AbstractCard{
+         - Condition condition
+         + Condition getCondition()
     }
 
     abstract class IntrigueCard implements AbstractCard{
@@ -39,20 +41,14 @@ package "com.freetimers.spartacus.gamebox"{
     }
 
     class Equip implements MarketCard{
-        - Condition condition
         - EquipType equipType
         + EquipType getType()
-        + Condition getCondition()
     }
 
     class Gladiator implements MarketCard{
-        - Condition condition
-        + Condition getCondition()
     }
 
     class Slave implements MarketCard{
-        - Condition condition
-        + Condition getCondition()
     }
 
     class Reaction implements IntrigueCard{
@@ -62,9 +58,7 @@ package "com.freetimers.spartacus.gamebox"{
 
     class Guard implements IntrigueCard{
         -List<Action> actions
-        - Condition condition
         + List<Action> getActions()
-        + Condition getCondition()
     }
 
     class Scheme implements IntrigueCard{
@@ -105,8 +99,6 @@ package "com.freetimers.spartacus.gamebox"{
     }
 
     Guard *-- Condition
-    Equip *-- Condition
-    Slave *-- Condition
-    Gladiator *-- Condition
+    MarketCard *-- Condition
 }
 @enduml
