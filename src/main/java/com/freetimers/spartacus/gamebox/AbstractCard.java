@@ -16,6 +16,7 @@ public class AbstractCard implements Card {
     private final String titleKey;
     private final String title;
 
+
     public AbstractCard(String id, String titleKey, String title, String descriptionKey, String description, Integer price) {
         this.id = id;
         this.price = Objects.requireNonNull(price);
@@ -52,6 +53,7 @@ public class AbstractCard implements Card {
     public Optional<String> getTitle() {
         return Optional.ofNullable(title);
     }
+
 
     @Override
     public boolean equals(Object o) {

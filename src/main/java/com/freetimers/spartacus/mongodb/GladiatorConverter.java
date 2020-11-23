@@ -20,7 +20,7 @@ public class GladiatorConverter implements Converter<Document, Gladiator> {
                 value.getString("descriptionKey"),
                 translationService.translate(value.getString("descriptionKey")),
                 value.getInteger("price"),
-                value.getInteger("attack"),
+                condition, value.getInteger("attack"),
                 value.getInteger("defence"),
                 value.getInteger("speed"));
     }

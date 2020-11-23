@@ -13,15 +13,17 @@ public class Gladiator extends MarketCard {
     private final Integer speed;
 
     public Gladiator(String id, String titleKey, String title, String descriptionKey, String description, Integer price,
-                     Integer attack, Integer defence, Integer speed) {
-        super(id, titleKey, title, descriptionKey, description, price);
+                     Integer attack, Integer defence, Integer speed, Condition condition) {
+        super(id, titleKey, title, descriptionKey, description, price, condition);
         this.attack = attack;
         this.defence = defence;
         this.speed = speed;
     }
 
-    public static Gladiator of(String titleKey, String descriptionKey, Integer price,  Integer attack, Integer defence, Integer speed) {
-        return new Gladiator(null, titleKey, null, descriptionKey, null, price, attack, defence, speed);
+    public static Gladiator of(String titleKey, String descriptionKey, Integer price,  Integer attack, Integer defence,
+                               Integer speed,Condition condition) {
+        return new Gladiator(null, titleKey, null, descriptionKey, null, price, attack, defence, speed,
+                condition);
     }
 
     public Integer getAttack() {

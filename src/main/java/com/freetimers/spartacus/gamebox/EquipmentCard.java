@@ -5,17 +5,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document
-public class Equip extends MarketCard {
+public class EquipmentCard extends MarketCard {
 
     private final EquipType type;
 
-    public Equip(String id, String titleKey, String title, String descriptionKey, String description, Integer price, EquipType type) {
-        super(id, titleKey, title, descriptionKey, description, price);
+    public EquipmentCard(String id, String titleKey, String title, String descriptionKey, String description, Integer price,
+                         EquipType type, Condition condition) {
+        super(id, titleKey, title, descriptionKey, description, price, condition);
         this.type = type;
     }
 
-    public static Equip of(String titleKey, String descriptionKey, Integer price, EquipType type){
-        return new Equip(null, titleKey,null, descriptionKey, null, price, type);
+    public static EquipmentCard of(String titleKey, String descriptionKey, Integer price, EquipType type, Condition condition){
+        return new EquipmentCard(null, titleKey,null, descriptionKey, null, price, type, condition);
     }
 
     public EquipType getType() {
@@ -27,8 +28,8 @@ public class Equip extends MarketCard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Equip equip = (Equip) o;
-        return type == equip.type;
+        EquipmentCard equipmentCard = (EquipmentCard) o;
+        return type == equipmentCard.type;
     }
 
     @Override
