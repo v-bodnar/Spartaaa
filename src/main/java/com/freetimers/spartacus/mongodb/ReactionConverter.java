@@ -1,9 +1,15 @@
 package com.freetimers.spartacus.mongodb;
 
+import com.freetimers.spartacus.gamebox.Action;
 import com.freetimers.spartacus.gamebox.IntrigueCard;
 import com.freetimers.spartacus.gamebox.Reaction;
+import com.freetimers.spartacus.gamebox.action.SwitchGladiatorAction;
 import org.bson.Document;
 import org.springframework.core.convert.converter.Converter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class ReactionConverter implements Converter<Document, Reaction> {
 
@@ -21,6 +27,7 @@ public class ReactionConverter implements Converter<Document, Reaction> {
                 translationService.translate(value.getString("descriptionKey")),
                 value.getInteger("price"),
                 value.getInteger("requiredInfluence"),
-                IntrigueCard.RequiredInfluenceCondition.valueOf(value.getString("requiredInfluenceCondition")));
+                IntrigueCard.RequiredInfluenceCondition.valueOf(value.getString("requiredInfluenceCondition")),
+                        value.get("action", SwitchGladiatorAction.class));
     }
 }

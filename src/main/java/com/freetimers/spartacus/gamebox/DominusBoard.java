@@ -27,6 +27,12 @@ public class DominusBoard {
         this.startingGuards = Objects.requireNonNull(startingGuards);
     }
 
+    public static DominusBoard of(String titleKey, String descriptionKey, Integer startingGold, Integer startingGladiators,
+                                  Integer startingSlaves, Integer startingGuards) {
+        return new DominusBoard(null,titleKey,null, descriptionKey, null, startingGold, startingGladiators,
+                startingSlaves, startingGuards);
+    }
+
     public String getId() {
         return id;
     }

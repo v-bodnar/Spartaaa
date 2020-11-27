@@ -1,7 +1,5 @@
 package com.freetimers.spartacus.repository;
 
-import com.freetimers.spartacus.gamebox.Equip;
-import com.freetimers.spartacus.gamebox.EquipType;
 import com.freetimers.spartacus.gamebox.IntrigueCard;
 import com.freetimers.spartacus.gamebox.Scheme;
 import org.junit.jupiter.api.BeforeEach;

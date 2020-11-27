@@ -49,17 +49,17 @@ public class SlaveRepoTest {
     @Test
     void schemeRepoCreateTest() {
         //given
-        Slave debtor = Slave.of("card.slave.debtor.title","card.slave.debtor.description",
-                2, 1, 1, 1);
-        Slave attendant = Slave.of("card.slave.attendant.title", "card.slave.attendant.description",
-                2, 1, 1, 1);
-        Slave convict = Slave.of("card.slave.convict.title", "card.slave.convict.description",
-                2, 1, 1, 1);
-
-        // when
-        slaveRepo.save(debtor);
-        slaveRepo.save(attendant);
-        slaveRepo.save(convict);
+//        Slave debtor = Slave.of("card.slave.debtor.title","card.slave.debtor.description",
+//                2, 1, 1, 1);
+//        Slave attendant = Slave.of("card.slave.attendant.title", "card.slave.attendant.description",
+//                2, 1, 1, 1);
+//        Slave convict = Slave.of("card.slave.convict.title", "card.slave.convict.description",
+//                2, 1, 1, 1);
+//
+//        // when
+//        slaveRepo.save(debtor);
+//        slaveRepo.save(attendant);
+//        slaveRepo.save(convict);
 
         // then
         assertEquals(3, slaveRepo.findAll().size());

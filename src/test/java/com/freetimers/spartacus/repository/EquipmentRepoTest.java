@@ -1,6 +1,5 @@
 package com.freetimers.spartacus.repository;
 
-import com.freetimers.spartacus.gamebox.Equip;
 import com.freetimers.spartacus.gamebox.EquipType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,15 +48,15 @@ public class EquipmentRepoTest {
 
     @Test
     void equipRepoCreateTest() {
-        //given
-        Equip shield = Equip.of("card.equip.shield.title", "card.equip.armor", 1, EquipType.ARMOR);
-        Equip ax = Equip.of("card.equip.ax.title", "card.equip.weapon.title", 1, EquipType.WEAPON);
-        Equip net = Equip.of("card.equip.net.title", "card.equip.special.title", 1, EquipType.SPECIAL);
+//        //given
+//        Equip shield = Equip.of("card.equip.shield.title", "card.equip.armor", 1, EquipType.ARMOR);
+//        Equip ax = Equip.of("card.equip.ax.title", "card.equip.weapon.title", 1, EquipType.WEAPON);
+//        Equip net = Equip.of("card.equip.net.title", "card.equip.special.title", 1, EquipType.SPECIAL);
 
-        // when
-        equipmentRepo.save(shield);
-        equipmentRepo.save(ax);
-        equipmentRepo.save(net);
+//        // when
+//        equipmentRepo.save(shield);
+//        equipmentRepo.save(ax);
+//        equipmentRepo.save(net);
 
         // then
         assertEquals(3, equipmentRepo.findAll().size());
