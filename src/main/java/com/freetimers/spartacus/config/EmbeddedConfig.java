@@ -29,8 +29,8 @@ public class EmbeddedConfig {
     @Bean
     public MongoCustomConversions mongoCustomConversions() {
         List<Converter<?, ?>> converterList = new ArrayList<>();
-        converterList.add(new GladiatorConverter(translationService));
-        converterList.add(new SlaveConverter(translationService));
+//        converterList.add(new GladiatorConverter(translationService));
+//        converterList.add(new SlaveConverter(translationService));
         converterList.add(new EquipConverter(translationService));
         converterList.add(new SchemeConverter(translationService));
         converterList.add(new ReactionConverter(translationService));

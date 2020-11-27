@@ -2,7 +2,7 @@ package com.freetimers.spartacus.repository;
 
 import com.freetimers.spartacus.gamebox.IntrigueCard;
 import com.freetimers.spartacus.gamebox.Reaction;
-import com.freetimers.spartacus.gamebox.Scheme;
+import com.freetimers.spartacus.gamebox.action.SwitchGladiatorAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -51,20 +52,21 @@ public class ReactionRepoTest {
     @Test
     void reactionRepoCreateTest() {
         //given
-        Reaction supportFromRome = Reaction.of("card.reaction.supportFromRome.title",
-                "card.reaction.supportFromRome.description", 8, 3,
-                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL);
+//        Reaction supportFromRome = Reaction.of("card.reaction.supportFromRome.title",
+//                "card.reaction.supportFromRome.description", 8, 3,
+//                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, );
         Reaction riggingTheMatch = Reaction.of("card.reaction.riggingTheMatch.title",
                 "card.reaction.riggingTheMatch.description", 8, 3,
-                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL);
-        Reaction aShamefulLudus = Reaction.of("card.reaction.aShamefulLudus.title",
-                "card.reaction.aShamefulLudus.description", 8, 3,
-                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL);
+                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                Collections.singletonList(SwitchGladiatorAction.getInstance()));
+//        Reaction aShamefulLudus = Reaction.of("card.reaction.aShamefulLudus.title",
+//                "card.reaction.aShamefulLudus.description", 8, 3,
+//                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL);
 
         // when
-        reactionRepo.save(supportFromRome);
+//        reactionRepo.save(supportFromRome);
         reactionRepo.save(riggingTheMatch);
-        reactionRepo.save(aShamefulLudus);
+//        reactionRepo.save(aShamefulLudus);
 
         // then
         assertEquals(3, reactionRepo.findAll().size());
