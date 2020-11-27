@@ -61,7 +61,7 @@ package "com.freetimers.spartacus.game"{
      -Player activePlayer
      -List<GladiatorCard> gladiators
      -List<SlaveCard> slaves
-     -List<EquipCard> equip
+     -List<EquipCard> equipmentCard
      -List<IntrigueCard> hand
      -Integer guardsNumber
      -Integer goldCoins

@@ -32,6 +32,8 @@ public class GameBoxService {
     public void setUp() {
         cleanUpRepos(); //todo, remove after all cards are implemented
         if (schemeRepo.findAll().size() != 100) {
+
+            // TODO: 23.11.2020  /////////////////////////////Dominus
             /////////////////////////////SCHEME/////////////////////////////
             Scheme testOfTheBrotherhood = Scheme.of("Test of the brotherhood.", "Target Dominus gains " +
                     "+1 influence for every 2 gladiators they exhaust.", 2, 1);
@@ -67,44 +69,47 @@ public class GameBoxService {
             /////////////////////////////GLADIATOR/////////////////////////////
             Gladiator syrianWarrior = Gladiator.of("card.gladiator.syrianWarrior.title",
                     "card.gladiator.syrianWarrior.description",
-                    2, 2, 2, 3);
+                    2, 2, 2, 3,  Condition.READY);
             gladiatorRepo.save(syrianWarrior);
             getTitle(syrianWarrior);
             Gladiator thracianWarrior = Gladiator.of("card.gladiator.thracianWarrior.title",
                     "card.gladiator.thracianWarrior.description",
-                    2, 3, 2, 2);
+                    2, 3, 2, 2, Condition.READY);
             gladiatorRepo.save(thracianWarrior);
             getTitle(thracianWarrior);
             Gladiator numidianWarrior = Gladiator.of("card.gladiator.numidianWarrior.title",
                     "card.gladiator.numidianWarrior.description",
-                    2, 3, 1, 3);
+                    2, 3, 1, 3, Condition.READY);
             gladiatorRepo.save(numidianWarrior);
             getTitle(numidianWarrior);
         }
         if (slaveRepo.findAll().size() != 100) {
             /////////////////////////////SLAVE/////////////////////////////
             Slave debtor = Slave.of("card.slave.debtor.title", "card.slave.debtor.description",
-                    2, 1, 1, 1);
+                    2, 1, 1, 1, Condition.READY);
             slaveRepo.save(debtor);
             getTitle(debtor);
             Slave attendant = Slave.of("card.slave.attendant.title", "card.slave.attendant.description",
-                    2, 1, 1, 1);
+                    2, 1, 1, 1, Condition.READY);
             slaveRepo.save(attendant);
             getTitle(attendant);
             Slave convict = Slave.of("card.slave.convict.title", "card.slave.convict.description",
-                    2, 1, 1, 1);
+                    2, 1, 1, 1, Condition.READY);
             slaveRepo.save(convict);
             getTitle(convict);
         }
         if (equipmentRepo.findAll().size() != 100) {
             /////////////////////////////EQUIP/////////////////////////////
-            Equip shield = Equip.of("card.equip.shield.title", "card.equip.armor", 1, EquipType.ARMOR);
+            EquipmentCard shield = EquipmentCard.of("card.equip.shield.title", "card.equip.armor",
+                    1, EquipType.ARMOR, Condition.READY);
             equipmentRepo.save(shield);
             getTitle(shield);
-            Equip ax = Equip.of("card.equip.ax.title", "card.equip.weapon.title", 1, EquipType.WEAPON);
+            EquipmentCard ax = EquipmentCard.of("card.equip.ax.title", "card.equip.weapon.title",
+                    1, EquipType.WEAPON, Condition.READY);
             equipmentRepo.save(ax);
             getTitle(ax);
-            Equip net = Equip.of("card.equip.net.title", "card.equip.special.title", 1, EquipType.SPECIAL);
+            EquipmentCard net = EquipmentCard.of("card.equip.net.title", "card.equip.special.title",
+                    1, EquipType.SPECIAL, Condition.READY);
             equipmentRepo.save(net);
             getTitle(net);
         }

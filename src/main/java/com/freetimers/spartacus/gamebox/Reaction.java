@@ -10,7 +10,8 @@ public class Reaction extends IntrigueCard {
     }
     public static Reaction of(String titleKey, String descriptionKey,
                             Integer price, Integer requiredInfluence, RequiredInfluenceCondition requiredInfluenceCondition) {
-        return new Reaction(null, titleKey, null, descriptionKey, null, price, requiredInfluence, requiredInfluenceCondition);
+        return new Reaction(null, titleKey, null, descriptionKey, null, price, requiredInfluence,
+                requiredInfluenceCondition);
     }
 
     public static Reaction of(String titleKey, String descriptionKey,
