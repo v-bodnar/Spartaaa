@@ -1,4 +1,4 @@
-package com.freetimers.spartacus.mongodb;
+package com.freetimers.spartacus.translation;
 
 
 import org.junit.jupiter.api.Test;

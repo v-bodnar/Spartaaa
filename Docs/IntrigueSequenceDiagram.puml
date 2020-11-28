@@ -31,7 +31,7 @@ alt if Active Player
         Server -> Server: startIntrigueAutoSuccessTimer
         Server -> Player1: Event(IntrigueCardPlayed)
         Server -> Player2: Event(IntrigueCardPlayed)
-            alt if decides to play reaction
+            alt if decides to play reactionCard
                     Player2 -> Server: playIntrigueCard(IntrigueDto)
                     alt if "JupitersCock" in hand may
                         Player1 -> Server: playIntrigue "JupitersCock"
@@ -55,7 +55,7 @@ alt if Active Player
                         Server -> Player1: Event(IntrigueFailed)
                         Server -> Player2: Event(IntrigueFailed)
                     end
-                else Player2 does not play reaction
+                else Player2 does not play reactionCard
                     Player1 -> Server: pass (or timer expires, whatever goes first)
                     rnote over Server
                     Server:
@@ -80,14 +80,14 @@ alt if Active Player
             rnote over Server
             Server:
                 - sets intrigue state declined
-                - scheme returned to players hand
+                - schemeCard returned to players hand
             endrnote
             Server -> Player1: Event(IntrigueDeclined)
             Server -> Player2: Event(IntrigueDeclined)
         end
     end
 else not Active Player
-    alt if reaction card meets conditions player may
+    alt if reactionCard card meets conditions player may
         Player2 -> Server: playIntrigueCard(IntrigueDto)
         rnote over Server
             resolves in the same way as Scheme

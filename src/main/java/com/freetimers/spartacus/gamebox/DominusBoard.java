@@ -1,6 +1,7 @@
 package com.freetimers.spartacus.gamebox;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class DominusBoard {
     private final String id;
@@ -33,24 +34,37 @@ public class DominusBoard {
                 startingSlaves, startingGuards);
     }
 
-    public String getId() {
-        return id;
+    public static DominusBoard of(DominusBoard dominusBoard, String title, String description) {
+        return new DominusBoard(
+                dominusBoard.getId().orElse(null),
+                dominusBoard.getTitleKey(),
+                title,
+                dominusBoard.getDescriptionKey(),
+                description,
+                dominusBoard.getStartingGold(),
+                dominusBoard.getStartingGladiators(),
+                dominusBoard.getStartingSlaves(),
+                dominusBoard.getStartingGuards());
+    }
+
+    public Optional<String> getId() {
+        return Optional.ofNullable(id);
     }
 
     public String getTitleKey() {
         return titleKey;
     }
 
-    public String getTitle() {
-        return title;
+    public Optional<String> getTitle() {
+        return Optional.ofNullable(title);
     }
 
     public String getDescriptionKey() {
         return descriptionKey;
     }
 
-    public String getDescription() {
-        return description;
+    public Optional<String> getDescription() {
+        return Optional.ofNullable(description);
     }
 
     public int getStartingGold() {

@@ -4,7 +4,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Document
 public class AbstractCard implements Card {
@@ -42,18 +41,19 @@ public class AbstractCard implements Card {
     }
 
     @Override
-    public Optional<String>  getId() {
-        return Optional.ofNullable(id);
+    public String getId() {
+        return id;
     }
 
-    public Optional<String>  getDescription() {
-        return Optional.ofNullable(description);
+    @Override
+    public String getDescription() {
+        return description;
     }
 
-    public Optional<String> getTitle() {
-        return Optional.ofNullable(title);
+    @Override
+    public String getTitle() {
+        return title;
     }
-
 
     @Override
     public boolean equals(Object o) {

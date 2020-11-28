@@ -1,9 +1,10 @@
 package com.freetimers.spartacus.repository;
 
-import com.freetimers.spartacus.gamebox.Scheme;
+import com.freetimers.spartacus.gamebox.ReactionCard;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
-public interface SchemeRepo extends MongoRepository<Scheme, String> {
+public interface ReactionCardsRepo extends MongoRepository<ReactionCard, String> {
 }

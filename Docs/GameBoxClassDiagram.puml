@@ -40,23 +40,25 @@ package "com.freetimers.spartacus.gamebox"{
         + int getRequiredInfluence()
     }
 
-    class Equip implements MarketCard{
+    class EquipmentCard implements MarketCard{
         - EquipType equipType
         + EquipType getType()
     }
 
-    class Gladiator implements MarketCard{
+    class GladiatorCard implements MarketCard{
     }
 
-    class Slave implements MarketCard{
-    }
-
-    class Reaction implements IntrigueCard{
+    class SlaveCard implements MarketCard{
         -List<Action> actions
         + List<Action> getActions()
     }
 
-    class Guard implements IntrigueCard{
+    class ReactionCard implements IntrigueCard{
+        -List<Action> actions
+        + List<Action> getActions()
+    }
+
+    class GuardCard implements IntrigueCard{
         -List<Action> actions
         + List<Action> getActions()
     }

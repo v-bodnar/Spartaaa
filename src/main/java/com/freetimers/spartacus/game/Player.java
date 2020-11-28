@@ -1,15 +1,15 @@
-package com.freetimers.spartacus.gamebox;
+package com.freetimers.spartacus.game;
 
 import java.util.Objects;
 
  class Player {
     private final String name;
-    private final String sesionToken;
+    private final String sessionToken;
     private final String avatar;
 
     public Player(String name, String sessionToken, String avatar) {
         this.name = name;
-        this.sesionToken = sessionToken;
+        this.sessionToken = sessionToken;
         this.avatar = avatar;
     }
 
@@ -18,7 +18,7 @@ import java.util.Objects;
     }
 
     String getSessionToken() {
-        return sesionToken;
+        return sessionToken;
     }
 
     String getAvatar() {
@@ -31,20 +31,20 @@ import java.util.Objects;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
         return Objects.equals(name, player.name) &&
-                Objects.equals(sesionToken, player.sesionToken) &&
+                Objects.equals(sessionToken, player.sessionToken) &&
                 Objects.equals(avatar, player.avatar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, sesionToken, avatar);
+        return Objects.hash(name, sessionToken, avatar);
     }
 
     @Override
     public String toString() {
         return "Player{" +
                 "name='" + name + '\'' +
-                ", sesionToken='" + sesionToken + '\'' +
+                ", sesionToken='" + sessionToken + '\'' +
                 ", avatar='" + avatar + '\'' +
                 '}';
     }

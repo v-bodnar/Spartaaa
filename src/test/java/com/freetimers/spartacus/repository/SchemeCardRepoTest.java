@@ -1,8 +1,8 @@
 package com.freetimers.spartacus.repository;
 
 import com.freetimers.spartacus.gamebox.IntrigueCard;
-import com.freetimers.spartacus.gamebox.Reaction;
-import com.freetimers.spartacus.gamebox.action.SwitchGladiatorAction;
+import com.freetimers.spartacus.gamebox.SchemeCard;
+import com.freetimers.spartacus.gamebox.action.DecreaseInInfluenceAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -24,18 +24,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         "spring.mongodb.embedded.storage.databaseDir=${user.home}/Freetimers/spartacus/testDB"
 })
 
-public class ReactionRepoTest {
-    private static final Logger LOG = LoggerFactory.getLogger(EquipmentRepoTest.class);
+public class SchemeCardRepoTest {
+    private static final Logger LOG = LoggerFactory.getLogger(EquipmentCardRepoTest.class);
 
     @Autowired
-    private ReactionRepo reactionRepo;
+    private SchemeCardsRepo schemeCardsRepo;
 
     @Value("spring.mongodb.embedded.storage.databaseDir")
     private String testDbPath;
 
     @BeforeEach
     public void cleanUpDb() {
-        reactionRepo.deleteAll();
+        schemeCardsRepo.deleteAll();
     }
 
     @AfterTestExecution
@@ -50,26 +50,29 @@ public class ReactionRepoTest {
     }
 
     @Test
-    void reactionRepoCreateTest() {
+    void schemeRepoCreateTest() {
         //given
-//        Reaction supportFromRome = Reaction.of("card.reaction.supportFromRome.title",
-//                "card.reaction.supportFromRome.description", 8, 3,
-//                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, );
-        Reaction riggingTheMatch = Reaction.of("card.reaction.riggingTheMatch.title",
-                "card.reaction.riggingTheMatch.description", 8, 3,
+        SchemeCard setHandsToPurpose = SchemeCard.of("card.scheme.setHandToPurpose.title",
+                "card.scheme.setHandToPurpose.description", 2, 4,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(SwitchGladiatorAction.getInstance()));
-//        Reaction aShamefulLudus = Reaction.of("card.reaction.aShamefulLudus.title",
-//                "card.reaction.aShamefulLudus.description", 8, 3,
-//                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL);
+                Collections.singletonList(DecreaseInInfluenceAction.getInstance()));
+        SchemeCard testOfTheBrotherhood = SchemeCard.of("card.scheme.testOfTheBrotherhood.title",
+                "card.scheme.testOfTheBrotherhood.description", 2, 1,
+                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                Collections.singletonList(DecreaseInInfluenceAction.getInstance()));
+        SchemeCard epicSpectacle = SchemeCard.of("card.scheme.epicSpectacle.title",
+                "card.scheme.epicSpectacle.description", 2, 0,
+                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                Collections.singletonList(DecreaseInInfluenceAction.getInstance()));
 
         // when
-//        reactionRepo.save(supportFromRome);
-        reactionRepo.save(riggingTheMatch);
-//        reactionRepo.save(aShamefulLudus);
+        schemeCardsRepo.save(setHandsToPurpose);
+        schemeCardsRepo.save(testOfTheBrotherhood);
+        schemeCardsRepo.save(epicSpectacle);
 
         // then
-        assertEquals(3, reactionRepo.findAll().size());
+        assertEquals(3, schemeCardsRepo.findAll().size());
     }
 
 }
+

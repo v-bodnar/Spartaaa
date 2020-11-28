@@ -1,19 +1,19 @@
 <div>
 
-  <mat-card class="card" *ngFor="let gladiator of gladiators">
+  <mat-card class="card" *ngFor="let gladiatorCard of gladiators">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{gladiator.title}}</mat-card-title>
-      <mat-card-subtitle>spd: {{gladiator.speed}} atk:{{gladiator.attack}} def:{{gladiator.defence}}</mat-card-subtitle>
+      <mat-card-title>{{gladiatorCard.title}}</mat-card-title>
+      <mat-card-subtitle>spd: {{gladiatorCard.speed}} atk:{{gladiatorCard.attack}} def:{{gladiatorCard.defence}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsc1Y4778cY_TQ7Y6-j2LDSwZORaWJutwmrg&usqp=CAU" alt="gladiator">
+    <img mat-card-image src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsc1Y4778cY_TQ7Y6-j2LDSwZORaWJutwmrg&usqp=CAU" alt="gladiatorCard">
     <mat-card-content>
       <p>
-        {{gladiator.description}}
+        {{gladiatorCard.description}}
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <p>price: {{gladiator.price}}</p>
+      <p>price: {{gladiatorCard.price}}</p>
     </mat-card-actions>
   </mat-card>
 

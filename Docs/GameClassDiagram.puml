@@ -12,26 +12,26 @@ package "com.freetimers.spartacus.game"{
     +interface Game {
       +String getId()
       +boolean connect(String password)
-      +void selectDominus(Player player)
+      +void selectDominus(PlayerDto player)
       +int getRound()
     '  Upkeep
-      +void chooseGladiatorsToRelease(Dominus target)
+      +void chooseGladiatorsToRelease(DominusDto target)
     '  Intrigue phase
-      +void chooseGladiatorsToRelease(Dominus target)
-      +Dominus getActiveDominus()
-      +void requestHelp(Dominus source, Dominus target, IntrigueCard intrigue)
-      +CompletionStage<Void> playIntrigue(Dominus source, Dominus target, IntrigueCard intrigue)
-      +void sellIntrigue(IntrigueCard intrigue)
-      +void useDominusSkill(Dominus dominus)
-      +CompletionStage<Void> playReaction(Dominus source, ReactionCard reaction, IntrigueCard intrigueTarget)
-      +void finishTurn(Dominus dominus)
+      +void chooseGladiatorsToRelease(DominusDto target)
+      +DominusDto getActiveDominus()
+      +void requestHelp(DominusDto source, DominusDto target, IntrigueCard intrigue)
+      +CompletionStage<Void> playIntrigue(DominusDto source, DominusDto target, IntrigueCard intrigue)
+      +void sellIntrigue(IntrigueCardDto intrigue)
+      +void useDominusSkill(DominusDto dominus)
+      +CompletionStage<Void> playReaction(DominusDto source, ReactionCard reactionCard, IntrigueCard intrigueTarget)
+      +void finishTurn(DominusDto dominus)
     '  MarketPhase
-      +CompletionStage<Void> makeOffer(Offer offer)
-      +void acceptOffer(Offer offer)
-      +void declineOffer(Offer offer)
-      +void sellCard(Dominus source, Card card)
-      +void finishTrading(Dominus dominus)
-      +void makeBet(Dominus source, int goldCoins)
+      +CompletionStage<Void> makeOffer(OfferDto offer)
+      +void acceptOffer(OfferDto offer)
+      +void declineOffer(OfferDto offer)
+      +void sellCard(DominusDto source, Card card)
+      +void finishTrading(DominusDto dominus)
+      +void makeBet(DominusDto source, int goldCoins)
     }
 
     ~class CoreGame extends Game{
@@ -61,7 +61,7 @@ package "com.freetimers.spartacus.game"{
      -Player activePlayer
      -List<GladiatorCard> gladiators
      -List<SlaveCard> slaves
-     -List<EquipCard> equipmentCard
+     -List<EquipmentCard> equipmentCard
      -List<IntrigueCard> hand
      -Integer guardsNumber
      -Integer goldCoins
@@ -111,8 +111,8 @@ package "com.freetimers.spartacus.game"{
       -Dominus source
       -Dominus support
       -List<Actions> resolvedAction
-      -Scheme scheme
-      -List<Reaction> reactions
+      -SchemeCard schemeCard
+      -List<ReactionCard> reactions
       ~getters()
       playReaction(Intrigue intrigue)
     }

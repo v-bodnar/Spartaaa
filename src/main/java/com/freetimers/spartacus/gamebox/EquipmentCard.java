@@ -19,6 +19,18 @@ public class EquipmentCard extends MarketCard {
         return new EquipmentCard(null, titleKey,null, descriptionKey, null, price, type, condition);
     }
 
+    public static EquipmentCard of(EquipmentCard equipmentCard, String title, String description){
+        return new EquipmentCard(
+                equipmentCard.getId(),
+                equipmentCard.getTitleKey(),
+                title,
+                equipmentCard.getDescriptionKey(),
+                description,
+                equipmentCard.getPrice(),
+                equipmentCard.getType(),
+                equipmentCard.getCondition());
+    }
+
     public EquipType getType() {
         return type;
     }
@@ -28,8 +40,8 @@ public class EquipmentCard extends MarketCard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        EquipmentCard equipmentCard = (EquipmentCard) o;
-        return type == equipmentCard.type;
+        EquipmentCard that = (EquipmentCard) o;
+        return type == that.type;
     }
 
     @Override
@@ -39,8 +51,8 @@ public class EquipmentCard extends MarketCard {
 
     @Override
     public String toString() {
-        return "Equip{" +
+        return "EquipmentCard{" +
                 "type=" + type +
-                '}';
+                "} " + super.toString();
     }
 }

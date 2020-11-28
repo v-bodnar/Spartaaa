@@ -1,7 +1,7 @@
 package com.freetimers.spartacus.repository;
 
-import com.freetimers.spartacus.gamebox.Gladiator;
-import com.freetimers.spartacus.gamebox.Slave;
+import com.freetimers.spartacus.gamebox.Condition;
+import com.freetimers.spartacus.gamebox.GladiatorCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -21,18 +21,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(properties = {
         "spring.mongodb.embedded.storage.databaseDir=${user.home}/Freetimers/spartacus/testDB"
 })
-public class SlaveRepoTest {
-    private static final Logger LOG = LoggerFactory.getLogger(EquipmentRepoTest.class);
+
+public class GladiatorCardsRepoTest {
+    private static final Logger LOG = LoggerFactory.getLogger(GladiatorCardsRepoTest.class);
 
     @Autowired
-    private SlaveRepo slaveRepo;
+    private GladiatorCardsRepo gladiatorCardsRepo;
 
     @Value("spring.mongodb.embedded.storage.databaseDir")
     private String testDbPath;
 
     @BeforeEach
     public void cleanUpDb() {
-        slaveRepo.deleteAll();
+        gladiatorCardsRepo.deleteAll();
     }
 
     @AfterTestExecution
@@ -49,20 +50,20 @@ public class SlaveRepoTest {
     @Test
     void schemeRepoCreateTest() {
         //given
-//        Slave debtor = Slave.of("card.slave.debtor.title","card.slave.debtor.description",
-//                2, 1, 1, 1);
-//        Slave attendant = Slave.of("card.slave.attendant.title", "card.slave.attendant.description",
-//                2, 1, 1, 1);
-//        Slave convict = Slave.of("card.slave.convict.title", "card.slave.convict.description",
-//                2, 1, 1, 1);
-//
-//        // when
-//        slaveRepo.save(debtor);
-//        slaveRepo.save(attendant);
-//        slaveRepo.save(convict);
+        GladiatorCard syrrianWarrior = GladiatorCard.of("card.gladiator.syrianWarrior.title",
+                "card.gladiator.syrianWarrior.description", 2, 2, 2, 3, Condition.READY);
+        GladiatorCard thracianWarrior = GladiatorCard.of("card.gladiator.thracianWarrior.title",
+                "card.gladiator.thracianWarrior.description", 2, 3, 2, 2, Condition.READY);
+        GladiatorCard numidianWarrior = GladiatorCard.of("card.gladiator.numidianWarrior.title",
+                "card.gladiator.numidianWarrior.description", 2, 3, 1, 3, Condition.READY);
+
+        // when
+        gladiatorCardsRepo.save(syrrianWarrior);
+        gladiatorCardsRepo.save(thracianWarrior);
+        gladiatorCardsRepo.save(numidianWarrior);
 
         // then
-        assertEquals(3, slaveRepo.findAll().size());
+        assertEquals(3, gladiatorCardsRepo.findAll().size());
     }
 
 }

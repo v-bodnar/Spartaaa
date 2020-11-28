@@ -1,5 +1,4 @@
 package com.freetimers.spartacus.gamebox;
 
-public interface Action {
-
+public interface GameBox {
 }

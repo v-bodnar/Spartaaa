@@ -1,6 +1,8 @@
 package com.freetimers.spartacus.repository;
 
+import com.freetimers.spartacus.gamebox.Condition;
 import com.freetimers.spartacus.gamebox.EquipType;
+import com.freetimers.spartacus.gamebox.EquipmentCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -21,18 +23,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         "spring.mongodb.embedded.storage.databaseDir=${user.home}/Freetimers/spartacus/testDB"
 })
 
-public class EquipmentRepoTest {
-    private static final Logger LOG = LoggerFactory.getLogger(EquipmentRepoTest.class);
+public class EquipmentCardRepoTest {
+    private static final Logger LOG = LoggerFactory.getLogger(EquipmentCardRepoTest.class);
 
     @Autowired
-    private EquipmentRepo equipmentRepo;
+    private EquipmentCardsRepo equipmentCardsRepo;
 
     @Value("spring.mongodb.embedded.storage.databaseDir")
     private String testDbPath;
 
     @BeforeEach
     public void cleanUpDb() {
-        equipmentRepo.deleteAll();
+        equipmentCardsRepo.deleteAll();
     }
 
     @AfterTestExecution
@@ -49,17 +51,17 @@ public class EquipmentRepoTest {
     @Test
     void equipRepoCreateTest() {
 //        //given
-//        Equip shield = Equip.of("card.equip.shield.title", "card.equip.armor", 1, EquipType.ARMOR);
-//        Equip ax = Equip.of("card.equip.ax.title", "card.equip.weapon.title", 1, EquipType.WEAPON);
-//        Equip net = Equip.of("card.equip.net.title", "card.equip.special.title", 1, EquipType.SPECIAL);
+        EquipmentCard shield = EquipmentCard.of("card.equip.shield.title", "card.equip.armor", 1, EquipType.ARMOR, Condition.READY);
+        EquipmentCard ax = EquipmentCard.of("card.equip.ax.title", "card.equip.weapon.title", 1, EquipType.WEAPON, Condition.READY);
+        EquipmentCard net = EquipmentCard.of("card.equip.net.title", "card.equip.special.title", 1, EquipType.SPECIAL, Condition.READY);
 
-//        // when
-//        equipmentRepo.save(shield);
-//        equipmentRepo.save(ax);
-//        equipmentRepo.save(net);
+        // when
+        equipmentCardsRepo.save(shield);
+        equipmentCardsRepo.save(ax);
+        equipmentCardsRepo.save(net);
 
         // then
-        assertEquals(3, equipmentRepo.findAll().size());
+        assertEquals(3, equipmentCardsRepo.findAll().size());
     }
 
 }

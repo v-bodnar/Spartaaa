@@ -1,7 +1,7 @@
 package com.freetimers.spartacus.repository;
 
-import com.freetimers.spartacus.gamebox.IntrigueCard;
-import com.freetimers.spartacus.gamebox.Scheme;
+import com.freetimers.spartacus.gamebox.Condition;
+import com.freetimers.spartacus.gamebox.SlaveCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -15,25 +15,25 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(properties = {
         "spring.mongodb.embedded.storage.databaseDir=${user.home}/Freetimers/spartacus/testDB"
 })
-
-public class SchemeRepoTest {
-    private static final Logger LOG = LoggerFactory.getLogger(EquipmentRepoTest.class);
+public class SlaveCardRepoTest {
+    private static final Logger LOG = LoggerFactory.getLogger(EquipmentCardRepoTest.class);
 
     @Autowired
-    private SchemeRepo schemeRepo;
+    private SlaveCardsRepo slaveCardsRepo;
 
     @Value("spring.mongodb.embedded.storage.databaseDir")
     private String testDbPath;
 
     @BeforeEach
     public void cleanUpDb() {
-        schemeRepo.deleteAll();
+        slaveCardsRepo.deleteAll();
     }
 
     @AfterTestExecution
@@ -50,24 +50,20 @@ public class SchemeRepoTest {
     @Test
     void schemeRepoCreateTest() {
         //given
-        Scheme setHandsToPurpose = Scheme.of("card.scheme.setHandToPurpose.title",
-                "card.scheme.setHandToPurpose.description", 2, 4,
-                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL);
-        Scheme testOfTheBrotherhood = Scheme.of("card.scheme.testOfTheBrotherhood.title",
-                "card.scheme.testOfTheBrotherhood.description", 2, 1,
-                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL);
-        Scheme epicSpectacle = Scheme.of("card.scheme.epicSpectacle.title",
-                "card.scheme.epicSpectacle.description", 2, 0,
-                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL);
+        SlaveCard debtor = SlaveCard.of("card.slave.debtor.title","card.slave.debtor.description",
+                2, 1, 1, 1, Condition.READY, new ArrayList<>());
+        SlaveCard attendant = SlaveCard.of("card.slave.attendant.title", "card.slave.attendant.description",
+                2, 1, 1, 1, Condition.READY, new ArrayList<>());
+        SlaveCard convict = SlaveCard.of("card.slave.convict.title", "card.slave.convict.description",
+                2, 1, 1, 1, Condition.READY, new ArrayList<>());
 
         // when
-        schemeRepo.save(setHandsToPurpose);
-        schemeRepo.save(testOfTheBrotherhood);
-        schemeRepo.save(epicSpectacle);
+        slaveCardsRepo.save(debtor);
+        slaveCardsRepo.save(attendant);
+        slaveCardsRepo.save(convict);
 
         // then
-        assertEquals(3, schemeRepo.findAll().size());
+        assertEquals(3, slaveCardsRepo.findAll().size());
     }
 
 }
-
