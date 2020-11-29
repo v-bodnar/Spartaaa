@@ -31,8 +31,6 @@ package "com.freetimers.spartacus.gamebox"{
 
 
     abstract class MarketCard implements AbstractCard{
-         - Condition condition
-         + Condition getCondition()
     }
 
     abstract class IntrigueCard implements AbstractCard{
@@ -46,6 +44,8 @@ package "com.freetimers.spartacus.gamebox"{
     }
 
     class GladiatorCard implements MarketCard{
+        -boolean starting
+        +isStarting()
     }
 
     class SlaveCard implements MarketCard{
@@ -93,14 +93,5 @@ package "com.freetimers.spartacus.gamebox"{
         -int guards
         + getters
     }
-
-    enum Condition{
-        READY,
-        INJURED,
-        EXHAUSTED
-    }
-
-    Guard *-- Condition
-    MarketCard *-- Condition
 }
 @enduml
