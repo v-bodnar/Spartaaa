@@ -10,13 +10,13 @@ public class EquipmentCard extends MarketCard {
     private final EquipType type;
 
     public EquipmentCard(String id, String titleKey, String title, String descriptionKey, String description, Integer price,
-                         EquipType type, Condition condition) {
-        super(id, titleKey, title, descriptionKey, description, price, condition);
+                         EquipType type) {
+        super(id, titleKey, title, descriptionKey, description, price);
         this.type = type;
     }
 
-    public static EquipmentCard of(String titleKey, String descriptionKey, Integer price, EquipType type, Condition condition){
-        return new EquipmentCard(null, titleKey,null, descriptionKey, null, price, type, condition);
+    public static EquipmentCard of(String titleKey, String descriptionKey, Integer price, EquipType type){
+        return new EquipmentCard(null, titleKey,null, descriptionKey, null, price, type);
     }
 
     public static EquipmentCard of(EquipmentCard equipmentCard, String title, String description){
@@ -27,8 +27,7 @@ public class EquipmentCard extends MarketCard {
                 equipmentCard.getDescriptionKey(),
                 description,
                 equipmentCard.getPrice(),
-                equipmentCard.getType(),
-                equipmentCard.getCondition());
+                equipmentCard.getType());
     }
 
     public EquipType getType() {

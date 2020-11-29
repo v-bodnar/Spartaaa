@@ -2,7 +2,7 @@ package com.freetimers.spartacus.gamebox.action;
 
 import java.util.Objects;
 
-public class FailSchemeAction extends Action {
+public class FailSchemeAction implements Action {
     private static final FailSchemeAction INSTANCE = new FailSchemeAction();
 
     private FailSchemeAction() {}

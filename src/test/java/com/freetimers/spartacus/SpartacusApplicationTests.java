@@ -37,7 +37,7 @@ class SpartacusApplicationTests {
 
     @AfterTestExecution
     public void cleanUp() throws IOException {
-        LOG.info("Removing test db from {}", testDbPath);
+        LOG.info("Removing test d setUpUSTestb from {}", testDbPath);
         Path testDb = Paths.get(testDbPath);
         if (Files.deleteIfExists(testDb)) {
             LOG.info("Clean up success!");

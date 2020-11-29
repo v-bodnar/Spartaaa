@@ -11,19 +11,21 @@ public class GladiatorCard extends MarketCard {
     private final Integer attack;
     private final Integer defence;
     private final Integer speed;
+    private final boolean starting;
 
     public GladiatorCard(String id, String titleKey, String title, String descriptionKey, String description, Integer price,
-                         Integer attack, Integer defence, Integer speed, Condition condition) {
-        super(id, titleKey, title, descriptionKey, description, price, condition);
+                         Integer attack, Integer defence, Integer speed, boolean starting) {
+        super(id, titleKey, title, descriptionKey, description, price);
         this.attack = attack;
         this.defence = defence;
         this.speed = speed;
+        this.starting = starting;
     }
 
     public static GladiatorCard of(String titleKey, String descriptionKey, Integer price, Integer attack, Integer defence,
-                                   Integer speed, Condition condition) {
+                                   Integer speed, boolean starting) {
         return new GladiatorCard(null, titleKey, null, descriptionKey, null, price, attack, defence, speed,
-                condition);
+                starting);
     }
 
     public static GladiatorCard of(GladiatorCard gladiatorCard, String title, String description){
@@ -37,7 +39,7 @@ public class GladiatorCard extends MarketCard {
                 gladiatorCard.getAttack(),
                 gladiatorCard.getDefence(),
                 gladiatorCard.getSpeed(),
-                gladiatorCard.getCondition());
+                gladiatorCard.isStarting());
     }
 
     public Integer getAttack() {
@@ -52,28 +54,34 @@ public class GladiatorCard extends MarketCard {
         return speed;
     }
 
+    public boolean isStarting() {
+        return starting;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        GladiatorCard gladiatorCard = (GladiatorCard) o;
-        return Objects.equals(attack, gladiatorCard.attack) &&
-                Objects.equals(defence, gladiatorCard.defence) &&
-                Objects.equals(speed, gladiatorCard.speed);
+        GladiatorCard that = (GladiatorCard) o;
+        return starting == that.starting &&
+                Objects.equals(attack, that.attack) &&
+                Objects.equals(defence, that.defence) &&
+                Objects.equals(speed, that.speed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), attack, defence, speed);
+        return Objects.hash(super.hashCode(), attack, defence, speed, starting);
     }
 
     @Override
     public String toString() {
-        return "Gladiator{" +
+        return "GladiatorCard{" +
                 "attack=" + attack +
                 ", defence=" + defence +
                 ", speed=" + speed +
+                ", starting=" + starting +
                 "} " + super.toString();
     }
 }

@@ -2,7 +2,7 @@ package com.freetimers.spartacus.gamebox.action;
 
 import java.util.Objects;
 
-public class SwitchGladiatorAction extends Action {
+public class SwitchGladiatorAction implements Action {
 
     private static final SwitchGladiatorAction INSTANCE = new SwitchGladiatorAction();
 

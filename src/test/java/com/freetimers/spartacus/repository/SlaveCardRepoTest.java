@@ -1,6 +1,5 @@
 package com.freetimers.spartacus.repository;
 
-import com.freetimers.spartacus.gamebox.Condition;
 import com.freetimers.spartacus.gamebox.SlaveCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,12 +49,12 @@ public class SlaveCardRepoTest {
     @Test
     void schemeRepoCreateTest() {
         //given
-        SlaveCard debtor = SlaveCard.of("card.slave.debtor.title","card.slave.debtor.description",
-                2, 1, 1, 1, Condition.READY, new ArrayList<>());
+        SlaveCard debtor = SlaveCard.of("card.slave.debtor.title", "card.slave.debtor.description",
+                2, 1, 1, 1, new ArrayList<>());
         SlaveCard attendant = SlaveCard.of("card.slave.attendant.title", "card.slave.attendant.description",
-                2, 1, 1, 1, Condition.READY, new ArrayList<>());
+                2, 1, 1, 1, new ArrayList<>());
         SlaveCard convict = SlaveCard.of("card.slave.convict.title", "card.slave.convict.description",
-                2, 1, 1, 1, Condition.READY, new ArrayList<>());
+                2, 1, 1, 1, new ArrayList<>());
 
         // when
         slaveCardsRepo.save(debtor);

@@ -16,8 +16,8 @@ public class SlaveCard extends MarketCard {
     private final List<Action> actions;
 
     public SlaveCard(String id, String titleKey, String title, String descriptionKey, String description, Integer price,
-                     Integer attack, Integer defence, Integer speed, Condition condition, List<Action> actions) {
-        super(id, titleKey, title, descriptionKey, description, price, condition);
+                     Integer attack, Integer defence, Integer speed, List<Action> actions) {
+        super(id, titleKey, title, descriptionKey, description, price);
         this.attack = attack;
         this.defence = defence;
         this.speed = speed;
@@ -25,9 +25,8 @@ public class SlaveCard extends MarketCard {
     }
 
     public static SlaveCard of(String titleKey, String descriptionKey, Integer price, Integer attack, Integer defence,
-                               Integer speed, Condition condition, List<Action> actions) {
-        return new SlaveCard(null, titleKey, null, descriptionKey, null, price, attack, defence, speed,
-                condition, actions);
+                               Integer speed, List<Action> actions) {
+        return new SlaveCard(null, titleKey, null, descriptionKey, null, price, attack, defence, speed, actions);
     }
 
     public static SlaveCard of(SlaveCard slaveCard, String title, String description){
@@ -41,7 +40,6 @@ public class SlaveCard extends MarketCard {
                 slaveCard.getAttack(),
                 slaveCard.getDefence(),
                 slaveCard.getSpeed(),
-                slaveCard.getCondition(),
                 slaveCard.getActions());
     }
 

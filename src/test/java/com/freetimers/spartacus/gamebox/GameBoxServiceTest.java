@@ -19,30 +19,4 @@ public class GameBoxServiceTest {
 
     @Autowired
     public GameBoxService gameBoxService;
-
-    @Test
-    public void setUpUSTest() {
-        //given
-        Locale.setDefault(Locale.US);
-        //when
-        Optional<GladiatorCard> syrianWarrior = gladiatorCardsRepo.findFirstByTitle("card.syrianWarrior.title");
-        assertTrue(syrianWarrior.isPresent());
-        String syrianWarriorTitle = syrianWarrior.get().getTitleKey();
-
-        //then
-        assertEquals("Syrian warrior", syrianWarriorTitle);
-    }
-
-    @Test
-    public void setUpRUTest() {
-        //given
-        Locale.setDefault(new Locale("ru"));
-        //when
-        Optional<GladiatorCard> syrianWarrior = gladiatorCardsRepo.findFirstByTitle("card.syrianWarrior.title");
-        assertTrue(syrianWarrior.isPresent());
-        String syrianWarriorTitle = syrianWarrior.get().getTitleKey();
-
-        //then
-        assertEquals("Сирийский воин", syrianWarriorTitle);
-    }
 }

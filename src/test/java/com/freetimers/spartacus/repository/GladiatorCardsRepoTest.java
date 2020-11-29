@@ -1,6 +1,5 @@
 package com.freetimers.spartacus.repository;
 
-import com.freetimers.spartacus.gamebox.Condition;
 import com.freetimers.spartacus.gamebox.GladiatorCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,11 +50,11 @@ public class GladiatorCardsRepoTest {
     void schemeRepoCreateTest() {
         //given
         GladiatorCard syrrianWarrior = GladiatorCard.of("card.gladiator.syrianWarrior.title",
-                "card.gladiator.syrianWarrior.description", 2, 2, 2, 3, Condition.READY);
+                "card.gladiator.syrianWarrior.description", 2, 2, 2, 3, true);
         GladiatorCard thracianWarrior = GladiatorCard.of("card.gladiator.thracianWarrior.title",
-                "card.gladiator.thracianWarrior.description", 2, 3, 2, 2, Condition.READY);
+                "card.gladiator.thracianWarrior.description", 2, 3, 2, 2, true);
         GladiatorCard numidianWarrior = GladiatorCard.of("card.gladiator.numidianWarrior.title",
-                "card.gladiator.numidianWarrior.description", 2, 3, 1, 3, Condition.READY);
+                "card.gladiator.numidianWarrior.description", 2, 3, 1, 3, true);
 
         // when
         gladiatorCardsRepo.save(syrrianWarrior);

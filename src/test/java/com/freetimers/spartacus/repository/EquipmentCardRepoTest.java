@@ -1,6 +1,5 @@
 package com.freetimers.spartacus.repository;
 
-import com.freetimers.spartacus.gamebox.Condition;
 import com.freetimers.spartacus.gamebox.EquipType;
 import com.freetimers.spartacus.gamebox.EquipmentCard;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,9 +50,9 @@ public class EquipmentCardRepoTest {
     @Test
     void equipRepoCreateTest() {
 //        //given
-        EquipmentCard shield = EquipmentCard.of("card.equip.shield.title", "card.equip.armor", 1, EquipType.ARMOR, Condition.READY);
-        EquipmentCard ax = EquipmentCard.of("card.equip.ax.title", "card.equip.weapon.title", 1, EquipType.WEAPON, Condition.READY);
-        EquipmentCard net = EquipmentCard.of("card.equip.net.title", "card.equip.special.title", 1, EquipType.SPECIAL, Condition.READY);
+        EquipmentCard shield = EquipmentCard.of("card.equipmentCard.shield.title", "card.equipmentCard.armor", 1, EquipType.ARMOR);
+        EquipmentCard ax = EquipmentCard.of("card.equipmentCard.ax.title", "card.equipmentCard.weapon.title", 1, EquipType.WEAPON);
+        EquipmentCard net = EquipmentCard.of("card.equipmentCard.net.title", "card.equipmentCard.special.title", 1, EquipType.SPECIAL);
 
         // when
         equipmentCardsRepo.save(shield);

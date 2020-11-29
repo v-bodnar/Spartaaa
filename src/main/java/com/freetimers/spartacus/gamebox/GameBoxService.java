@@ -98,17 +98,17 @@ public class GameBoxService {
             /////////////////////////////GLADIATOR/////////////////////////////
             GladiatorCard syrianWarrior = GladiatorCard.of("card.gladiatorCard.syrianWarrior.title",
                     "card.gladiatorCard.syrianWarrior.description",
-                    2, 2, 2, 3,  Condition.READY);
+                    2, 2, 2, 3, true);
             gladiatorCardsRepo.save(syrianWarrior);
 
             GladiatorCard thracianWarrior = GladiatorCard.of("card.gladiatorCard.thracianWarrior.title",
                     "card.gladiatorCard.thracianWarrior.description",
-                    2, 3, 2, 2, Condition.READY);
+                    2, 3, 2, 2, true);
             gladiatorCardsRepo.save(thracianWarrior);
 
             GladiatorCard numidianWarrior = GladiatorCard.of("card.gladiatorCard.numidianWarrior.title",
                     "card.gladiatorCard.numidianWarrior.description",
-                    2, 3, 1, 3, Condition.READY);
+                    2, 3, 1, 3, true);
             gladiatorCardsRepo.save(numidianWarrior);
         }
         if (slaveCardsRepo.findAll().size() != 100) {
@@ -127,13 +127,13 @@ public class GameBoxService {
         if (equipmentCardsRepo.findAll().size() != 100) {
             /////////////////////////////EQUIP/////////////////////////////
             EquipmentCard shield = EquipmentCard.of("card.equipmentCard.shield.title", "card.equipmentCard.armor",
-                    1, EquipType.ARMOR, Condition.READY);
+                    1, EquipType.ARMOR);
             equipmentCardsRepo.save(shield);
             EquipmentCard ax = EquipmentCard.of("card.equipmentCard.ax.title", "card.equipmentCard.weapon.title",
-                    1, EquipType.WEAPON, Condition.READY);
+                    1, EquipType.WEAPON);
             equipmentCardsRepo.save(ax);
             EquipmentCard net = EquipmentCard.of("card.equipmentCard.net.title", "card.equipmentCard.special.title",
-                    1, EquipType.SPECIAL, Condition.READY);
+                    1, EquipType.SPECIAL);
             equipmentCardsRepo.save(net);
         }
 

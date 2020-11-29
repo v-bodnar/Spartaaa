@@ -2,7 +2,7 @@ package com.freetimers.spartacus.gamebox.action;
 
 import java.util.Objects;
 
-public class DecreaseInInfluenceAction extends Action{
+public class DecreaseInInfluenceAction implements Action{
     private static final DecreaseInInfluenceAction INSTANCE = new DecreaseInInfluenceAction();
 
     private DecreaseInInfluenceAction() {}
