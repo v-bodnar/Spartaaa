@@ -1,8 +1,6 @@
 package com.freetimers.spartacus.gamebox;
 
-import com.freetimers.spartacus.gamebox.action.DecreaseInInfluenceAction;
-import com.freetimers.spartacus.gamebox.action.FailSchemeAction;
-import com.freetimers.spartacus.gamebox.action.SwitchGladiatorAction;
+import com.freetimers.spartacus.gamebox.action.*;
 import com.freetimers.spartacus.repository.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,41 +39,45 @@ public class GameBoxService {
         if (schemeCardsRepo.findAll().size() != 100) {
 
             /////////////////////////////Dominus/////////////////////////////
-            //todo use keys instead of localized strings
-//            DominusBoard Batiatus = DominusBoard.of("BATIATUS", "Exhibition match: Exhaust 2 Gladiators " +
-//                    "to gain 2 gold." + "Fodder for the primus: Discard 3 Gladiators to gain +1 Influence.", 10,
-//                    3, 1, 2);
-//            dominusBoardRepo.save(Batiatus);
-//
-//            DominusBoard Glaber = DominusBoard.of("GLABER", "Legionnaire patrol: Exhaust 3 Guards, draw" +
-//                            "1 Intrigue card." + "Dispatch to Rome: Discard 3 Guards to gain + 1 Influence.", 10,
-//                    1, 2, 3);
-//            dominusBoardRepo.save(Glaber);
-//
-//            DominusBoard Tullius = DominusBoard.of("TULLIUS", "Duplicitous dealings: Exhaust 3 Slaves," +
-//                            "discard up to 3 cards, replace with new cards." + "To the mines: Discard 3 Slaves to gain +1" +
-//                            "Influence.", 9,2, 3, 1);
-//            dominusBoardRepo.save(Tullius);
-//
-//            DominusBoard Solonius = DominusBoard.of("SOLONIUS", "Bribes and pandering: Pay X gold to reduce" +
-//                            "any Scheme`s required Influence by X." + "A finger in every  pie: Discard 1 Gladiator, 1 Slave " +
-//                            "and 1 Guard to gain +1 Influence", 12,2, 2, 1);
-//            dominusBoardRepo.save(Solonius);
+            DominusBoard Batiatus = DominusBoard.of("card.dominusBoard.batiatus.title",
+                    "card.dominusBoard.batiatus.description", 10,
+                    3, 1, 2);
+            dominusBoardRepo.save(Batiatus);
+
+            DominusBoard Glaber = DominusBoard.of("card.dominusBoard.glaber.title",
+                    "card.dominusBoard.glaber.description", 10,
+                    1, 2, 3);
+            dominusBoardRepo.save(Glaber);
+
+            DominusBoard Tullius = DominusBoard.of("card.dominusBoard.tullius.title",
+                    "card.dominusBoard.tullius.description",
+                    9,2, 3, 1);
+            dominusBoardRepo.save(Tullius);
+
+            DominusBoard Solonius = DominusBoard.of("card.dominusBoard.solonius.title",
+                    "card.dominusBoard.solonius.description",
+                    12,2, 2, 1);
+            dominusBoardRepo.save(Solonius);
 
             /////////////////////////////SCHEME/////////////////////////////
-//todo add action
-//todo use keys instead of localized strings
-//            SchemeCard testOfTheBrotherhood = SchemeCard.of("Test of the brotherhood.", "Target Dominus gains " +
-//                    "+1 influence for every 2 gladiators they exhaust.", 2, 1);
-//            schemeRepo.save(testOfTheBrotherhood);
-//            SchemeCard setHandToPurpose = SchemeCard.of("card.schemeCard.setHandToPurpose.title", "card.schemeCard.setHandToPurpose.description"
-//                    , 2, 4);
-//            schemeRepo.save(setHandToPurpose);
-//            SchemeCard epicSpecctacle = SchemeCard.of("Epic spectacle.", "+2 influence to target Dominus with" +
-//                    " at least 5 ready Gladiators.", 2, 0);
-//            schemeRepo.save(epicSpecctacle);
-//            SchemeCard partyFavors = SchemeCard.of("Party favors", "Target Dominus may discard", 1, 4);
-//            schemeRepo.save(partyFavors);
+            SchemeCard testOfTheBrotherhood = SchemeCard.of("card.schemeCard.testOfTheBrotherhood.title",
+                    "card.schemeCard.testOfTheBrotherhood.description", 2, 1,
+                    IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                    Collections.singletonList(InfluenceForExhaustGladAction.getinstance()));
+            schemeCardsRepo.save(testOfTheBrotherhood);
+
+            SchemeCard setHandToPurpose = SchemeCard.of("card.schemeCard.setHandToPurpose.title",
+                    "card.schemeCard.setHandToPurpose.description", 2, 4,
+                    IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                    Collections.singletonList(InfluenceForPeoplesAction.getInstance()));
+            schemeCardsRepo.save(setHandToPurpose);
+
+            SchemeCard epicSpectacle = SchemeCard.of("card.schemeCard.epicSpectacle.title",
+                    "card.schemeCard.epicSpectacle.description", 2, 0,
+                    IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                    Collections.singletonList(InfluenceForReadyGladAction.getInstance()));
+            schemeCardsRepo.save(epicSpectacle);
+
         }
         if (reactionCardsRepo.findAll().size() != 100) {
             /////////////////////////////REACTION/////////////////////////////
@@ -98,42 +100,45 @@ public class GameBoxService {
             /////////////////////////////GLADIATOR/////////////////////////////
             GladiatorCard syrianWarrior = GladiatorCard.of("card.gladiatorCard.syrianWarrior.title",
                     "card.gladiatorCard.syrianWarrior.description",
-                    2, 2, 2, 3, true);
+                    2, 2, 2, 3, true, Collections.singletonList(StartingGladiators.getInstance()));
             gladiatorCardsRepo.save(syrianWarrior);
 
             GladiatorCard thracianWarrior = GladiatorCard.of("card.gladiatorCard.thracianWarrior.title",
                     "card.gladiatorCard.thracianWarrior.description",
-                    2, 3, 2, 2, true);
+                    2, 3, 2, 2, true, Collections.singletonList(StartingGladiators.getInstance()));
             gladiatorCardsRepo.save(thracianWarrior);
 
             GladiatorCard numidianWarrior = GladiatorCard.of("card.gladiatorCard.numidianWarrior.title",
                     "card.gladiatorCard.numidianWarrior.description",
-                    2, 3, 1, 3, true);
+                    2, 3, 1, 3, true,  Collections.singletonList(StartingGladiators.getInstance()));
             gladiatorCardsRepo.save(numidianWarrior);
         }
         if (slaveCardsRepo.findAll().size() != 100) {
             /////////////////////////////SLAVE/////////////////////////////
-//todo add action
-//            SlaveCard debtor = SlaveCard.of("card.slaveCard.debtor.title", "card.slaveCard.debtor.description",
-//                    2, 1, 1, 1, Condition.READY);
-//            slaveRepo.save(debtor);
-//            SlaveCard attendant = SlaveCard.of("card.slaveCard.attendant.title", "card.slaveCard.attendant.description",
-//                    2, 1, 1, 1, Condition.READY);
-//            slaveRepo.save(attendant);
-//            SlaveCard convict = SlaveCard.of("card.slaveCard.convict.title", "card.slaveCard.convict.description",
-//                    2, 1, 1, 1, Condition.READY);
-//            slaveRepo.save(convict);
+            SlaveCard debtor = SlaveCard.of("card.slaveCard.debtor.title", "card.slaveCard.debtor.description",
+                    2, 1, 1, 1, true, Collections.singletonList(StartingSlave.getInstance()));
+            slaveCardsRepo.save(debtor);
+
+            SlaveCard attendant = SlaveCard.of("card.slaveCard.attendant.title", "card.slaveCard.attendant.description",
+                    2, 1, 1, 1, true, Collections.singletonList(StartingSlave.getInstance()));
+            slaveCardsRepo.save(attendant);
+
+            SlaveCard convict = SlaveCard.of("card.slaveCard.convict.title", "card.slaveCard.convict.description",
+                    2, 1, 1, 1, true,Collections.singletonList(StartingSlave.getInstance()));
+            slaveCardsRepo.save(convict);
         }
         if (equipmentCardsRepo.findAll().size() != 100) {
             /////////////////////////////EQUIP/////////////////////////////
-            EquipmentCard shield = EquipmentCard.of("card.equipmentCard.shield.title", "card.equipmentCard.armor",
-                    1, EquipType.ARMOR);
+            EquipmentCard shield = EquipmentCard.of("card.equipmentCard.armor.shield.title",
+                    "card.equipmentCard.armor.shield.description",1, EquipType.ARMOR);
             equipmentCardsRepo.save(shield);
-            EquipmentCard ax = EquipmentCard.of("card.equipmentCard.ax.title", "card.equipmentCard.weapon.title",
-                    1, EquipType.WEAPON);
-            equipmentCardsRepo.save(ax);
-            EquipmentCard net = EquipmentCard.of("card.equipmentCard.net.title", "card.equipmentCard.special.title",
-                    1, EquipType.SPECIAL);
+
+            EquipmentCard axe = EquipmentCard.of("card.equipmentCard.axe.weapon.title",
+                    "card.equipmentCard.axe.weapon.description",1, EquipType.WEAPON);
+            equipmentCardsRepo.save(axe);
+
+            EquipmentCard net = EquipmentCard.of("card.equipmentCard.net.special.title",
+                    "card.equipmentCard.net.special.description",1, EquipType.SPECIAL);
             equipmentCardsRepo.save(net);
         }
 

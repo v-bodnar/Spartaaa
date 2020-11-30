@@ -1,9 +1,21 @@
 package com.freetimers.spartacus.gamebox;
 
-public class CoreGameBox {
-    private Deck<MarketCard> marketDeck=new Deck<>();
-    private Deck<IntrigueCard> intrigueDeck=new Deck<>();
-    public void initialize(){
+import java.util.List;
 
+public class CoreGameBox implements GameBox {
+
+    @Override
+    public List<IntrigueCard> getIntrigueCards() {
+        return null;
+    }
+
+    @Override
+    public List<MarketCard> getMarketCards() {
+        return null;
+    }
+
+    @Override
+    public List<DominusBoard> getDominusBoards() {
+        return null;
     }
 }
