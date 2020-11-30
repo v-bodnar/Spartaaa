@@ -14,7 +14,7 @@ import java.util.Collections;
 public class GameBoxService {
     private final ReactionCardsRepo reactionCardsRepo;
     private final SchemeCardsRepo schemeCardsRepo;
-    private EquipmentCardsRepo equipmentCardsRepo;
+    private final EquipmentCardsRepo equipmentCardsRepo;
     private final GladiatorCardsRepo gladiatorCardsRepo;
     private final SlaveCardsRepo slaveCardsRepo;
     private final Logger logger;
@@ -51,12 +51,12 @@ public class GameBoxService {
 
             DominusBoard Tullius = DominusBoard.of("card.dominusBoard.tullius.title",
                     "card.dominusBoard.tullius.description",
-                    9,2, 3, 1);
+                    9, 2, 3, 1);
             dominusBoardRepo.save(Tullius);
 
             DominusBoard Solonius = DominusBoard.of("card.dominusBoard.solonius.title",
                     "card.dominusBoard.solonius.description",
-                    12,2, 2, 1);
+                    12, 2, 2, 1);
             dominusBoardRepo.save(Solonius);
 
             /////////////////////////////SCHEME/////////////////////////////
@@ -110,7 +110,7 @@ public class GameBoxService {
 
             GladiatorCard numidianWarrior = GladiatorCard.of("card.gladiatorCard.numidianWarrior.title",
                     "card.gladiatorCard.numidianWarrior.description",
-                    2, 3, 1, 3, true,  Collections.singletonList(StartingGladiators.getInstance()));
+                    2, 3, 1, 3, true, Collections.singletonList(StartingGladiators.getInstance()));
             gladiatorCardsRepo.save(numidianWarrior);
         }
         if (slaveCardsRepo.findAll().size() != 100) {
@@ -124,27 +124,27 @@ public class GameBoxService {
             slaveCardsRepo.save(attendant);
 
             SlaveCard convict = SlaveCard.of("card.slaveCard.convict.title", "card.slaveCard.convict.description",
-                    2, 1, 1, 1, true,Collections.singletonList(StartingSlave.getInstance()));
+                    2, 1, 1, 1, true, Collections.singletonList(StartingSlave.getInstance()));
             slaveCardsRepo.save(convict);
         }
         if (equipmentCardsRepo.findAll().size() != 100) {
             /////////////////////////////EQUIP/////////////////////////////
             EquipmentCard shield = EquipmentCard.of("card.equipmentCard.armor.shield.title",
-                    "card.equipmentCard.armor.shield.description",1, EquipType.ARMOR);
+                    "card.equipmentCard.armor.shield.description", 1, EquipType.ARMOR);
             equipmentCardsRepo.save(shield);
 
             EquipmentCard axe = EquipmentCard.of("card.equipmentCard.axe.weapon.title",
-                    "card.equipmentCard.axe.weapon.description",1, EquipType.WEAPON);
+                    "card.equipmentCard.axe.weapon.description", 1, EquipType.WEAPON);
             equipmentCardsRepo.save(axe);
 
             EquipmentCard net = EquipmentCard.of("card.equipmentCard.net.special.title",
-                    "card.equipmentCard.net.special.description",1, EquipType.SPECIAL);
+                    "card.equipmentCard.net.special.description", 1, EquipType.SPECIAL);
             equipmentCardsRepo.save(net);
         }
 
     }
 
-    public void cleanUpRepos(){
+    public void cleanUpRepos() {
         this.reactionCardsRepo.deleteAll();
         this.gladiatorCardsRepo.deleteAll();
         this.schemeCardsRepo.deleteAll();
