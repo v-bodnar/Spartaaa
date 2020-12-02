@@ -91,7 +91,7 @@ public class ReactionCardRepoTest {
         assertEquals(2, riggingTheMatchFromDb.getPrice());
         assertEquals(0, riggingTheMatchFromDb.getRequiredInfluence());
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, riggingTheMatchFromDb.getRequiredInfluenceCondition());
-        assertThat(riggingTheMatchFromDb.getAction())
+        assertThat(riggingTheMatchFromDb.getActions())
                 .hasSize(1)
                 .contains(SwitchGladiatorAction.getInstance());
 
@@ -103,7 +103,7 @@ public class ReactionCardRepoTest {
         assertEquals(3, supportFromRomeFromDB.getPrice());
         assertEquals(8, supportFromRomeFromDB.getRequiredInfluence());
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, supportFromRomeFromDB.getRequiredInfluenceCondition());
-        assertThat(supportFromRomeFromDB.getAction())
+        assertThat(supportFromRomeFromDB.getActions())
                 .hasSize(1)
                 .contains(FailSchemeAction.getinstance());
 
@@ -115,7 +115,7 @@ public class ReactionCardRepoTest {
         assertEquals(2, aShamefulLudusFromDB.getPrice());
         assertEquals(0, aShamefulLudusFromDB.getRequiredInfluence());
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, aShamefulLudusFromDB.getRequiredInfluenceCondition());
-        assertThat(aShamefulLudusFromDB.getAction())
+        assertThat(aShamefulLudusFromDB.getActions())
                 .hasSize(1)
                 .contains(DecreaseInInfluenceAction.getInstance());
     }

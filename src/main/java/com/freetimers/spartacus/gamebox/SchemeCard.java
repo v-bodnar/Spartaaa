@@ -8,12 +8,9 @@ import java.util.Objects;
 
 @Document
 public class SchemeCard extends IntrigueCard {
-    private final List<Action> actions;
-
     public SchemeCard(String id, String titleKey, String title, String descriptionKey, String description,
                       Integer price, Integer requiredInfluence, RequiredInfluenceCondition requiredInfluenceCondition, List<Action> actions) {
-        super(id, titleKey, title, descriptionKey, description, price, requiredInfluence, requiredInfluenceCondition);
-        this.actions = actions;
+        super(id, titleKey, title, descriptionKey, description, price, requiredInfluence, requiredInfluenceCondition, actions);
     }
 
     public static SchemeCard of(String titleKey, String descriptionKey,
@@ -39,28 +36,8 @@ public class SchemeCard extends IntrigueCard {
                 schemeCard.getActions());
     }
 
-    public List<Action> getActions() {
-        return actions;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        SchemeCard that = (SchemeCard) o;
-        return Objects.equals(actions, that.actions);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), actions);
-    }
-
     @Override
     public String toString() {
-        return "SchemeCard{" +
-                "actions=" + actions +
-                "} " + super.toString();
+        return "SchemeCard{} " + super.toString();
     }
 }
