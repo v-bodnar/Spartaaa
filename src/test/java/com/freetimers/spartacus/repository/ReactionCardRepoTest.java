@@ -2,6 +2,8 @@ package com.freetimers.spartacus.repository;
 
 import com.freetimers.spartacus.gamebox.IntrigueCard;
 import com.freetimers.spartacus.gamebox.ReactionCard;
+import com.freetimers.spartacus.gamebox.action.DecreaseInInfluenceAction;
+import com.freetimers.spartacus.gamebox.action.FailSchemeAction;
 import com.freetimers.spartacus.gamebox.action.SwitchGladiatorAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,27 +59,65 @@ public class ReactionCardRepoTest {
 //        given
         Locale.setDefault(Locale.US);
         ReactionCard riggingTheMatch = ReactionCard.of("card.reactionCard.riggingTheMatch.title",
-                "card.reactionCard.riggingTheMatch.description", 8, 3,
+                "card.reactionCard.riggingTheMatch.description", 2, 0,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
                 Collections.singletonList(SwitchGladiatorAction.getInstance()));
 
+        ReactionCard supportFromRome = ReactionCard.of("card.reactionCard.supportFromRome.title",
+                "card.reactionCard.supportFromRome.description", 3, 8,
+                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                Collections.singletonList(FailSchemeAction.getinstance()));
+
+        ReactionCard aShamefulLudus = ReactionCard.of("card.reactionCard.aShamefulLudus.title",
+                "card.reactionCard.aShamefulLudus.description", 2, 0,
+                IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                Collections.singletonList(DecreaseInInfluenceAction.getInstance()));
+
+
+
         // when
         ReactionCard riggingTheMatchFromDb = reactionCardsRepo.save(riggingTheMatch);
+        ReactionCard supportFromRomeFromDB = reactionCardsRepo.save(supportFromRome);
+        ReactionCard aShamefulLudusFromDB = reactionCardsRepo.save(aShamefulLudus);
 
         // then
-        assertEquals(1, reactionCardsRepo.findAll().size());
+        assertEquals(3, reactionCardsRepo.findAll().size());
 
         assertNotNull(riggingTheMatchFromDb.getId());
         assertEquals("card.reactionCard.riggingTheMatch.title", riggingTheMatchFromDb.getTitleKey());
-        assertEquals("Rigging the match", riggingTheMatchFromDb.getTitle());
+        assertEquals("Rigging the match.", riggingTheMatchFromDb.getTitle());
         assertEquals("card.reactionCard.riggingTheMatch.description", riggingTheMatchFromDb.getDescriptionKey());
-        assertEquals("Play after all wagers are final. Change which Gladiator an invited Dominus has chosen", riggingTheMatchFromDb.getDescription());
-        assertEquals(8, riggingTheMatchFromDb.getPrice());
-        assertEquals(3, riggingTheMatchFromDb.getRequiredInfluence());
+        assertEquals("Play after all wagers are final. Change which Gladiator an invited Dominus has chosen.", riggingTheMatchFromDb.getDescription());
+        assertEquals(2, riggingTheMatchFromDb.getPrice());
+        assertEquals(0, riggingTheMatchFromDb.getRequiredInfluence());
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, riggingTheMatchFromDb.getRequiredInfluenceCondition());
         assertThat(riggingTheMatchFromDb.getAction())
                 .hasSize(1)
                 .contains(SwitchGladiatorAction.getInstance());
+
+        assertNotNull(supportFromRomeFromDB.getId());
+        assertEquals("card.reactionCard.supportFromRome.title", supportFromRomeFromDB.getTitleKey());
+        assertEquals("Support from Rome.", supportFromRomeFromDB.getTitle());
+        assertEquals("card.reactionCard.supportFromRome.description", supportFromRomeFromDB.getDescriptionKey());
+        assertEquals("Foil a Scheme. You may retrieve a Guard card from the discard pile.", supportFromRomeFromDB.getDescription());
+        assertEquals(3, supportFromRomeFromDB.getPrice());
+        assertEquals(8, supportFromRomeFromDB.getRequiredInfluence());
+        assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, supportFromRomeFromDB.getRequiredInfluenceCondition());
+        assertThat(supportFromRomeFromDB.getAction())
+                .hasSize(1)
+                .contains(FailSchemeAction.getinstance());
+
+        assertNotNull(aShamefulLudusFromDB.getId());
+        assertEquals("card.reactionCard.aShamefulLudus.title", aShamefulLudusFromDB.getTitleKey());
+        assertEquals("A shameful ludus.", aShamefulLudusFromDB.getTitle());
+        assertEquals("card.reactionCard.aShamefulLudus.description", aShamefulLudusFromDB.getDescriptionKey());
+        assertEquals("-1 Influence to target Dominus with no ready Gladiators. May not be played in the Arena Phase.", aShamefulLudusFromDB.getDescription());
+        assertEquals(2, aShamefulLudusFromDB.getPrice());
+        assertEquals(0, aShamefulLudusFromDB.getRequiredInfluence());
+        assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, aShamefulLudusFromDB.getRequiredInfluenceCondition());
+        assertThat(aShamefulLudusFromDB.getAction())
+                .hasSize(1)
+                .contains(DecreaseInInfluenceAction.getInstance());
     }
 
 }

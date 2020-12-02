@@ -13,20 +13,22 @@ public class SlaveCard extends MarketCard {
     private final Integer attack;
     private final Integer defence;
     private final Integer speed;
+    private final boolean starting;
     private final List<Action> actions;
 
     public SlaveCard(String id, String titleKey, String title, String descriptionKey, String description, Integer price,
-                     Integer attack, Integer defence, Integer speed, List<Action> actions) {
+                     Integer attack, Integer defence, Integer speed, boolean starting, List<Action> actions) {
         super(id, titleKey, title, descriptionKey, description, price);
         this.attack = attack;
         this.defence = defence;
         this.speed = speed;
+        this.starting = starting;
         this.actions = actions;
     }
 
     public static SlaveCard of(String titleKey, String descriptionKey, Integer price, Integer attack, Integer defence,
-                               Integer speed, List<Action> actions) {
-        return new SlaveCard(null, titleKey, null, descriptionKey, null, price, attack, defence, speed, actions);
+                               Integer speed, boolean starting, List<Action> actions) {
+        return new SlaveCard(null, titleKey, null, descriptionKey, null, price, attack, defence, speed, starting, actions);
     }
 
     public static SlaveCard of(SlaveCard slaveCard, String title, String description){
@@ -40,6 +42,7 @@ public class SlaveCard extends MarketCard {
                 slaveCard.getAttack(),
                 slaveCard.getDefence(),
                 slaveCard.getSpeed(),
+                slaveCard.isStarting(),
                 slaveCard.getActions());
     }
 
@@ -55,6 +58,8 @@ public class SlaveCard extends MarketCard {
         return speed;
     }
 
+    public boolean isStarting(){return starting;}
+
     public List<Action> getActions() {
         return actions;
     }
@@ -68,12 +73,13 @@ public class SlaveCard extends MarketCard {
         return Objects.equals(attack, slaveCard.attack) &&
                 Objects.equals(defence, slaveCard.defence) &&
                 Objects.equals(speed, slaveCard.speed) &&
+                Objects.equals(starting, slaveCard.starting) &&
                 Objects.equals(actions, slaveCard.actions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), attack, defence, speed, actions);
+        return Objects.hash(super.hashCode(), attack, defence, speed, starting, actions);
     }
 
     @Override
@@ -82,6 +88,7 @@ public class SlaveCard extends MarketCard {
                 "attack=" + attack +
                 ", defence=" + defence +
                 ", speed=" + speed +
+                ", starting=" + starting +
                 ", actions=" + actions +
                 "} " + super.toString();
     }
