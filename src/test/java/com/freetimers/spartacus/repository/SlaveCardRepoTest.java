@@ -1,7 +1,6 @@
 package com.freetimers.spartacus.repository;
 
 import com.freetimers.spartacus.gamebox.SlaveCard;
-import com.freetimers.spartacus.gamebox.action.StartingSlave;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,13 +75,13 @@ public class SlaveCardRepoTest {
         Locale.setDefault(Locale.US);
 
         SlaveCard debtor = SlaveCard.of("card.slaveCard.debtor.title", "card.slaveCard.debtor.description",
-                2, 1, 1, 1, true, Collections.singletonList(StartingSlave.getInstance()));
+                2, 1, 1, 1, true, Collections.emptyList());
 
         SlaveCard attendant = SlaveCard.of("card.slaveCard.attendant.title", "card.slaveCard.attendant.description",
-                2, 1, 1, 1, true, Collections.singletonList(StartingSlave.getInstance()));
+                2, 1, 1, 1, true, Collections.emptyList());
 
         SlaveCard convict = SlaveCard.of("card.slaveCard.convict.title", "card.slaveCard.convict.description",
-                2, 1, 1, 1, true, Collections.singletonList(StartingSlave.getInstance()));
+                2, 1, 1, 1, true, Collections.emptyList());
 
         //when
         SlaveCard debtorFromDB = slaveCardsRepo.save(debtor);
@@ -99,7 +98,7 @@ public class SlaveCardRepoTest {
         assertEquals(1, debtorFromDB.getAttack());
         assertEquals(1, debtorFromDB.getDefence());
         assertEquals(1, debtorFromDB.getSpeed());
-        Assertions.assertThat(debtorFromDB.getActions()).hasSize(1).contains(StartingSlave.getInstance());
+        assertEquals(true, debtorFromDB.isStarting());
 
         assertNotNull(attendantFromDB.getId());
         assertEquals("card.slaveCard.attendant.title", attendantFromDB.getTitleKey());
@@ -110,7 +109,7 @@ public class SlaveCardRepoTest {
         assertEquals(1, attendantFromDB.getAttack());
         assertEquals(1, attendantFromDB.getDefence());
         assertEquals(1, attendantFromDB.getSpeed());
-        Assertions.assertThat(attendantFromDB.getActions()).hasSize(1).contains(StartingSlave.getInstance());
+        assertEquals(true, attendantFromDB.isStarting());
 
         assertNotNull(convictFromDB.getId());
         assertEquals("card.slaveCard.convict.title", convictFromDB.getTitleKey());
@@ -121,7 +120,7 @@ public class SlaveCardRepoTest {
         assertEquals(1, convictFromDB.getAttack());
         assertEquals(1, convictFromDB.getDefence());
         assertEquals(1, convictFromDB.getSpeed());
-        Assertions.assertThat(convictFromDB.getActions()).hasSize(1).contains(StartingSlave.getInstance());
+        assertEquals(true, convictFromDB.isStarting());
     }
 
 }

@@ -110,7 +110,7 @@ package "com.freetimers.spartacus.game"{
       -IntrigueState intrigueState
       -Dominus source
       -Dominus support
-      -List<Actions> resolvedAction
+      -Set<Dominus> target
       -SchemeCard schemeCard
       -List<ReactionCard> reactions
       ~getters()
@@ -123,9 +123,9 @@ package "com.freetimers.spartacus.game"{
     ~class MarketPhase{
         -List<MarketCard> auction
         -MarketCard revealedMarkedCard
-        -List<Dominus, MarketCard> completedTrades
+        -Map<Dominus, MarketCard> completedTrades
         -List<Offer> offersMade
-        -Map<Dominus, goldCoins> stash
+        -Map<Dominus, Integer> stash
         ~makeOffer(Offer offer)
         ~void acceptOffer(Offer offer)
         ~void declineOffer(Offer offer)
@@ -169,10 +169,12 @@ package "com.freetimers.spartacus.game"{
 
     enum Phase{
         LOBBY
+        UPKEEP
         INTRIGUE
         MARKET
         ARENA
         AWARDS
+
     }
 }
 @enduml

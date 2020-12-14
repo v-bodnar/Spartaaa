@@ -11,21 +11,21 @@ public class ReactionCard extends IntrigueCard {
 
     public ReactionCard(String id, String titleKey, String title, String descriptionKey, String description,
                         Integer price, Integer requiredInfluence, RequiredInfluenceCondition requiredInfluenceCondition,
-                        List<Action> action) {
-        super(id, titleKey, title, descriptionKey, description, price, requiredInfluence, requiredInfluenceCondition, action);
+                        List<Action> actions) {
+        super(id, titleKey, title, descriptionKey, description, price, requiredInfluence, requiredInfluenceCondition, actions);
     }
 
     public static ReactionCard of(String titleKey, String descriptionKey,
                                   Integer price, Integer requiredInfluence, RequiredInfluenceCondition requiredInfluenceCondition,
-                                  List<Action> action) {
+                                  List<Action> actions) {
         return new ReactionCard(null, titleKey, null, descriptionKey, null, price, requiredInfluence,
-                requiredInfluenceCondition, action);
+                requiredInfluenceCondition, actions);
     }
 
     public static ReactionCard of(String titleKey, String descriptionKey,
-                                  Integer price, Integer requiredInfluence, List<Action> action) {
+                                  Integer price, Integer requiredInfluence, List<Action> actions) {
         return new ReactionCard(null, titleKey, null, descriptionKey, null, price, requiredInfluence,
-                RequiredInfluenceCondition.MORE_OR_EQUAL, action);
+                RequiredInfluenceCondition.MORE_OR_EQUAL, actions);
     }
 
     public static ReactionCard of(ReactionCard reactionCard, String title, String description) {
