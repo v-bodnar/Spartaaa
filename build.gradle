@@ -25,6 +25,8 @@ dependencies {
     }
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.18.1'
+    implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 
 }
 

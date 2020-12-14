@@ -43,4 +43,5 @@ public interface Game {
 
     void makeBet(Dominus source, int goldCoins);
 
+    void prepareNewGame ();
 }

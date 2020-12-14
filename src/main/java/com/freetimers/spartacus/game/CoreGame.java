@@ -4,6 +4,7 @@ import com.freetimers.spartacus.gamebox.*;
 
 import javax.swing.plaf.nimbus.State;
 import java.time.Instant;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 
@@ -15,11 +16,24 @@ public class CoreGame implements Game {
     private Deck<MarketCard> marketDeck;
     private Deck<IntrigueCard> intrigueDeck;
     private Phase gamePhase;
-    private State gameState;
+    private GameState gameState;
     private List<UpkeepPhase> upkeepPhase;
     private List<IntriguePhase> intriguePhase;
     private List<MarketPhase> marketPhase;
     private List<ArenaPhase> arenaPhase;
+
+    public CoreGame() {
+        startTime = Instant.now();
+        gamePhase = Phase.LOBBY;
+        gameState = GameState.NEW;
+        listDominus = new LinkedList<>();
+        marketDeck = new Deck<> (new LinkedList<>());// todo pass cards to deck
+        intrigueDeck = new Deck<>(new LinkedList<>());
+        upkeepPhase = new LinkedList<>();
+        intriguePhase = new LinkedList<>();
+        marketPhase = new LinkedList<>();
+        arenaPhase = new LinkedList<>();
+    }
 
     @Override
     public String getId() {
@@ -109,5 +123,11 @@ public class CoreGame implements Game {
     @Override
     public void makeBet(Dominus source, int goldCoins) {
 
+    }
+
+    @Override
+    public void prepareNewGame() {
+        marketDeck.shuffle();
+        intrigueDeck.shuffle();
     }
 }

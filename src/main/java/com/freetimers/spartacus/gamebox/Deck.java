@@ -2,10 +2,15 @@ package com.freetimers.spartacus.gamebox;
 
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 public class Deck<T extends Card> {
-    private final LinkedList<T> cardList = new LinkedList<>();
+    private final LinkedList<T> cardList;
+
+    public Deck(List<T> cards) {
+        cardList = new LinkedList<>(cards);
+    }
 
     public void shuffle() {
         Collections.shuffle(cardList);
