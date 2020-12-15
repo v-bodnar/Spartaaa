@@ -9,10 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Locale;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
+@SpringBootTest(properties = {
+        "spring.mongodb.embedded.storage.databaseDir=${user.home}/Freetimers/spartacus/testDB"
+})
 public class GameBoxServiceTest {
 
     @Autowired
@@ -24,19 +27,10 @@ public class GameBoxServiceTest {
     @Autowired
     public EquipmentCardsRepo equipmentCardsRepo;
 
-//    EquipmentCard shield = EquipmentCard.of("card.equipmentCard.shield.title", "card.equipmentCard.armor",
-//            1, EquipType.ARMOR);
-//            equipmentCardsRepo.save(shield);
-
-
     @Test
-    public void shieldCardCreatedTest (){
-
-        Locale.setDefault(Locale.US);
-
+    public void shieldCardCreatedTest() {
         //given
-        EquipmentCard shield = EquipmentCard.of("card.equipmentCard.shield.title", "card.equipmentCard.armor",
-                1, EquipType.ARMOR);
+        Locale.setDefault(Locale.US);
 
         //when
         Optional<EquipmentCard> shieldFromDB = equipmentCardsRepo.findFirstByTitleKey("card.equipmentCard.shield.title");
@@ -50,5 +44,43 @@ public class GameBoxServiceTest {
         assertEquals("Exhaust: Ignore 1 wound", shieldFromDB.get().getDescription());
         assertEquals(1, shieldFromDB.get().getPrice());
         assertEquals(EquipType.ARMOR, shieldFromDB.get().getType());
+    }
+
+    @Test
+    public void axeSaveTest() {
+        //given
+        Locale.setDefault(Locale.US);
+
+        //when
+        Optional<EquipmentCard> axeFromDB = equipmentCardsRepo.findFirstByTitleKey("card.equipmentCard.axe.title");
+
+        //then
+        assertTrue(axeFromDB.isPresent());
+        assertNotNull(axeFromDB.get().getId());
+        assertEquals("card.equipmentCard.axe.title", axeFromDB.get().getTitleKey());
+        assertEquals("Axe", axeFromDB.get().getTitle());
+        assertEquals("card.equipmentCard.axe.description", axeFromDB.get().getDescriptionKey());
+        assertEquals("Exhaust: Deal 1 wound after resolving attack", axeFromDB.get().getDescription());
+        assertEquals(1, axeFromDB.get().getPrice());
+        assertEquals(EquipType.WEAPON, axeFromDB.get().getType());
+    }
+
+    @Test
+    public void netSaveTest() {
+        //given
+        Locale.setDefault(Locale.US);
+
+        //when
+        Optional<EquipmentCard> netFromDB = equipmentCardsRepo.findFirstByTitleKey("card.equipmentCard.net.title");
+
+        //then
+        assertTrue(netFromDB.isPresent());
+        assertNotNull(netFromDB.get().getId());
+        assertEquals("card.equipmentCard.net.title", netFromDB.get().getTitleKey());
+        assertEquals("Net", netFromDB.get().getTitle());
+        assertEquals("card.equipmentCard.net.description", netFromDB.get().getDescriptionKey());
+        assertEquals("Exhaust: Win initiative. Use before rolling", netFromDB.get().getDescription());
+        assertEquals(1, netFromDB.get().getPrice());
+        assertEquals(EquipType.SPECIAL, netFromDB.get().getType());
     }
 }

@@ -1,44 +1,48 @@
 package com.freetimers.spartacus.dto;
 
+import com.freetimers.spartacus.game.GameState;
 import com.freetimers.spartacus.game.Phase;
-import com.freetimers.spartacus.game.*;
-import com.freetimers.spartacus.gamebox.*;
 
-import javax.swing.plaf.nimbus.State;
 import java.time.Instant;
 import java.util.List;
-import java.util.Objects;
 
 public class CoreGameDto {
-
+    private final String id;
+    private final String password;
     private final Instant startTime;
     private final Instant finishedTime;
     private final List<DominusDto> listDominus;
-    private final Deck<MarketCard> marketDeck;
-    private final Deck<IntrigueCard> intrigueDeck;
     private final Phase gamePhase;
-    private final State gameState;
-    private final List<UpkeepPhase> upkeepPhase;
-    private final List<IntriguePhase> intriguePhase;
-    private final List<MarketPhase> marketPhase;
-    private final List<ArenaPhase> arenaPhase;
+    private final GameState gameState;
+    private final List<UpkeepPhaseDto> upkeepPhase;
+    private final List<IntriguePhaseDto> intriguePhase;
+    private final List<MarketPhaseDto> marketPhase;
+    private final List<ArenaPhaseDto> arenaPhase;
 
 
-    public CoreGameDto(Instant startTime, Instant finishedTime, List<DominusDto> listDominus,
-                       Deck<MarketCard> marketDeck, Deck<IntrigueCard> intrigueDeck, Phase gamePhase,
-                       State gameState, List<UpkeepPhase> upkeepPhase, List<IntriguePhase> intriguePhase,
-                       List<MarketPhase> marketPhase, List<ArenaPhase> arenaPhase) {
+    public CoreGameDto(String id, String password, Instant startTime, Instant finishedTime, List<DominusDto> listDominus,
+                       Phase gamePhase, GameState gameState, List<UpkeepPhaseDto> upkeepPhase,
+                       List<IntriguePhaseDto> intriguePhase, List<MarketPhaseDto> marketPhase,
+                       List<ArenaPhaseDto> arenaPhase) {
+        this.id = id;
+        this.password = password;
         this.startTime = startTime;
         this.finishedTime = finishedTime;
         this.listDominus = listDominus;
-        this.marketDeck = marketDeck;
-        this.intrigueDeck = intrigueDeck;
         this.gamePhase = gamePhase;
         this.gameState = gameState;
         this.upkeepPhase = upkeepPhase;
         this.intriguePhase = intriguePhase;
         this.marketPhase = marketPhase;
         this.arenaPhase = arenaPhase;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public Instant getStartTime() {
@@ -53,77 +57,27 @@ public class CoreGameDto {
         return listDominus;
     }
 
-    public Deck<MarketCard> getMarketDeck() {
-        return marketDeck;
-    }
-
-    public Deck<IntrigueCard> getIntrigueDeck() {
-        return intrigueDeck;
-    }
-
     public Phase getGamePhase() {
         return gamePhase;
     }
 
-    public State getGameState() {
+    public GameState getGameState() {
         return gameState;
     }
 
-    public List<UpkeepPhase> getUpkeepPhase() {
+    public List<UpkeepPhaseDto> getUpkeepPhase() {
         return upkeepPhase;
     }
 
-    public List<IntriguePhase> getIntriguePhase() {
+    public List<IntriguePhaseDto> getIntriguePhase() {
         return intriguePhase;
     }
 
-    public List<MarketPhase> getMarketPhase() {
+    public List<MarketPhaseDto> getMarketPhase() {
         return marketPhase;
     }
 
-    public List<ArenaPhase> getArenaPhase() {
+    public List<ArenaPhaseDto> getArenaPhase() {
         return arenaPhase;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CoreGameDto that = (CoreGameDto) o;
-        return Objects.equals(startTime, that.startTime) &&
-                Objects.equals(finishedTime, that.finishedTime) &&
-                Objects.equals(listDominus, that.listDominus) &&
-                Objects.equals(marketDeck, that.marketDeck) &&
-                Objects.equals(intrigueDeck, that.intrigueDeck) &&
-                gamePhase == that.gamePhase &&
-                Objects.equals(gameState, that.gameState) &&
-                Objects.equals(upkeepPhase, that.upkeepPhase) &&
-                Objects.equals(intriguePhase, that.intriguePhase) &&
-                Objects.equals(marketPhase, that.marketPhase) &&
-                Objects.equals(arenaPhase, that.arenaPhase);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(startTime, finishedTime, listDominus, marketDeck, intrigueDeck, gamePhase, gameState,
-                upkeepPhase, intriguePhase, marketPhase, arenaPhase);
-    }
-
-    @Override
-    public String toString() {
-        return "CoreGameDto{" +
-                "startTime=" + startTime +
-                ", finishedTime=" + finishedTime +
-                ", listDominus=" + listDominus +
-                ", marketDeck=" + marketDeck +
-                ", intrigueDeck=" + intrigueDeck +
-                ", gamePhase=" + gamePhase +
-                ", gameState=" + gameState +
-                ", upkeepPhase=" + upkeepPhase +
-                ", intriguePhase=" + intriguePhase +
-                ", marketPhase=" + marketPhase +
-                ", arenaPhase=" + arenaPhase +
-                '}';
-    }
-
 }

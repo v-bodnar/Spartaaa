@@ -5,8 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class Deck<T extends Card> {
+public class Deck<T> {
     private final LinkedList<T> cardList;
+
+    public Deck() {
+        this(new LinkedList<>());
+    }
 
     public Deck(List<T> cards) {
         cardList = new LinkedList<>(cards);
@@ -23,7 +27,8 @@ public class Deck<T extends Card> {
     public Optional<T> getTop() {
         return Optional.ofNullable(cardList.pollLast());
     }
-    public Optional<T> getBottom(){
+
+    public Optional<T> getBottom() {
         return Optional.ofNullable(cardList.pollFirst());
     }
 }

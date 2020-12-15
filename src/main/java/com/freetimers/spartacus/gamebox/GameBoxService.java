@@ -164,49 +164,4 @@ public class GameBoxService {
         this.equipmentCardsRepo.deleteAll();
         this.dominusBoardRepo.deleteAll();
     }
-
-    @Test
-    void equipSaveTest() {
-        //given
-        Locale.setDefault(Locale.US);
-        EquipmentCard axe = EquipmentCard.of("card.equipmentCard.axe.title",
-                "card.equipmentCard.axe.description", 2, EquipType.WEAPON);
-
-        EquipmentCard shield = EquipmentCard.of("card.equipmentCard.shield.title",
-                "card.equipmentCard.shield.description", 2, EquipType.ARMOR);
-
-        EquipmentCard net = EquipmentCard.of("card.equipmentCard.net.title",
-                "card.equipmentCard.net.description", 2, EquipType.SPECIAL);
-
-        //when
-
-
-        //then
-        assertEquals(3, equipmentCardsRepo.findAll().size());
-
-        assertNotNull(axe.getId());
-        assertEquals("card.equipmentCard.axe.title", axe.getTitleKey());
-        assertEquals("Axe.", axe.getTitle());
-        assertEquals("card.equipmentCard.axe.description", axe.getDescriptionKey());
-        assertEquals("Exhaust: Deal 1 wound after resolving attack.", axe.getDescription());
-        assertEquals(2, axe.getPrice());
-        assertEquals(EquipType.WEAPON, axe.getType());
-
-        assertNotNull(shield.getId());
-        assertEquals("card.equipmentCard.shield.title", shield.getTitleKey());
-        assertEquals("Shield.", shield.getTitle());
-        assertEquals("card.equipmentCard.shield.description", shield.getDescriptionKey());
-        assertEquals("Exhaust: Ignore 1 wound.", shield.getDescription());
-        assertEquals(2, shield.getPrice());
-        assertEquals(EquipType.ARMOR, shield.getType());
-
-        assertNotNull(net.getId());
-        assertEquals("card.equipmentCard.net.title", net.getTitleKey());
-        assertEquals("Net.", net.getTitle());
-        assertEquals("card.equipmentCard.net.description", net.getDescriptionKey());
-        assertEquals("Exhaust: Win initiative. Use before rolling.", net.getDescription());
-        assertEquals(2, net.getPrice());
-        assertEquals(EquipType.SPECIAL, net.getType());
-    }
-
 }

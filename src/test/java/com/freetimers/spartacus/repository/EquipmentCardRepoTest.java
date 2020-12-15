@@ -89,25 +89,25 @@ public class EquipmentCardRepoTest {
 
         assertNotNull(axeFromDB.getId());
         assertEquals("card.equipmentCard.axe.title", axeFromDB.getTitleKey());
-        assertEquals("Axe.", axeFromDB.getTitle());
+        assertEquals("Axe", axeFromDB.getTitle());
         assertEquals("card.equipmentCard.axe.description", axeFromDB.getDescriptionKey());
-        assertEquals("Exhaust: Deal 1 wound after resolving attack.", axeFromDB.getDescription());
+        assertEquals("Exhaust: Deal 1 wound after resolving attack", axeFromDB.getDescription());
         assertEquals(2, axeFromDB.getPrice());
         assertEquals(EquipType.WEAPON, axeFromDB.getType());
 
         assertNotNull(shieldFromDB.getId());
         assertEquals("card.equipmentCard.shield.title", shieldFromDB.getTitleKey());
-        assertEquals("Shield.", shieldFromDB.getTitle());
+        assertEquals("Shield", shieldFromDB.getTitle());
         assertEquals("card.equipmentCard.shield.description", shieldFromDB.getDescriptionKey());
-        assertEquals("Exhaust: Ignore 1 wound.", shieldFromDB.getDescription());
+        assertEquals("Exhaust: Ignore 1 wound", shieldFromDB.getDescription());
         assertEquals(2, shieldFromDB.getPrice());
         assertEquals(EquipType.ARMOR, shieldFromDB.getType());
 
         assertNotNull(netFromDB.getId());
         assertEquals("card.equipmentCard.net.title", netFromDB.getTitleKey());
-        assertEquals("Net.", netFromDB.getTitle());
+        assertEquals("Net", netFromDB.getTitle());
         assertEquals("card.equipmentCard.net.description", netFromDB.getDescriptionKey());
-        assertEquals("Exhaust: Win initiative. Use before rolling.", netFromDB.getDescription());
+        assertEquals("Exhaust: Win initiative. Use before rolling", netFromDB.getDescription());
         assertEquals(2, netFromDB.getPrice());
         assertEquals(EquipType.SPECIAL, netFromDB.getType());
     }

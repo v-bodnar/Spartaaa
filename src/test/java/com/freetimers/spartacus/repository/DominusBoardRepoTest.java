@@ -113,7 +113,7 @@ public class DominusBoardRepoTest {
         assertEquals(Optional.of("BATIATUS"), BatiatusFromDB.getTitle());
         assertEquals("card.dominusBoard.batiatus.description", BatiatusFromDB.getDescriptionKey());
         assertEquals(Optional.of("Exhibition match: Exhaust 2 Gladiators to gain 2 gold. Fodder for the primus: " +
-                "Discard 3 Gladiators to gain +1 Influence."), BatiatusFromDB.getDescription());
+                "Discard 3 Gladiators to gain +1 Influence"), BatiatusFromDB.getDescription());
         assertEquals(10 , BatiatusFromDB.getStartingGold());
         assertEquals(3, BatiatusFromDB.getStartingGladiators());
         assertEquals(1, BatiatusFromDB.getStartingSlaves());
@@ -123,7 +123,7 @@ public class DominusBoardRepoTest {
         assertEquals(Optional.of("GLABER"), GlaberFromDB.getTitle());
         assertEquals("card.dominusBoard.glaber.description", GlaberFromDB.getDescriptionKey());
         assertEquals(Optional.of("Legionnaire patrol: Exhaust 3 Guards, draw +1 Intrigue card." +
-                " Dispatch to Rome: Discard 3 Guards to gain + 1 Influence."), GlaberFromDB.getDescription());
+                " Dispatch to Rome: Discard 3 Guards to gain + 1 Influence"), GlaberFromDB.getDescription());
         assertEquals(10 , GlaberFromDB.getStartingGold());
         assertEquals(1, GlaberFromDB.getStartingGladiators());
         assertEquals(2, GlaberFromDB.getStartingSlaves());
@@ -133,7 +133,7 @@ public class DominusBoardRepoTest {
         assertEquals(Optional.of("TULLIUS"), TulliusFromDB.getTitle());
         assertEquals("card.dominusBoard.tullius.description", TulliusFromDB.getDescriptionKey());
         assertEquals(Optional.of("Duplicitous dealings: Exhaust 3 Slaves, discard up to 3 cards, replace with" +
-                " new cards. To the mines: Discard 3 Slaves to gain +1 Influence."), TulliusFromDB.getDescription());
+                " new cards. To the mines: Discard 3 Slaves to gain +1 Influence"), TulliusFromDB.getDescription());
         assertEquals(9 , TulliusFromDB.getStartingGold());
         assertEquals(2, TulliusFromDB.getStartingGladiators());
         assertEquals(3, TulliusFromDB.getStartingSlaves());
@@ -143,7 +143,7 @@ public class DominusBoardRepoTest {
         assertEquals(Optional.of("SOLONIUS"), SoloniusFromDB.getTitle());
         assertEquals("card.dominusBoard.solonius.description", SoloniusFromDB.getDescriptionKey());
         assertEquals(Optional.of("Bribes and pandering: Pay X gold to reduce any Scheme`s required Influence" +
-                " by X. A finger in every  pie: Discard 1 Gladiator, 1 Slave and 1 Guard to gain +1 Influence."),
+                " by X. A finger in every  pie: Discard 1 Gladiator, 1 Slave and 1 Guard to gain +1 Influence"),
                 SoloniusFromDB.getDescription());
         assertEquals(12 , SoloniusFromDB.getStartingGold());
         assertEquals(2, SoloniusFromDB.getStartingGladiators());

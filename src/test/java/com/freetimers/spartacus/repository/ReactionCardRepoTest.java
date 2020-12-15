@@ -82,9 +82,9 @@ public class ReactionCardRepoTest {
 
         assertNotNull(riggingTheMatchFromDb.getId());
         assertEquals("card.reactionCard.riggingTheMatch.title", riggingTheMatchFromDb.getTitleKey());
-        assertEquals("Rigging the match.", riggingTheMatchFromDb.getTitle());
+        assertEquals("Rigging the match", riggingTheMatchFromDb.getTitle());
         assertEquals("card.reactionCard.riggingTheMatch.description", riggingTheMatchFromDb.getDescriptionKey());
-        assertEquals("Play after all wagers are final. Change which Gladiator an invited Dominus has chosen.", riggingTheMatchFromDb.getDescription());
+        assertEquals("Play after all wagers are final. Change which Gladiator an invited Dominus has chosen", riggingTheMatchFromDb.getDescription());
         assertEquals(2, riggingTheMatchFromDb.getPrice());
         assertEquals(0, riggingTheMatchFromDb.getRequiredInfluence());
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, riggingTheMatchFromDb.getRequiredInfluenceCondition());
@@ -94,9 +94,9 @@ public class ReactionCardRepoTest {
 
         assertNotNull(supportFromRomeFromDB.getId());
         assertEquals("card.reactionCard.supportFromRome.title", supportFromRomeFromDB.getTitleKey());
-        assertEquals("Support from Rome.", supportFromRomeFromDB.getTitle());
+        assertEquals("Support from Rome", supportFromRomeFromDB.getTitle());
         assertEquals("card.reactionCard.supportFromRome.description", supportFromRomeFromDB.getDescriptionKey());
-        assertEquals("Foil a Scheme. You may retrieve a Guard card from the discard pile.", supportFromRomeFromDB.getDescription());
+        assertEquals("Foil a Scheme. You may retrieve a Guard card from the discard pile", supportFromRomeFromDB.getDescription());
         assertEquals(3, supportFromRomeFromDB.getPrice());
         assertEquals(8, supportFromRomeFromDB.getRequiredInfluence());
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, supportFromRomeFromDB.getRequiredInfluenceCondition());
@@ -106,9 +106,9 @@ public class ReactionCardRepoTest {
 
         assertNotNull(aShamefulLudusFromDB.getId());
         assertEquals("card.reactionCard.aShamefulLudus.title", aShamefulLudusFromDB.getTitleKey());
-        assertEquals("A shameful ludus.", aShamefulLudusFromDB.getTitle());
+        assertEquals("A shameful ludus", aShamefulLudusFromDB.getTitle());
         assertEquals("card.reactionCard.aShamefulLudus.description", aShamefulLudusFromDB.getDescriptionKey());
-        assertEquals("-1 Influence to target Dominus with no ready Gladiators. May not be played in the Arena Phase.", aShamefulLudusFromDB.getDescription());
+        assertEquals("-1 Influence to target Dominus with no ready Gladiators. May not be played in the Arena Phase", aShamefulLudusFromDB.getDescription());
         assertEquals(2, aShamefulLudusFromDB.getPrice());
         assertEquals(0, aShamefulLudusFromDB.getRequiredInfluence());
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, aShamefulLudusFromDB.getRequiredInfluenceCondition());

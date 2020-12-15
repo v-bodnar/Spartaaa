@@ -97,9 +97,9 @@ public class GladiatorCardRepoTest {
         //then
         assertNotNull(syrianWarriorFromDB.getId());
         assertEquals("card.gladiatorCard.syrianWarrior.title", syrianWarriorFromDB.getTitleKey());
-        assertEquals("Syrian warrior.", syrianWarriorFromDB.getTitle());
+        assertEquals("Syrian warrior", syrianWarriorFromDB.getTitle());
         assertEquals("card.gladiatorCard.syrianWarrior.description", syrianWarriorFromDB.getDescriptionKey());
-        assertEquals("Starting Gladiator.", syrianWarriorFromDB.getDescription());
+        assertEquals("Starting Gladiator", syrianWarriorFromDB.getDescription());
         assertEquals(2, syrianWarriorFromDB.getPrice());
         assertEquals(2, syrianWarriorFromDB.getAttack());
         assertEquals(2, syrianWarriorFromDB.getDefence());
@@ -108,9 +108,9 @@ public class GladiatorCardRepoTest {
 
         assertNotNull(thracianWarriorFromDB.getId());
         assertEquals("card.gladiatorCard.thracianWarrior.title", thracianWarriorFromDB.getTitleKey());
-        assertEquals("Thracian warrior.", thracianWarriorFromDB.getTitle());
+        assertEquals("Thracian warrior", thracianWarriorFromDB.getTitle());
         assertEquals("card.gladiatorCard.thracianWarrior.description", thracianWarriorFromDB.getDescriptionKey());
-        assertEquals("Starting Gladiator.", thracianWarriorFromDB.getDescription());
+        assertEquals("Starting Gladiator", thracianWarriorFromDB.getDescription());
         assertEquals(2, thracianWarriorFromDB.getPrice());
         assertEquals(3, thracianWarriorFromDB.getAttack());
         assertEquals(2, thracianWarriorFromDB.getDefence());
@@ -119,9 +119,9 @@ public class GladiatorCardRepoTest {
 
         assertNotNull(numidianWarriorFromDB.getId());
         assertEquals("card.gladiatorCard.numidianWarrior.title", numidianWarriorFromDB.getTitleKey());
-        assertEquals("Numidian warrior.", numidianWarriorFromDB.getTitle());
+        assertEquals("Numidian warrior", numidianWarriorFromDB.getTitle());
         assertEquals("card.gladiatorCard.numidianWarrior.description", numidianWarriorFromDB.getDescriptionKey());
-        assertEquals("Starting Gladiator.", numidianWarriorFromDB.getDescription());
+        assertEquals("Starting Gladiator", numidianWarriorFromDB.getDescription());
         assertEquals(2, numidianWarriorFromDB.getPrice());
         assertEquals(3, numidianWarriorFromDB.getAttack());
         assertEquals(1, numidianWarriorFromDB.getDefence());

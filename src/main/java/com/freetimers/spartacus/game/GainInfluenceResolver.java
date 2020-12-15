@@ -2,7 +2,7 @@ package com.freetimers.spartacus.game;
 
 import com.freetimers.spartacus.gamebox.action.Action;
 
-public class GainInfluenceResolver implements Resolver {
+class GainInfluenceResolver implements Resolver {
 
     @Override
     public boolean checkConditions(Action action, Intrigue intrigue) {

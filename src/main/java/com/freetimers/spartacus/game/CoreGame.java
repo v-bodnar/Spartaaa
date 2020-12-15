@@ -1,15 +1,18 @@
 package com.freetimers.spartacus.game;
 
 import com.freetimers.spartacus.gamebox.*;
+import org.springframework.data.annotation.Id;
 
-import javax.swing.plaf.nimbus.State;
 import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 
 public class CoreGame implements Game {
-
+    @Id
+    private String id;
+    private String password;
     private Instant startTime;
     private Instant finishedTime;
     private List<Dominus> listDominus;
@@ -22,22 +25,23 @@ public class CoreGame implements Game {
     private List<MarketPhase> marketPhase;
     private List<ArenaPhase> arenaPhase;
 
-    public CoreGame() {
-        startTime = Instant.now();
-        gamePhase = Phase.LOBBY;
-        gameState = GameState.NEW;
-        listDominus = new LinkedList<>();
-        marketDeck = new Deck<> (new LinkedList<>());// todo pass cards to deck
-        intrigueDeck = new Deck<>(new LinkedList<>());
-        upkeepPhase = new LinkedList<>();
-        intriguePhase = new LinkedList<>();
-        marketPhase = new LinkedList<>();
-        arenaPhase = new LinkedList<>();
+    public CoreGame(Deck<MarketCard> marketDeck, Deck<IntrigueCard> intrigueDeck) {
+        this.startTime = Instant.now();
+        this.gamePhase = Phase.LOBBY;
+        this.gameState = GameState.NEW;
+        this.marketDeck = marketDeck;
+        this.intrigueDeck = intrigueDeck;
+        this.listDominus = new LinkedList<>();
+        this.upkeepPhase = new LinkedList<>();
+        this.intriguePhase = new LinkedList<>();
+        this.marketPhase = new LinkedList<>();
+        this.arenaPhase = new LinkedList<>();
+        this.password = UUID.randomUUID().toString();
     }
 
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 
     @Override
@@ -129,5 +133,45 @@ public class CoreGame implements Game {
     public void prepareNewGame() {
         marketDeck.shuffle();
         intrigueDeck.shuffle();
+    }
+
+    public Instant getStartTime() {
+        return startTime;
+    }
+
+    public Instant getFinishedTime() {
+        return finishedTime;
+    }
+
+    public List<Dominus> getListDominus() {
+        return listDominus;
+    }
+
+    public Phase getGamePhase() {
+        return gamePhase;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public List<UpkeepPhase> getUpkeepPhase() {
+        return upkeepPhase;
+    }
+
+    public List<IntriguePhase> getIntriguePhase() {
+        return intriguePhase;
+    }
+
+    public List<MarketPhase> getMarketPhase() {
+        return marketPhase;
+    }
+
+    public List<ArenaPhase> getArenaPhase() {
+        return arenaPhase;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

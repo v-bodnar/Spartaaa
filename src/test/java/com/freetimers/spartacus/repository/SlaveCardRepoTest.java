@@ -91,9 +91,9 @@ public class SlaveCardRepoTest {
         //
         assertNotNull(debtorFromDB.getId());
         assertEquals("card.slaveCard.debtor.title", debtorFromDB.getTitleKey());
-        assertEquals("Debtor.", debtorFromDB.getTitle());
+        assertEquals("Debtor", debtorFromDB.getTitle());
         assertEquals("card.slaveCard.debtor.description", debtorFromDB.getDescriptionKey());
-        assertEquals("Starting Slave.", debtorFromDB.getDescription());
+        assertEquals("Starting Slave", debtorFromDB.getDescription());
         assertEquals(2, debtorFromDB.getPrice());
         assertEquals(1, debtorFromDB.getAttack());
         assertEquals(1, debtorFromDB.getDefence());
@@ -102,9 +102,9 @@ public class SlaveCardRepoTest {
 
         assertNotNull(attendantFromDB.getId());
         assertEquals("card.slaveCard.attendant.title", attendantFromDB.getTitleKey());
-        assertEquals("Attendant.", attendantFromDB.getTitle());
+        assertEquals("Attendant", attendantFromDB.getTitle());
         assertEquals("card.slaveCard.attendant.description", attendantFromDB.getDescriptionKey());
-        assertEquals("Starting Slave.", attendantFromDB.getDescription());
+        assertEquals("Starting Slave", attendantFromDB.getDescription());
         assertEquals(2, attendantFromDB.getPrice());
         assertEquals(1, attendantFromDB.getAttack());
         assertEquals(1, attendantFromDB.getDefence());
@@ -113,9 +113,9 @@ public class SlaveCardRepoTest {
 
         assertNotNull(convictFromDB.getId());
         assertEquals("card.slaveCard.convict.title", convictFromDB.getTitleKey());
-        assertEquals("Convict.", convictFromDB.getTitle());
+        assertEquals("Convict", convictFromDB.getTitle());
         assertEquals("card.slaveCard.convict.description", convictFromDB.getDescriptionKey());
-        assertEquals("Starting Slave.", convictFromDB.getDescription());
+        assertEquals("Starting Slave", convictFromDB.getDescription());
         assertEquals(2, convictFromDB.getPrice());
         assertEquals(1, convictFromDB.getAttack());
         assertEquals(1, convictFromDB.getDefence());
