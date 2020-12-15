@@ -1,4 +1,4 @@
-package com.freetimers.spartacus.gamebox;
+package com.freetimers.spartacus.game;
 
 public enum Phase {
     LOBBY,

@@ -1,7 +1,5 @@
 package com.freetimers.spartacus.gamebox;
 
-import com.freetimers.spartacus.gamebox.action.SwitchGladiatorAction;
-import com.freetimers.spartacus.repository.EquipmentCardRepoTest;
 import com.freetimers.spartacus.repository.EquipmentCardsRepo;
 import com.freetimers.spartacus.repository.GladiatorCardsRepo;
 import org.junit.jupiter.api.Test;

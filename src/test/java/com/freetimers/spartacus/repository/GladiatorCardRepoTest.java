@@ -1,8 +1,6 @@
 package com.freetimers.spartacus.repository;
 
 import com.freetimers.spartacus.gamebox.GladiatorCard;
-import com.freetimers.spartacus.gamebox.action.InfluenceForExhaustGladAction;
-import com.freetimers.spartacus.gamebox.action.StartingGladiators;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -57,13 +55,13 @@ public class GladiatorCardRepoTest {
         //given
         GladiatorCard syrrianWarrior = GladiatorCard.of("card.gladiator.syrianWarrior.title",
                 "card.gladiator.syrianWarrior.description", 2, 2, 2, 3, true,
-                Collections.singletonList(StartingGladiators.getInstance()));
+                Collections.emptyList());
         GladiatorCard thracianWarrior = GladiatorCard.of("card.gladiator.thracianWarrior.title",
                 "card.gladiator.thracianWarrior.description", 2, 3, 2, 2, true,
-                Collections.singletonList(StartingGladiators.getInstance()));
+                Collections.emptyList());
         GladiatorCard numidianWarrior = GladiatorCard.of("card.gladiator.numidianWarrior.title",
                 "card.gladiator.numidianWarrior.description", 2, 3, 1, 3, true,
-                Collections.singletonList(StartingGladiators.getInstance()));
+                Collections.emptyList());
 
         // when
         gladiatorCardsRepo.save(syrrianWarrior);
@@ -81,15 +79,15 @@ public class GladiatorCardRepoTest {
 
         GladiatorCard syrianWarrior = GladiatorCard.of("card.gladiatorCard.syrianWarrior.title",
                 "card.gladiatorCard.syrianWarrior.description", 2, 2, 2, 3, true,
-                Collections.singletonList(StartingGladiators.getInstance()));
+                Collections.emptyList());
 
         GladiatorCard thracianWarrior = GladiatorCard.of("card.gladiatorCard.thracianWarrior.title",
                 "card.gladiatorCard.thracianWarrior.description", 2, 3, 2, 2, true,
-                Collections.singletonList(StartingGladiators.getInstance()));
+                Collections.emptyList());
 
         GladiatorCard numidianWarrior = GladiatorCard.of("card.gladiatorCard.numidianWarrior.title",
                 "card.gladiatorCard.numidianWarrior.description", 2, 3, 1, 3, true,
-                Collections.singletonList(StartingGladiators.getInstance()));
+                Collections.emptyList());
 
         //when
         GladiatorCard syrianWarriorFromDB = gladiatorCardsRepo.save(syrianWarrior);
@@ -107,9 +105,6 @@ public class GladiatorCardRepoTest {
         assertEquals(2, syrianWarriorFromDB.getDefence());
         assertEquals(3, syrianWarriorFromDB.getSpeed());
         assertEquals(true, syrianWarriorFromDB.isStarting());
-        assertThat(syrianWarriorFromDB.getActions())
-                .hasSize(1)
-                .contains(StartingGladiators.getInstance());
 
         assertNotNull(thracianWarriorFromDB.getId());
         assertEquals("card.gladiatorCard.thracianWarrior.title", thracianWarriorFromDB.getTitleKey());
@@ -121,9 +116,6 @@ public class GladiatorCardRepoTest {
         assertEquals(2, thracianWarriorFromDB.getDefence());
         assertEquals(2, thracianWarriorFromDB.getSpeed());
         assertEquals(true, thracianWarriorFromDB.isStarting());
-        assertThat(thracianWarriorFromDB.getActions())
-                .hasSize(1)
-                .contains(StartingGladiators.getInstance());
 
         assertNotNull(numidianWarriorFromDB.getId());
         assertEquals("card.gladiatorCard.numidianWarrior.title", numidianWarriorFromDB.getTitleKey());
@@ -135,8 +127,6 @@ public class GladiatorCardRepoTest {
         assertEquals(1, numidianWarriorFromDB.getDefence());
         assertEquals(3, numidianWarriorFromDB.getSpeed());
         assertEquals(true, numidianWarriorFromDB.isStarting());
-        assertThat(numidianWarriorFromDB.getActions())
-                .hasSize(1)
-                .contains(StartingGladiators.getInstance());
+
     }
 }

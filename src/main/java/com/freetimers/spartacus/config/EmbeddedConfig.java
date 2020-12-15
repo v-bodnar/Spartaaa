@@ -1,5 +1,7 @@
 package com.freetimers.spartacus.config;
 
+import com.freetimers.spartacus.mongodb.ClassDocumentConverter;
+import com.freetimers.spartacus.mongodb.DocumentClassConverter;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.config.IMongodConfig;
@@ -16,13 +18,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
+import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -44,6 +50,14 @@ public class EmbeddedConfig extends EmbeddedMongoAutoConfiguration {
         super(properties, embeddedProperties);
         this.properties = properties;
         this.context = context;
+    }
+
+    @Bean
+    public MongoCustomConversions mongoCustomConversions() {
+        List<Converter<?, ?>> converterList = new ArrayList<>();
+        converterList.add(new DocumentClassConverter());
+        converterList.add(new ClassDocumentConverter());
+        return new MongoCustomConversions(converterList);
     }
 
     @Bean(initMethod = "start", destroyMethod = "stop")

@@ -58,15 +58,15 @@ public class SchemeCardRepoTest {
         SchemeCard setHandsToPurpose = SchemeCard.of("card.scheme.setHandToPurpose.title",
                 "card.scheme.setHandToPurpose.description", 2, 4,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(InfluenceForPeoplesAction.getInstance()));
+                Collections.singletonList(ActionFactory.INFLUENCE_FOR_ASSET_EXHAUSTED));
         SchemeCard testOfTheBrotherhood = SchemeCard.of("card.scheme.testOfTheBrotherhood.title",
                 "card.scheme.testOfTheBrotherhood.description", 2, 1,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(InfluenceForExhaustGladAction.getinstance()));
+                Collections.singletonList(ActionFactory.INFLUENCE_FOR_EXHAUST_GLAD));
         SchemeCard epicSpectacle = SchemeCard.of("card.scheme.epicSpectacle.title",
                 "card.scheme.epicSpectacle.description", 2, 0,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(DecreaseInInfluenceAction.getInstance()));
+                Collections.singletonList(ActionFactory.INFLUENCE_FOR_READY_GLADIATOR));
 
         // when
         schemeCardsRepo.save(setHandsToPurpose);
@@ -84,15 +84,15 @@ public class SchemeCardRepoTest {
         SchemeCard setHandsToPurpose = SchemeCard.of("card.schemeCard.setHandToPurpose.title",
                 "card.schemeCard.setHandToPurpose.description", 2, 4,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(InfluenceForPeoplesAction.getInstance()));
+                Collections.singletonList(ActionFactory.INFLUENCE_FOR_ASSET_EXHAUSTED));
         SchemeCard testOfTheBrotherhood = SchemeCard.of("card.schemeCard.testOfTheBrotherhood.title",
                 "card.schemeCard.testOfTheBrotherhood.description", 2, 1,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(InfluenceForExhaustGladAction.getinstance()));
+                Collections.singletonList(ActionFactory.INFLUENCE_FOR_EXHAUST_GLAD));
         SchemeCard epicSpectacle = SchemeCard.of("card.schemeCard.epicSpectacle.title",
                 "card.schemeCard.epicSpectacle.description", 2, 0,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(InfluenceForReadyGladAction.getInstance()));
+                Collections.singletonList(ActionFactory.INFLUENCE_FOR_READY_GLADIATOR));
 
         //when
         SchemeCard setHandsToPurposeFromDB = schemeCardsRepo.save(setHandsToPurpose);
@@ -112,7 +112,7 @@ public class SchemeCardRepoTest {
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, setHandsToPurposeFromDB.getRequiredInfluenceCondition());
         assertThat(setHandsToPurposeFromDB.getActions())
                 .hasSize(1)
-                .contains(InfluenceForPeoplesAction.getInstance());
+                .contains(ActionFactory.INFLUENCE_FOR_ASSET_EXHAUSTED);
 
         assertNotNull(testOfTheBrotherhoodFromDB.getId());
         assertEquals("card.schemeCard.testOfTheBrotherhood.title", testOfTheBrotherhoodFromDB.getTitleKey());
@@ -124,7 +124,7 @@ public class SchemeCardRepoTest {
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, testOfTheBrotherhoodFromDB.getRequiredInfluenceCondition());
         assertThat(testOfTheBrotherhoodFromDB.getActions())
                 .hasSize(1)
-                .contains(InfluenceForExhaustGladAction.getinstance());
+                .contains(ActionFactory.INFLUENCE_FOR_EXHAUST_GLAD);
 
         assertNotNull(epicSpectacleFromDB.getId());
         assertEquals("card.schemeCard.epicSpectacle.title", epicSpectacleFromDB.getTitleKey());
@@ -136,7 +136,7 @@ public class SchemeCardRepoTest {
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, epicSpectacleFromDB.getRequiredInfluenceCondition());
         assertThat(epicSpectacleFromDB.getActions())
                 .hasSize(1)
-                .contains(InfluenceForReadyGladAction.getInstance());
+                .contains(ActionFactory.INFLUENCE_FOR_READY_GLADIATOR);
     }
 }
 

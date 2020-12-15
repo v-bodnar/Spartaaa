@@ -1,13 +1,20 @@
 package com.freetimers.spartacus.gamebox;
 
-import com.freetimers.spartacus.gamebox.action.*;
+import com.freetimers.spartacus.gamebox.action.ActionFactory;
 import com.freetimers.spartacus.repository.*;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
+import static com.freetimers.spartacus.gamebox.action.ActionFactory.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 @Service
@@ -60,22 +67,23 @@ public class GameBoxService {
             dominusBoardRepo.save(Solonius);
 
             /////////////////////////////SCHEME/////////////////////////////
+
             SchemeCard testOfTheBrotherhood = SchemeCard.of("card.schemeCard.testOfTheBrotherhood.title",
                     "card.schemeCard.testOfTheBrotherhood.description", 2, 1,
                     IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                    Collections.singletonList(InfluenceForExhaustGladAction.getinstance()));
+                    Collections.singletonList(INFLUENCE_FOR_EXHAUST_GLAD));
             schemeCardsRepo.save(testOfTheBrotherhood);
 
             SchemeCard setHandToPurpose = SchemeCard.of("card.schemeCard.setHandToPurpose.title",
                     "card.schemeCard.setHandToPurpose.description", 2, 4,
                     IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                    Collections.singletonList(InfluenceForPeoplesAction.getInstance()));
+                    List.of(ActionFactory.INFLUENCE_FOR_ASSET_EXHAUSTED));
             schemeCardsRepo.save(setHandToPurpose);
 
             SchemeCard epicSpectacle = SchemeCard.of("card.schemeCard.epicSpectacle.title",
                     "card.schemeCard.epicSpectacle.description", 2, 0,
                     IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                    Collections.singletonList(InfluenceForReadyGladAction.getInstance()));
+                    Collections.singletonList(INFLUENCE_FOR_READY_GLADIATOR));
             schemeCardsRepo.save(epicSpectacle);
 
         }
@@ -83,62 +91,66 @@ public class GameBoxService {
             /////////////////////////////REACTION/////////////////////////////
             ReactionCard supportFromRome = ReactionCard.of("card.reactionCard.supportFromRome.title",
                     "card.reactionCard.supportFromRome.description", 3, 8,
-                    IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, Collections.singletonList(FailSchemeAction.getinstance()));
+                    IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                    Collections.singletonList(FAIL_SCHEME));
             reactionCardsRepo.save(supportFromRome);
 
             ReactionCard riggingTheMatch = ReactionCard.of("card.reactionCard.riggingTheMatch.title",
                     "card.reactionCard.riggingTheMatch.description", 2, 0,
-                    IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, Collections.singletonList(SwitchGladiatorAction.getInstance()));
+                    IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                    Collections.singletonList(SWITCH_GLADIATOR));
             reactionCardsRepo.save(riggingTheMatch);
 
             ReactionCard aShamefulLudus = ReactionCard.of("card.reactionCard.aShamefulLudus.title",
                     "card.reactionCard.aShamefulLudus.description", 2, 0,
-                    IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, Collections.singletonList(DecreaseInInfluenceAction.getInstance()));
+                    IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
+                    Collections.singletonList(DECREASE_INFLUENCE_GLAD));
             reactionCardsRepo.save(aShamefulLudus);
         }
+
         if (gladiatorCardsRepo.findAll().size() != 100) {
             /////////////////////////////GLADIATOR/////////////////////////////
             GladiatorCard syrianWarrior = GladiatorCard.of("card.gladiatorCard.syrianWarrior.title",
                     "card.gladiatorCard.syrianWarrior.description",
-                    2, 2, 2, 3, true, Collections.singletonList(StartingGladiators.getInstance()));
+                    2, 2, 2, 3, true, Collections.emptyList());
             gladiatorCardsRepo.save(syrianWarrior);
 
             GladiatorCard thracianWarrior = GladiatorCard.of("card.gladiatorCard.thracianWarrior.title",
                     "card.gladiatorCard.thracianWarrior.description",
-                    2, 3, 2, 2, true, Collections.singletonList(StartingGladiators.getInstance()));
+                    2, 3, 2, 2, true, Collections.emptyList());
             gladiatorCardsRepo.save(thracianWarrior);
 
             GladiatorCard numidianWarrior = GladiatorCard.of("card.gladiatorCard.numidianWarrior.title",
                     "card.gladiatorCard.numidianWarrior.description",
-                    2, 3, 1, 3, true, Collections.singletonList(StartingGladiators.getInstance()));
+                    2, 3, 1, 3, true, Collections.emptyList());
             gladiatorCardsRepo.save(numidianWarrior);
         }
         if (slaveCardsRepo.findAll().size() != 100) {
             /////////////////////////////SLAVE/////////////////////////////
             SlaveCard debtor = SlaveCard.of("card.slaveCard.debtor.title", "card.slaveCard.debtor.description",
-                    2, 1, 1, 1, true, Collections.singletonList(StartingSlave.getInstance()));
+                    2, 1, 1, 1, true, Collections.emptyList());
             slaveCardsRepo.save(debtor);
 
             SlaveCard attendant = SlaveCard.of("card.slaveCard.attendant.title", "card.slaveCard.attendant.description",
-                    2, 1, 1, 1, true, Collections.singletonList(StartingSlave.getInstance()));
+                    2, 1, 1, 1, true, Collections.emptyList());
             slaveCardsRepo.save(attendant);
 
             SlaveCard convict = SlaveCard.of("card.slaveCard.convict.title", "card.slaveCard.convict.description",
-                    2, 1, 1, 1, true, Collections.singletonList(StartingSlave.getInstance()));
+                    2, 1, 1, 1, true, Collections.emptyList());
             slaveCardsRepo.save(convict);
         }
         if (equipmentCardsRepo.findAll().size() != 100) {
             /////////////////////////////EQUIP/////////////////////////////
-            EquipmentCard shield = EquipmentCard.of("card.equipmentCard.armor.shield.title",
-                    "card.equipmentCard.armor.shield.description", 1, EquipType.ARMOR);
+            EquipmentCard shield = EquipmentCard.of("card.equipmentCard.shield.title",
+                    "card.equipmentCard.shield.description", 1, EquipType.ARMOR);
             equipmentCardsRepo.save(shield);
 
-            EquipmentCard axe = EquipmentCard.of("card.equipmentCard.axe.weapon.title",
-                    "card.equipmentCard.axe.weapon.description", 1, EquipType.WEAPON);
+            EquipmentCard axe = EquipmentCard.of("card.equipmentCard.axe.title",
+                    "card.equipmentCard.axe.description", 1, EquipType.WEAPON);
             equipmentCardsRepo.save(axe);
 
-            EquipmentCard net = EquipmentCard.of("card.equipmentCard.net.special.title",
-                    "card.equipmentCard.net.special.description", 1, EquipType.SPECIAL);
+            EquipmentCard net = EquipmentCard.of("card.equipmentCard.net.title",
+                    "card.equipmentCard.net.description", 1, EquipType.SPECIAL);
             equipmentCardsRepo.save(net);
         }
 
@@ -152,4 +164,49 @@ public class GameBoxService {
         this.equipmentCardsRepo.deleteAll();
         this.dominusBoardRepo.deleteAll();
     }
+
+    @Test
+    void equipSaveTest() {
+        //given
+        Locale.setDefault(Locale.US);
+        EquipmentCard axe = EquipmentCard.of("card.equipmentCard.axe.title",
+                "card.equipmentCard.axe.description", 2, EquipType.WEAPON);
+
+        EquipmentCard shield = EquipmentCard.of("card.equipmentCard.shield.title",
+                "card.equipmentCard.shield.description", 2, EquipType.ARMOR);
+
+        EquipmentCard net = EquipmentCard.of("card.equipmentCard.net.title",
+                "card.equipmentCard.net.description", 2, EquipType.SPECIAL);
+
+        //when
+
+
+        //then
+        assertEquals(3, equipmentCardsRepo.findAll().size());
+
+        assertNotNull(axe.getId());
+        assertEquals("card.equipmentCard.axe.title", axe.getTitleKey());
+        assertEquals("Axe.", axe.getTitle());
+        assertEquals("card.equipmentCard.axe.description", axe.getDescriptionKey());
+        assertEquals("Exhaust: Deal 1 wound after resolving attack.", axe.getDescription());
+        assertEquals(2, axe.getPrice());
+        assertEquals(EquipType.WEAPON, axe.getType());
+
+        assertNotNull(shield.getId());
+        assertEquals("card.equipmentCard.shield.title", shield.getTitleKey());
+        assertEquals("Shield.", shield.getTitle());
+        assertEquals("card.equipmentCard.shield.description", shield.getDescriptionKey());
+        assertEquals("Exhaust: Ignore 1 wound.", shield.getDescription());
+        assertEquals(2, shield.getPrice());
+        assertEquals(EquipType.ARMOR, shield.getType());
+
+        assertNotNull(net.getId());
+        assertEquals("card.equipmentCard.net.title", net.getTitleKey());
+        assertEquals("Net.", net.getTitle());
+        assertEquals("card.equipmentCard.net.description", net.getDescriptionKey());
+        assertEquals("Exhaust: Win initiative. Use before rolling.", net.getDescription());
+        assertEquals(2, net.getPrice());
+        assertEquals(EquipType.SPECIAL, net.getType());
+    }
+
 }

@@ -2,9 +2,7 @@ package com.freetimers.spartacus.repository;
 
 import com.freetimers.spartacus.gamebox.IntrigueCard;
 import com.freetimers.spartacus.gamebox.ReactionCard;
-import com.freetimers.spartacus.gamebox.action.DecreaseInInfluenceAction;
-import com.freetimers.spartacus.gamebox.action.FailSchemeAction;
-import com.freetimers.spartacus.gamebox.action.SwitchGladiatorAction;
+import com.freetimers.spartacus.gamebox.action.ActionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -56,23 +54,22 @@ public class ReactionCardRepoTest {
 
     @Test
     void reactionRepoSaveTest() {
-//        given
+        //given
         Locale.setDefault(Locale.US);
         ReactionCard riggingTheMatch = ReactionCard.of("card.reactionCard.riggingTheMatch.title",
                 "card.reactionCard.riggingTheMatch.description", 2, 0,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(SwitchGladiatorAction.getInstance()));
+                Collections.singletonList(ActionFactory.SWITCH_GLADIATOR));
 
         ReactionCard supportFromRome = ReactionCard.of("card.reactionCard.supportFromRome.title",
                 "card.reactionCard.supportFromRome.description", 3, 8,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(FailSchemeAction.getinstance()));
+                Collections.singletonList(ActionFactory.FAIL_SCHEME));
 
         ReactionCard aShamefulLudus = ReactionCard.of("card.reactionCard.aShamefulLudus.title",
                 "card.reactionCard.aShamefulLudus.description", 2, 0,
                 IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL,
-                Collections.singletonList(DecreaseInInfluenceAction.getInstance()));
-
+                Collections.singletonList(ActionFactory.DECREASE_INFLUENCE_GLAD));
 
 
         // when
@@ -93,7 +90,7 @@ public class ReactionCardRepoTest {
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, riggingTheMatchFromDb.getRequiredInfluenceCondition());
         assertThat(riggingTheMatchFromDb.getActions())
                 .hasSize(1)
-                .contains(SwitchGladiatorAction.getInstance());
+                .contains(ActionFactory.SWITCH_GLADIATOR);
 
         assertNotNull(supportFromRomeFromDB.getId());
         assertEquals("card.reactionCard.supportFromRome.title", supportFromRomeFromDB.getTitleKey());
@@ -105,7 +102,7 @@ public class ReactionCardRepoTest {
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, supportFromRomeFromDB.getRequiredInfluenceCondition());
         assertThat(supportFromRomeFromDB.getActions())
                 .hasSize(1)
-                .contains(FailSchemeAction.getinstance());
+                .contains(ActionFactory.FAIL_SCHEME);
 
         assertNotNull(aShamefulLudusFromDB.getId());
         assertEquals("card.reactionCard.aShamefulLudus.title", aShamefulLudusFromDB.getTitleKey());
@@ -117,7 +114,7 @@ public class ReactionCardRepoTest {
         assertEquals(IntrigueCard.RequiredInfluenceCondition.MORE_OR_EQUAL, aShamefulLudusFromDB.getRequiredInfluenceCondition());
         assertThat(aShamefulLudusFromDB.getActions())
                 .hasSize(1)
-                .contains(DecreaseInInfluenceAction.getInstance());
-    }
-
+                .contains(ActionFactory.DECREASE_INFLUENCE_GLAD);
+   }
+//
 }

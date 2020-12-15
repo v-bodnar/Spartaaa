@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'junit:junit:4.12'
     compile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -24,6 +25,8 @@ dependencies {
     }
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.18.1'
+    implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 
 }
 
