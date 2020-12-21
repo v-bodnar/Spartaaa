@@ -1,20 +1,19 @@
-<div>
 
-  <mat-card class="card" *ngFor="let gladiatorCard of gladiators">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{gladiatorCard.title}}</mat-card-title>
-      <mat-card-subtitle>spd: {{gladiatorCard.speed}} atk:{{gladiatorCard.attack}} def:{{gladiatorCard.defence}}</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsc1Y4778cY_TQ7Y6-j2LDSwZORaWJutwmrg&usqp=CAU" alt="gladiatorCard">
-    <mat-card-content>
-      <p>
-        {{gladiatorCard.description}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <p>price: {{gladiatorCard.price}}</p>
-    </mat-card-actions>
-  </mat-card>
+  <div class="row  p-2">
+    <div class="col">
+    <nav>
+      <ul class="nav nav-pills bg-warning">
+        <li class="nav-item"><a routerLink="/start" routerLinkActive="active" class="nav-link">Start</a></li>
+        <li class="nav-item"><a routerLink="/connection-error" routerLinkActive="active" class="nav-link">Error</a></li>
+      </ul>
+    </nav>
+    </div>
+  </div>
 
-</div>
+  <div class="row  p-2">
+    <div class="col">
+    <router-outlet></router-outlet>
+    </div>
+  </div>
+
+
