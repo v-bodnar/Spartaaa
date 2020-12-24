@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServerDisconnectedComponent } from './server-disconnected.component';
+import { ServerDisconnectedComponent } from './server-disconnected-screen.component';
 
 describe('ServerDisconnectedComponent', () => {
   let component: ServerDisconnectedComponent;

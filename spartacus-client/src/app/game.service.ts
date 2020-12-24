@@ -3,17 +3,20 @@ import {RsocketService} from "./rsocket.service";
 import {Gladiator} from "./dto/gladiator";
 import {Single} from 'rsocket-flowable';
 import {GameDto} from "./dto/game.dto";
+import {Phase} from "./dto/phase";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
   private _currentGame:GameDto;
+  private gamePhaseListeners :GamePhaseListener[];
 
   constructor(private  rsocketService: RsocketService) {
+    this.gamePhaseListeners = []
   }
 
-  getGladiators(): Single<Gladiator[]> {
+  public getGladiators(): Single<Gladiator[]> {
     return this.rsocketService.requestResponse('', 'getGladiators').map((payload) => {
       let gladiators: Gladiator[] = [];
       for (let gladiatorString of payload.data) {
@@ -26,14 +29,22 @@ export class GameService {
   createNewGame():Single<GameDto>{
     return this.rsocketService.requestResponse('', 'createNewGame').map((payload) => {
       this._currentGame = new GameDto(payload.data);
+      this.gamePhaseListeners.forEach(listener => listener.onGamePhaseChange(this._currentGame.gamePhase));
       return this._currentGame;
     });
   }
 
 
-  get currentGame(): GameDto {
+  public get currentGame(): GameDto {
     return this._currentGame;
   }
 
+  public registerGamePhaseListener(listener: GamePhaseListener):void{
+    this.gamePhaseListeners.push(listener)
+  }
 
+}
+
+export interface GamePhaseListener{
+  onGamePhaseChange(phase:Phase);
 }
