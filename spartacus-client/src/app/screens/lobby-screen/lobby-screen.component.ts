@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {DominusBoardDto} from "../../dto/dominus.board.dto";
+import {GameService} from "../../game.service";
 
 @Component({
   selector: 'app-lobby-screen',
@@ -6,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lobby-screen.component.css']
 })
 export class LobbyScreenComponent implements OnInit {
+  @Input()
+  dominusBoardsDto: DominusBoardDto[];
 
-  constructor() { }
+  constructor(private gameService: GameService) {
+    this.dominusBoardsDto = gameService.dominusBoardsDto;
+  }
 
   ngOnInit(): void {
   }

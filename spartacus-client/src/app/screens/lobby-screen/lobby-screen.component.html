@@ -1,1 +1,6 @@
-<p>lobby-screen works!</p>
+<div class="p-2">
+  <input type="text" class="form-control" placeholder="Put your name here">
+</div>
+<div class="p-2" *ngFor="let dominusBoard of dominusBoardsDto">
+  <app-dominus-selector [dominusBoardDto]="dominusBoard"></app-dominus-selector>
+</div>

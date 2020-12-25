@@ -13,6 +13,7 @@ import { IntriguePhaseScreenComponent } from './screens/intrigue-phase-screen/in
 import { MarketPhaseScreenComponent } from './screens/market-phase-screen/market-phase-screen.component';
 import { ArenaPhaseScreenComponent } from './screens/arena-phase-screen/arena-phase-screen.component';
 import { JupitersCockScreenComponent } from './screens/jupiters-cock-screen/jupiters-cock-screen.component';
+import { DominusSelectorComponent } from './screens/lobby-screen/dominus-selector/dominus-selector.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { JupitersCockScreenComponent } from './screens/jupiters-cock-screen/jupi
     IntriguePhaseScreenComponent,
     MarketPhaseScreenComponent,
     ArenaPhaseScreenComponent,
-    JupitersCockScreenComponent
+    JupitersCockScreenComponent,
+    DominusSelectorComponent
   ],
   imports: [
     BrowserModule,
