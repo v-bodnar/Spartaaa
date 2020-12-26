@@ -1,6 +1,29 @@
+<div class="input-group p-2">
+  <label for="gameId" class="form-control">Game id: </label>
+  <input type="text" class="form-control" id="gameId" value="{{game.id}}" readonly #gameId>
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary rounded-right" type="button" (click)="copyToClipboard(gameId)">
+      Copy
+    </button>
+  </div>
+</div>
+
+<div class="input-group p-2">
+  <label for="gameId" class="form-control">Game password: </label>
+  <input type="text" class="form-control" id="gamePassword" value="{{game.password}}" readonly #gamePassword>
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary rounded-right" type="button" (click)="copyToClipboard(gamePassword)">
+      Copy
+    </button>
+  </div>
+</div>
+
 <div class="p-2">
   <input type="text" class="form-control" placeholder="Put your name here">
 </div>
-<div class="p-2" *ngFor="let dominusBoard of dominusBoardsDto">
-  <app-dominus-selector [dominusBoardDto]="dominusBoard"></app-dominus-selector>
+<div class="p-2" *ngFor="let dominusBoard of dominusBoards">
+  <app-dominus-selector [dominusBoard]="dominusBoard"></app-dominus-selector>
+</div>
+<div class="p-2">
+  <button type="button" class="form-control btn bg-primary" disabled>Start game</button>
 </div>

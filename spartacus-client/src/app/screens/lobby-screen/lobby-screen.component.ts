@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DominusBoardDto} from "../../dto/dominus.board.dto";
 import {GameService} from "../../game.service";
+import {GameDto} from "../../dto/game.dto";
 
 @Component({
   selector: 'app-lobby-screen',
@@ -9,13 +10,22 @@ import {GameService} from "../../game.service";
 })
 export class LobbyScreenComponent implements OnInit {
   @Input()
-  dominusBoardsDto: DominusBoardDto[];
+  private dominusBoards: DominusBoardDto[];
+
+  @Input()
+  private game:GameDto;
 
   constructor(private gameService: GameService) {
-    this.dominusBoardsDto = gameService.dominusBoardsDto;
+    this.dominusBoards = gameService.dominusBoardsDto;
+    this.game = gameService.currentGame;
   }
 
   ngOnInit(): void {
   }
 
+  copyToClipboard(inputElement) {
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, 0);
+  }
 }
