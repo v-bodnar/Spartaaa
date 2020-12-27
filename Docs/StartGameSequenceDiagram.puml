@@ -8,7 +8,7 @@ alt on connection error repeat each 10 sec
 end
 Player1 -> Player1: show start screen
 
-Player1->Server: startNewGame(String playerName)
+Player1->Server: startNewGame()
 Activate Server
 rnote over Server
  Server:
@@ -17,7 +17,6 @@ rnote over Server
     -creates and shuffles deck
     -decides on available Houses
     -sets GameDto to NEW
-    -links gameId and players name with players ws session
 endrnote
 Server->Player1: GameDto, List<Dominus> available dominus list
 Player1->Server: selectDominus(Dominus selectedDominus)
@@ -29,12 +28,11 @@ alt on connection error repeat each 10 sec
     Player2->Server: connect
 end
 Player2 -> Player2: show start screen
-Player2 -> Server:joinGame(String gameId, String base64password, String playerName)
+Player2 -> Server:joinGame(String gameId, String password)
 rnote over Server
  Server:
     -searches for NEW game with given gameId
     -checks given password
-    -links gameId and players name with players ws session
 endrnote
 Server -> Player2:GameDto, List<Dominus> available dominus list
 Player2->Server: selectDominus(Dominus selectedDominus)
