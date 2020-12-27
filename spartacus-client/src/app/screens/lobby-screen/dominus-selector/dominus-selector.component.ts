@@ -8,7 +8,7 @@ import {DominusBoardDto} from "../../../dto/dominus.board.dto";
 })
 export class DominusSelectorComponent implements OnInit {
   @Input()
-  private dominusBoard: DominusBoardDto;
+  dominusBoard: DominusBoardDto;
 
   constructor() {
   }
