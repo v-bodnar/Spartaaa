@@ -10,10 +10,10 @@ import {GameDto} from "../../dto/game.dto";
 })
 export class LobbyScreenComponent implements OnInit {
   @Input()
-  private dominusBoards: DominusBoardDto[];
+  dominusBoards: DominusBoardDto[];
 
   @Input()
-  private game:GameDto;
+  game:GameDto;
 
   constructor(private gameService: GameService) {
     this.dominusBoards = gameService.dominusBoardsDto;

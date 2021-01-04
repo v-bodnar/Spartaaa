@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'com.google.cloud.tools.jib' version '2.7.0'
     id 'java'
 }
 
@@ -32,4 +33,26 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jib {
+    from{
+        image = 'openjdk:17-ea-slim-buster'
+    }
+    to {
+        image = 'gcr.io/lucky-almanac-297122/spartacus'
+        auth {
+            username = 'oauth2accesstoken'
+            password = "$gcrToken"
+        }
+    }
+    container {
+        creationTime = Instant.now().toString()
+        ports = ['8080']
+        user='nobody'
+    }
+    extraDirectories{
+        permissions=['/nonexistent/freetimers/spartacus':'777',
+                     '/nonexistent':'777']
+    }
 }
