@@ -47,31 +47,27 @@ def getCheckedOutGitCommitHash() {
     def isCommit = head.length == 1 // e5a7c79edabbf7dd39888442df081b1c9d8e88fd
     // def isRef = head.length > 1     // ref: refs/heads/master
 
-    if(isCommit) return head[0].trim().take(takeFromHash) // e5a7c79edabb
+    if (isCommit) return head[0].trim().take(takeFromHash) // e5a7c79edabb
 
     def refHead = new File(gitFolder + head[1].trim()) // .git/refs/heads/master
     refHead.text.trim().take takeFromHash
 }
 
 jib {
-    from{
+    from {
         image = 'openjdk:17-ea-slim-buster'
     }
     to {
         image = 'gcr.io/lucky-almanac-297122/spartacus'
         tags = [getCheckedOutGitCommitHash()]
-        auth {
-            username = 'oauth2accesstoken'
-            password = "$gcrToken"
-        }
     }
     container {
         creationTime = Instant.now().toString()
         ports = ['8080']
-        user='nobody'
+        user = 'nobody'
     }
-    extraDirectories{
-        permissions=['/nonexistent/freetimers/spartacus':'777',
-                     '/nonexistent':'777']
+    extraDirectories {
+        permissions = ['/nonexistent/freetimers/spartacus': '777',
+                       '/nonexistent'                     : '777']
     }
 }
