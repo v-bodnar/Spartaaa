@@ -36,7 +36,7 @@ export class RsocketService {
 
   private getClientTransport() {
     return new RSocketWebSocketClient({
-      url: 'ws://localhost:8080/spartacus'
+      url: 'ws://34.123.222.98:8080/spartacus'
     });
   }
 

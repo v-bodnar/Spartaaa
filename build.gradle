@@ -41,6 +41,7 @@ jib {
     }
     to {
         image = 'gcr.io/lucky-almanac-297122/spartacus'
+        tags = ["${git.commit.id}"]
         auth {
             username = 'oauth2accesstoken'
             password = "$gcrToken"
