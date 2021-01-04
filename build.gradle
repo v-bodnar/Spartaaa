@@ -67,7 +67,9 @@ jib {
         user = 'nobody'
     }
     extraDirectories {
-        permissions = ['/nonexistent/freetimers/spartacus': '777',
+        permissions = ['/nonexistent/freetimers/spartacus/logs/spartacus.log': '777',
+                       '/nonexistent/freetimers/spartacus/logs': '777',
+                       '/nonexistent/freetimers/spartacus': '777',
                        '/nonexistent'                     : '777']
     }
 }
