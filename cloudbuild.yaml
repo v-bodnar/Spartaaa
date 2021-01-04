@@ -3,7 +3,7 @@ steps:
     entrypoint: gradle
     args: ['jib']
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment/spartacus', 'spartacus=gcr.io/lucky-almanac-297122/spartacus:$COMMIT_SHA']
+    args: ['set', 'image', 'deployment/spartacus', 'spartacus=gcr.io/lucky-almanac-297122/spartacus:latest']
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
       - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
