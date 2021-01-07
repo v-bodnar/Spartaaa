@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import type {Payload, ReactiveSocket,} from 'rsocket-types';
 import {IdentitySerializer, JsonSerializer, RSocketClient} from 'rsocket-core';
 import {Flowable, Single} from 'rsocket-flowable';
-import {RSocketResumableTransport} from 'rsocket-core';
 import RSocketWebSocketClient from 'rsocket-websocket-client';
 
 @Injectable({
@@ -36,45 +35,9 @@ export class RsocketService {
   }
 
   private getClientTransport() {
-    const resumeToken = Buffer.from('spartacus');
-    const bufferSize = 128;
-    const sessionDurationSeconds = 60;
-
-    setTimeout(() => {}, 300000000);
-
-    const resumableTransport = new RSocketResumableTransport(
-      () =>
-        new RSocketWebSocketClient({
-          url: 'ws://localhost:8080/spartacus'
-        }),
-      {
-        bufferSize, // max number of sent & pending frames to buffer before failing
-        resumeToken, // unique identifier the session across connections
-        sessionDurationSeconds,
-      }
-    );
-
-    // start resumableTransport
-    let start = true;
-    resumableTransport.connectionStatus().subscribe({
-      onNext: (status) => {
-        console.log('Resumable transport status changed: ' + status.kind);
-
-        if (status.kind === 'NOT_CONNECTED') {
-          if (!start) {
-            console.log('Resumable transport disconnected, retrying...');
-            setTimeout(() => resumableTransport.connect());
-          } else {
-            start = false;
-          }
-        }
-      },
-      onSubscribe: (resumeSubscription) => {
-        resumeSubscription.request(Number.MAX_SAFE_INTEGER);
-      },
+    return new RSocketWebSocketClient({
+      url: 'ws://34.123.222.98:8080/spartacus'
     });
-
-    return resumableTransport;
   }
 
   private connect(): Single<ReactiveSocket<string, string>> {
@@ -143,7 +106,7 @@ export class RsocketService {
    * invoking request(0x7fffffff), where 0x7fffffff is the max integer value for int32.
    */
   public requestChannel(data: string, endpoint: string): Flowable<Payload<string, string>> {
-    return this.socket.requestChannel({
+    return this.socket.requestStream({
       data: data,
       metadata: String.fromCharCode(endpoint.length) + endpoint,
     });
