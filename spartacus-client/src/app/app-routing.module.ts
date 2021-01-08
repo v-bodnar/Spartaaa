@@ -3,7 +3,6 @@ import {Router, RouterModule, Routes} from '@angular/router';
 import {ConnectionStateListener, RsocketService} from "./rsocket.service";
 import {StartScreenComponent} from "./screens/start-screen/start-screen.component";
 import {ServerDisconnectedScreenComponent} from "./screens/server-disconnected-screen/server-disconnected-screen.component";
-import {GameLoadScreenComponent} from "./screens/game-load-screen/game-load-screen.component";
 import {LobbyScreenComponent} from "./screens/lobby-screen/lobby-screen.component";
 import {IntriguePhaseScreenComponent} from "./screens/intrigue-phase-screen/intrigue-phase-screen.component";
 import {MarketPhaseScreenComponent} from "./screens/market-phase-screen/market-phase-screen.component";
@@ -15,7 +14,6 @@ import {Phase} from "./dto/phase";
 
 const routes: Routes = [
   {path: 'start', component: StartScreenComponent},
-  {path: 'load', component: GameLoadScreenComponent},
   {path: 'join', component: JoinGameScreenComponent},
   {path: 'lobby', component: LobbyScreenComponent},
   {path: 'intrigue', component: IntriguePhaseScreenComponent},

@@ -6,7 +6,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import { StartScreenComponent } from './screens/start-screen/start-screen.component';
 import { ServerDisconnectedScreenComponent } from './screens/server-disconnected-screen/server-disconnected-screen.component';
-import { GameLoadScreenComponent } from './screens/game-load-screen/game-load-screen.component';
 import { LobbyScreenComponent } from './screens/lobby-screen/lobby-screen.component';
 import { JoinGameScreenComponent } from './screens/join-game-screen/join-game-screen.component';
 import { IntriguePhaseScreenComponent } from './screens/intrigue-phase-screen/intrigue-phase-screen.component';
@@ -20,7 +19,6 @@ import { DominusSelectorComponent } from './screens/lobby-screen/dominus-selecto
     AppComponent,
     StartScreenComponent,
     ServerDisconnectedScreenComponent,
-    GameLoadScreenComponent,
     LobbyScreenComponent,
     JoinGameScreenComponent,
     IntriguePhaseScreenComponent,
