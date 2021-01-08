@@ -26,4 +26,7 @@ export class StartScreenComponent implements OnInit {
         }
       });
   }
+
+  public onJoinBtnClicked(): void{
+  }
 }
