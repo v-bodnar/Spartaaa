@@ -10,6 +10,9 @@ export class DominusSelectorComponent implements OnInit {
   @Input()
   dominusBoard: DominusBoardDto;
 
+  @Input()
+  playersName: string;
+
   constructor() {
   }
 
@@ -26,6 +29,14 @@ export class DominusSelectorComponent implements OnInit {
     }else if(this.dominusBoard.title == 'SOLONIUS') {
       return '/../../assets/Solonius.jpg';
     }
+  }
+
+  public isDominusSelected():boolean{
+    return this.playersName!==null;
+  }
+
+  public getPlayersName(dominusBoard:DominusBoardDto):string{
+    return this.playersName;
   }
 
 }

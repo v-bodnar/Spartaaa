@@ -13,11 +13,21 @@ export class LobbyScreenComponent implements OnInit {
   dominusBoards: DominusBoardDto[];
 
   @Input()
-  game:GameDto;
+  game: GameDto;
 
-  constructor(private gameService: GameService) {
+  constructor(public gameService: GameService) {
     this.dominusBoards = gameService.dominusBoardsDto;
     this.game = gameService.currentGame;
+  }
+
+  public getPlayersName(dominusBoard: DominusBoardDto): string {
+    for (let dominusDto of this.game.listDominus) {
+      if (
+        dominusDto.dominusBoard.id === dominusBoard.id) {
+        return dominusDto.activePlayer.name
+      }
+    }
+    return null
   }
 
   ngOnInit(): void {

@@ -19,10 +19,10 @@
 </div>
 
 <div class="p-2">
-  <input type="text" class="form-control" placeholder="Put your name here">
+  <input type="text" class="form-control" placeholder="Put your name here" readonly value="{{gameService.playersName}}">
 </div>
 <div class="p-2" *ngFor="let dominusBoard of dominusBoards">
-  <app-dominus-selector [dominusBoard]="dominusBoard"></app-dominus-selector>
+  <app-dominus-selector [dominusBoard]="dominusBoard" [playersName]="getPlayersName(dominusBoard)"></app-dominus-selector>
 </div>
 <div class="p-2">
   <button type="button" class="form-control btn bg-primary" disabled>Start game</button>

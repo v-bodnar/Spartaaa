@@ -1,21 +1,21 @@
 package com.freetimers.spartacus.game;
 
 import com.freetimers.spartacus.gamebox.*;
+import com.freetimers.spartacus.utils.FileUtils;
 import org.springframework.data.annotation.Id;
 
 import java.time.Instant;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletionStage;
 
 public class CoreGame implements Game {
+
     @Id
     private String id;
     private String password;
     private Instant startTime;
     private Instant finishedTime;
-    private List<Dominus> listDominus;
+    private List<Dominus> dominusList;
     private Deck<MarketCard> marketDeck;
     private Deck<IntrigueCard> intrigueDeck;
     private Phase gamePhase;
@@ -25,13 +25,14 @@ public class CoreGame implements Game {
     private List<MarketPhase> marketPhase;
     private List<ArenaPhase> arenaPhase;
 
+
     public CoreGame(Deck<MarketCard> marketDeck, Deck<IntrigueCard> intrigueDeck) {
         this.startTime = Instant.now();
         this.gamePhase = Phase.LOBBY;
         this.gameState = GameState.NEW;
         this.marketDeck = marketDeck;
         this.intrigueDeck = intrigueDeck;
-        this.listDominus = new LinkedList<>();
+        this.dominusList = new LinkedList<>();
         this.upkeepPhase = new LinkedList<>();
         this.intriguePhase = new LinkedList<>();
         this.marketPhase = new LinkedList<>();
@@ -47,11 +48,6 @@ public class CoreGame implements Game {
     @Override
     public boolean connect(String password) {
         return false;
-    }
-
-    @Override
-    public void selectDominus(Player player) {
-
     }
 
     @Override
@@ -143,8 +139,8 @@ public class CoreGame implements Game {
         return finishedTime;
     }
 
-    public List<Dominus> getListDominus() {
-        return listDominus;
+    public List<Dominus> getDominusList() {
+        return dominusList;
     }
 
     public Phase getGamePhase() {
@@ -173,5 +169,18 @@ public class CoreGame implements Game {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public void selectDominus(DominusBoard dominusBoard, String playersName, String sessionToken) {
+        Player player = new Player(playersName, sessionToken, FileUtils.getInstance().getBase64encodedFile
+                ("images/defaultava.jpg"));
+        Dominus selectedDominus = new Dominus(dominusBoard, player, new LinkedList<>(), new LinkedList<>(),
+                new LinkedList<>(), new LinkedList<>());
+        dominusList.add(selectedDominus);
+    }
+
+    public void releaseSelectedDominus(String playersName){
+        dominusList.removeIf(dominus -> playersName.equals(dominus.getPlayersName()));
     }
 }
