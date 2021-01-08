@@ -1,10 +1,7 @@
 package com.freetimers.spartacus.game;
 
-import com.freetimers.spartacus.dto.CoreGameDto;
-import com.freetimers.spartacus.gamebox.Deck;
-import com.freetimers.spartacus.gamebox.IntrigueCard;
-import com.freetimers.spartacus.gamebox.MarketCard;
-import com.freetimers.spartacus.gamebox.ReactionCard;
+import com.freetimers.spartacus.game.event.DominusSelectedEvent;
+import com.freetimers.spartacus.gamebox.*;
 import com.freetimers.spartacus.repository.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +24,8 @@ public class GameService {
     private final ReactionCardsRepo reactionCardsRepo;
     private final SchemeCardsRepo schemeCardsRepo;
     private final SlaveCardsRepo slaveCardsRepo;
+    private final DominusBoardRepo dominusBoardRepo;
     private final ApplicationEventPublisher applicationEventPublisher;
-    private final GameMapper gameMapper;
 
     @Autowired
     public GameService(Logger logger, GameRepository gameRepository,
@@ -37,8 +34,7 @@ public class GameService {
                        ReactionCardsRepo reactionCardsRepo,
                        SchemeCardsRepo schemeCardsRepo,
                        SlaveCardsRepo slaveCardsRepo,
-                       ApplicationEventPublisher applicationEventPublisher,
-                       GameMapper gameMapper) {
+                       DominusBoardRepo dominusBoardRepo, ApplicationEventPublisher applicationEventPublisher) {
         this.logger = logger;
         this.gameRepository = gameRepository;
         this.equipmentCardsRepo = equipmentCardsRepo;
@@ -46,11 +42,11 @@ public class GameService {
         this.reactionCardsRepo = reactionCardsRepo;
         this.schemeCardsRepo = schemeCardsRepo;
         this.slaveCardsRepo = slaveCardsRepo;
+        this.dominusBoardRepo = dominusBoardRepo;
         this.applicationEventPublisher = applicationEventPublisher;
-        this.gameMapper = gameMapper;
     }
 
-    public CoreGameDto createNewCoreGame() {
+    public CoreGame createNewCoreGame() {
         Deck<MarketCard> marketDeck = new Deck<>(Stream.of(
                 equipmentCardsRepo.findAll(),
                 gladiatorCardsRepo.findAll(),
@@ -76,6 +72,21 @@ public class GameService {
         CoreGame newGame = new CoreGame(marketDeck, intrigueDeck);
         newGame.prepareNewGame();
         newGame = gameRepository.save(newGame);
-        return gameMapper.gameToGameDto(newGame);
+        return newGame;
     }
+
+    public synchronized void selectDominus(String gameId, String dominusBoardId, String playersName, String sessionToken) {
+        Optional<CoreGame> coreGameOpt = gameRepository.findById(gameId);
+        CoreGame coreGame = coreGameOpt.orElseThrow();
+
+        Optional<DominusBoard> dominusBoardOpt = dominusBoardRepo.findById(dominusBoardId);
+        DominusBoard dominusBoard = dominusBoardOpt.orElseThrow();
+
+        coreGame.selectDominus(dominusBoard, playersName, sessionToken);
+
+        coreGame = gameRepository.save(coreGame);
+
+        applicationEventPublisher.publishEvent(new DominusSelectedEvent(this, coreGame));
+    }
+
 }

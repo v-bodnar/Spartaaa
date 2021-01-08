@@ -8,30 +8,29 @@ import java.util.List;
 class Dominus {
 
 private  DominusBoard dominusBoard;
-private  Player activePlayer;
+private  Player player;
 private  List<GladiatorCard> gladiators;
 private  List<SlaveCard> slaves;
-private  List<EquipmentCard> equipments;
+private  List<EquipmentCard> equipment;
 private  List<IntrigueCard> hand;
 private  Integer guardsNumber;
 private  Integer goldCoins;
 private  Integer influence;
 private  boolean host;
 
-    Dominus(DominusBoard dominusBoard, Player activePlayer, List<GladiatorCard> gladiators, List<SlaveCard> slaves,
-            List<EquipmentCard> equipments, List<IntrigueCard> hand, Integer guardsNumber, Integer goldCoins,
-            Integer influence, boolean host) {
+    Dominus(DominusBoard dominusBoard, Player player, List<GladiatorCard> gladiators, List<SlaveCard> slaves,
+            List<EquipmentCard> equipment, List<IntrigueCard> hand) {
         this.dominusBoard = dominusBoard;
-        this.activePlayer = activePlayer;
+        this.player = player;
         this.gladiators = gladiators;
         this.slaves = slaves;
-        this.equipments = equipments;
+        this.equipment = equipment;
         this.hand = hand;
-        this.guardsNumber = guardsNumber;
-        this.goldCoins = goldCoins;
-        this.influence = influence;
-        this.host = host;
+        this.guardsNumber = dominusBoard.getStartingGuards();
+        this.goldCoins = dominusBoard.getStartingGold();
+        this.influence = 1;
     }
+
 
     void giveGold (Integer goldCoins){
         this.goldCoins += goldCoins;
@@ -57,7 +56,7 @@ private  boolean host;
         }else if (card instanceof IntrigueCard){
             hand.add((IntrigueCard) card);
         }else if (card instanceof EquipmentCard){
-            equipments.add((EquipmentCard) card);
+            equipment.add((EquipmentCard) card);
         }else throw new UnexpectedException("Can not give card(s)");
     }
 
@@ -75,6 +74,10 @@ private  boolean host;
        if ( hand.remove(guard)){
            guardsNumber +=1;
        }
+    }
+
+    public String getPlayersName() {
+        return player.getName();
     }
 
     int getInfluence(){

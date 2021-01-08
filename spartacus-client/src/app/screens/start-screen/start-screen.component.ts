@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {GameService} from "../../game.service";
 
 @Component({
@@ -8,6 +8,9 @@ import {GameService} from "../../game.service";
 })
 export class StartScreenComponent implements OnInit {
 
+  @Input()
+  playersName:string
+
   constructor(private gameService: GameService) {
 
   }
@@ -16,6 +19,7 @@ export class StartScreenComponent implements OnInit {
   }
 
   public onStartBtnClicked(): void {
+    this.gameService.playersName=this.playersName
     this.gameService.createNewGame()
       .subscribe({
         onComplete: (newGame) => {

@@ -10,6 +10,7 @@ import {DominusBoardDto} from "./dto/dominus.board.dto";
   providedIn: 'root'
 })
 export class GameService {
+  private _playersName:string;
   private _currentGame: GameDto;
   private _dominusBoardsDto: DominusBoardDto[];
 
@@ -48,8 +49,16 @@ export class GameService {
   }
 
 
+  public get playersName(): string {
+    return this._playersName;
+  }
+
   public get dominusBoardsDto(): DominusBoardDto[] {
     return this._dominusBoardsDto;
+  }
+
+  public set playersName(value: string) {
+    this._playersName = value;
   }
 
   public registerGamePhaseListener(listener: GamePhaseListener): void {
