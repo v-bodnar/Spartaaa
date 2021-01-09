@@ -1,9 +1,8 @@
 package com.freetimers.spartacus.game;
 
 import com.freetimers.spartacus.dto.*;
-import com.freetimers.spartacus.gamebox.DominusBoard;
-import com.freetimers.spartacus.gamebox.IntrigueCard;
-import com.freetimers.spartacus.gamebox.MarketCard;
+import com.freetimers.spartacus.game.event.GameEvent;
+import com.freetimers.spartacus.gamebox.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -14,6 +13,8 @@ import java.util.Optional;
 public interface GameMapper {
 
     CoreGameDto gameToGameDto(CoreGame coreGame);
+
+    PlayerDto playerToPlayerDto(Player player);
 
     DominusDto dominusToDominusDto(Dominus dominus);
 
@@ -33,6 +34,15 @@ public interface GameMapper {
     UpkeepPhaseDto upkeepPhaseToUpkeepPhaseDto(UpkeepPhase upkeepPhase);
 
     MarketPhaseDto marketPhaseToMarketPhaseDto(MarketPhase marketPhase);
+
+    GladiatorCardDto gladiatorCardToGladiatorCardDto(GladiatorCard gladiatorCard);
+
+    SlaveCardDto slaveCardToSlaveCardDto(SlaveCard slaveCard);
+
+    EquipmentCardDto equipmentCardToEquipmentCardDto(EquipmentCard equipmentCard);
+
+    GameEventDto gameEventToGameEventDto(GameEvent gameEvent);
+
 
     @Named("unwrap")
     default <T> T unwrap(Optional<T> optional) {

@@ -13,15 +13,15 @@ import java.util.Objects;
         this.avatar = avatar;
     }
 
-    String getName() {
+     public String getName() {
         return name;
     }
 
-    String getSessionToken() {
+     public String getSessionToken() {
         return sessionToken;
     }
 
-    String getAvatar() {
+     public String getAvatar() {
         return avatar;
     }
 

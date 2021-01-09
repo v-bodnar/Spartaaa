@@ -28,13 +28,15 @@ public class GameService {
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    public GameService(Logger logger, GameRepository gameRepository,
+    public GameService(Logger logger,
+                       GameRepository gameRepository,
                        EquipmentCardsRepo equipmentCardsRepo,
                        GladiatorCardsRepo gladiatorCardsRepo,
                        ReactionCardsRepo reactionCardsRepo,
                        SchemeCardsRepo schemeCardsRepo,
                        SlaveCardsRepo slaveCardsRepo,
-                       DominusBoardRepo dominusBoardRepo, ApplicationEventPublisher applicationEventPublisher) {
+                       DominusBoardRepo dominusBoardRepo,
+                       ApplicationEventPublisher applicationEventPublisher) {
         this.logger = logger;
         this.gameRepository = gameRepository;
         this.equipmentCardsRepo = equipmentCardsRepo;

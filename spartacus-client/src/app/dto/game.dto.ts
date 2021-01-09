@@ -7,7 +7,7 @@ export class GameDto {
   password: String;
   startTime: Date;
   finishedTime: Date;
-  listDominus: DominusDto[];
+  dominusList: DominusDto[];
   gamePhase: Phase;
   gameState: GameState;
 

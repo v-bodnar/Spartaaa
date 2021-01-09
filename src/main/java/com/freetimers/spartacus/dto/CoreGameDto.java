@@ -11,7 +11,7 @@ public class CoreGameDto {
     private final String password;
     private final Instant startTime;
     private final Instant finishedTime;
-    private final List<DominusDto> listDominus;
+    private final List<DominusDto> dominusList;
     private final Phase gamePhase;
     private final GameState gameState;
     private final List<UpkeepPhaseDto> upkeepPhase;
@@ -20,7 +20,7 @@ public class CoreGameDto {
     private final List<ArenaPhaseDto> arenaPhase;
 
 
-    public CoreGameDto(String id, String password, Instant startTime, Instant finishedTime, List<DominusDto> listDominus,
+    public CoreGameDto(String id, String password, Instant startTime, Instant finishedTime, List<DominusDto> dominusList,
                        Phase gamePhase, GameState gameState, List<UpkeepPhaseDto> upkeepPhase,
                        List<IntriguePhaseDto> intriguePhase, List<MarketPhaseDto> marketPhase,
                        List<ArenaPhaseDto> arenaPhase) {
@@ -28,7 +28,7 @@ public class CoreGameDto {
         this.password = password;
         this.startTime = startTime;
         this.finishedTime = finishedTime;
-        this.listDominus = listDominus;
+        this.dominusList = dominusList;
         this.gamePhase = gamePhase;
         this.gameState = gameState;
         this.upkeepPhase = upkeepPhase;
@@ -53,8 +53,8 @@ public class CoreGameDto {
         return finishedTime;
     }
 
-    public List<DominusDto> getListDominus() {
-        return listDominus;
+    public List<DominusDto> getDominusList() {
+        return dominusList;
     }
 
     public Phase getGamePhase() {
@@ -79,5 +79,22 @@ public class CoreGameDto {
 
     public List<ArenaPhaseDto> getArenaPhase() {
         return arenaPhase;
+    }
+
+    @Override
+    public String toString() {
+        return "CoreGameDto{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", startTime=" + startTime +
+                ", finishedTime=" + finishedTime +
+                ", dominusList=" + dominusList +
+                ", gamePhase=" + gamePhase +
+                ", gameState=" + gameState +
+                ", upkeepPhase=" + upkeepPhase +
+                ", intriguePhase=" + intriguePhase +
+                ", marketPhase=" + marketPhase +
+                ", arenaPhase=" + arenaPhase +
+                '}';
     }
 }

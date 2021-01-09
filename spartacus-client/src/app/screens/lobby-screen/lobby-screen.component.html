@@ -1,6 +1,6 @@
 <div class="input-group p-2">
   <label for="gameId" class="form-control">Game id: </label>
-  <input type="text" class="form-control" id="gameId" value="{{game.id}}" readonly #gameId>
+  <input type="text" class="form-control" id="gameId" value="{{game?game.id:''}}" readonly #gameId>
   <div class="input-group-prepend">
     <button class="btn btn-outline-secondary rounded-right" type="button" (click)="copyToClipboard(gameId)">
       Copy
@@ -10,7 +10,7 @@
 
 <div class="input-group p-2">
   <label for="gameId" class="form-control">Game password: </label>
-  <input type="text" class="form-control" id="gamePassword" value="{{game.password}}" readonly #gamePassword>
+  <input type="text" class="form-control" id="gamePassword" value="{{game?game.password:''}}" readonly #gamePassword>
   <div class="input-group-prepend">
     <button class="btn btn-outline-secondary rounded-right" type="button" (click)="copyToClipboard(gamePassword)">
       Copy
@@ -18,11 +18,17 @@
   </div>
 </div>
 
-<div class="p-2">
-  <input type="text" class="form-control" placeholder="Put your name here" readonly value="{{gameService.playersName}}">
+<div class="input-group p-2">
+  <label for="playersName" class="form-control">Your name: </label>
+  <input type="text" class="form-control" id="playersName" placeholder="Put your name here" readonly value="{{playersName}}">
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary rounded-right" type="button" (click)="copyToClipboard(playersName)">
+      Copy
+    </button>
+  </div>
 </div>
 <div class="p-2" *ngFor="let dominusBoard of dominusBoards">
-  <app-dominus-selector [dominusBoard]="dominusBoard" [playersName]="getPlayersName(dominusBoard)"></app-dominus-selector>
+  <app-dominus-selector [dominusBoard]="dominusBoard" [playersName]="getPlayersName(dominusBoard)" [currentPlayersName]="playersName"></app-dominus-selector>
 </div>
 <div class="p-2">
   <button type="button" class="form-control btn bg-primary" disabled>Start game</button>

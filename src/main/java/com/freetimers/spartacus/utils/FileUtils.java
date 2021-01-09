@@ -20,8 +20,7 @@ public class FileUtils {
 
     public String getBase64encodedFile(String path) {
         try {
-            byte[] defaultAvatar = this.getClass().getClassLoader().getResourceAsStream(path).
-                    readAllBytes();
+            byte[] defaultAvatar = this.getClass().getClassLoader().getResourceAsStream(path).readAllBytes();
             return Base64.getEncoder().encodeToString(defaultAvatar);
         } catch (IOException e) {
             LOG.error("Failed to get default avatar", e);

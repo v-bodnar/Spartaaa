@@ -1,4 +1,4 @@
-<div class="row dominus-row align-items-center">
+<div class="row dominus-row align-items-center" [ngClass]="{'border border-danger': currentPlayersName === playersName}">
   <div class="col-2">
     <div class="row">
       <div class="col avatar align-self-center">
@@ -32,13 +32,13 @@
         Starting gold: {{dominusBoard.startingGold}}
       </div>
     </div>
-    <div class="row p-2">
+    <div class="row p-2" [style.display]="getPlayersName(dominusBoard) ? 'block' : 'none'">
       <div class="col">
-        {{getPlayersName(dominusBoard)}}
+        Selected by: {{getPlayersName(dominusBoard)}}
       </div>
     </div>
   </div>
   <div class="col-2">
-    <button type="button" class="form-control btn btn-primary" [disabled]="isDominusSelected()">Select</button>
+    <button type="button" class="form-control btn btn-primary" (click)="selectDominus(dominusBoard)" [disabled]="isDominusSelected()">Select</button>
   </div>
 </div>

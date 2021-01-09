@@ -48,7 +48,43 @@ private  boolean host;
         this.influence -= influence;
     }
 
-    void giveCard( Card card){
+    public DominusBoard getDominusBoard() {
+        return dominusBoard;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public List<GladiatorCard> getGladiators() {
+        return gladiators;
+    }
+
+    public List<SlaveCard> getSlaves() {
+        return slaves;
+    }
+
+    public List<EquipmentCard> getEquipment() {
+        return equipment;
+    }
+
+    public List<IntrigueCard> getHand() {
+        return hand;
+    }
+
+    public Integer getGuardsNumber() {
+        return guardsNumber;
+    }
+
+    public Integer getGoldCoins() {
+        return goldCoins;
+    }
+
+    public boolean isHost() {
+        return host;
+    }
+
+    void giveCard(Card card){
         if (card instanceof GladiatorCard){
             gladiators.add((GladiatorCard) card);
         }else if (card instanceof SlaveCard){
@@ -87,4 +123,19 @@ private  boolean host;
     void changeInfluence(int delta) {influence += delta;}
 
 
+    @Override
+    public String toString() {
+        return "Dominus{" +
+                "dominusBoard=" + dominusBoard +
+                ", player=" + player +
+                ", gladiators=" + gladiators +
+                ", slaves=" + slaves +
+                ", equipment=" + equipment +
+                ", hand=" + hand +
+                ", guardsNumber=" + guardsNumber +
+                ", goldCoins=" + goldCoins +
+                ", influence=" + influence +
+                ", host=" + host +
+                '}';
+    }
 }

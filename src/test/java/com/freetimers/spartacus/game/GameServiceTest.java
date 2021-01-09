@@ -12,7 +12,6 @@ import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.LinkedList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -27,6 +26,7 @@ public class GameServiceTest {
     private ReactionCardsRepo reactionCardsRepoMock;
     private SchemeCardsRepo schemeCardsRepoMock;
     private SlaveCardsRepo slaveCardsRepoMock;
+    private DominusBoardRepo dominusBoardRepoMock;
     private ApplicationEventPublisher applicationEventPublisherMock;
     private GameMapper gameMapperMock;
 
@@ -38,6 +38,7 @@ public class GameServiceTest {
         reactionCardsRepoMock = mock(ReactionCardsRepo.class);
         schemeCardsRepoMock = mock(SchemeCardsRepo.class);
         slaveCardsRepoMock = mock(SlaveCardsRepo.class);
+        dominusBoardRepoMock = mock(DominusBoardRepo.class);
         applicationEventPublisherMock = mock(ApplicationEventPublisher.class);
         gameMapperMock = mock(GameMapper.class);
         gameService = new GameService(LOGGER,
@@ -47,8 +48,8 @@ public class GameServiceTest {
                 reactionCardsRepoMock,
                 schemeCardsRepoMock,
                 slaveCardsRepoMock,
-                applicationEventPublisherMock,
-                gameMapperMock);
+                dominusBoardRepoMock,
+                applicationEventPublisherMock);
     }
 
     @Test
@@ -63,14 +64,11 @@ public class GameServiceTest {
         when(reactionCardsRepoMock.findAll()).thenReturn(new LinkedList<>());
         when(schemeCardsRepoMock.findAll()).thenReturn(new LinkedList<>());
         when(slaveCardsRepoMock.findAll()).thenReturn(new LinkedList<>());
-        when(gameMapperMock.gameToGameDto(coreGame)).thenReturn(coreGameDto);
 
         //when
-        CoreGameDto newGame = gameService.createNewCoreGame();
+        CoreGame newGame = gameService.createNewCoreGame();
 
         //then
         assertNotNull(newGame);
-        assertEquals(coreGameDto, newGame);
-        verify(gameMapperMock).gameToGameDto(coreGame);
     }
 }

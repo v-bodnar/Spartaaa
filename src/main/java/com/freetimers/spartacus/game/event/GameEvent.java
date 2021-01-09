@@ -23,5 +23,10 @@ public abstract class GameEvent extends ApplicationEvent {
         return coreGame;
     }
 
-
+    @Override
+    public String toString() {
+        return "GameEvent{" +
+                "coreGame=" + coreGame +
+                "} " + super.toString();
+    }
 }

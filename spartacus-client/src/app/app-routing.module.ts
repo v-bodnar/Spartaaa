@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Router, RouterModule, Routes} from '@angular/router';
-import {ConnectionStateListener, RsocketService} from "./rsocket.service";
+import {RsocketService} from "./rsocket.service";
 import {StartScreenComponent} from "./screens/start-screen/start-screen.component";
 import {ServerDisconnectedScreenComponent} from "./screens/server-disconnected-screen/server-disconnected-screen.component";
 import {LobbyScreenComponent} from "./screens/lobby-screen/lobby-screen.component";
@@ -9,8 +9,9 @@ import {MarketPhaseScreenComponent} from "./screens/market-phase-screen/market-p
 import {ArenaPhaseScreenComponent} from "./screens/arena-phase-screen/arena-phase-screen.component";
 import {JoinGameScreenComponent} from "./screens/join-game-screen/join-game-screen.component";
 import {JupitersCockScreenComponent} from "./screens/jupiters-cock-screen/jupiters-cock-screen.component";
-import {GamePhaseListener, GameService} from "./game.service";
+import {GameService} from "./game.service";
 import {Phase} from "./dto/phase";
+import {GameDto} from "./dto/game.dto";
 
 const routes: Routes = [
   {path: 'start', component: StartScreenComponent},
@@ -30,14 +31,26 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {
+  phase: Phase;
+
   constructor(private  rsocketService: RsocketService,
               private gameService: GameService,
               private router: Router) {
-    this.rsocketService.registerStateListener(new ConnectionStateListenerImpl(this.rsocketService, this.gameService, this.router));
-    this.gameService.registerGamePhaseListener(new RouterGamePhaseListener(this.router));
+    this.rsocketService.connectedSubject.subscribe(value => this.onConnectionStateChanged(value));
+    this.gameService.gameStateSubject.subscribe(value => this.onGamePhaseChange(value));
   }
 
-  static navigateAccordingPhase(phase: Phase, router: Router){
+  onGamePhaseChange(gameDto: GameDto) {
+    if (this.phase !== gameDto.gamePhase) {
+      this.phase = gameDto.gamePhase;
+      AppRoutingModule.navigateAccordingPhase(gameDto.gamePhase, this.router)
+    } else {
+      console.log("Phase did not change")
+    }
+
+  }
+
+  static navigateAccordingPhase(phase: Phase, router: Router) {
     if (phase.toString() === "LOBBY") {
       console.log('navigating to LOBBY')
       router.navigate(['/lobby']);
@@ -58,36 +71,19 @@ export class AppRoutingModule {
       router.navigate(['/jupiters-cock']);
     }
   }
-}
 
-export class ConnectionStateListenerImpl implements ConnectionStateListener {
-
-
-  constructor(private  rsocketService: RsocketService,
-              private gameService: GameService,
-              private router: Router) {
-  }
-
-  onConnected(): void {
-    if(this.gameService.currentGame){
-      AppRoutingModule.navigateAccordingPhase(this.gameService.currentGame.gamePhase, this.router)
-    }else{
-      console.log('navigating to start')
-      this.router.navigate(['/start']);
+  onConnectionStateChanged(connected: boolean): void {
+    if (connected) {
+      if (this.gameService.currentGame) {
+        AppRoutingModule.navigateAccordingPhase(this.gameService.currentGame.gamePhase, this.router)
+      } else {
+        console.log('navigating to start')
+        this.router.navigate(['/start']);
+      }
+    } else {
+      console.log('navigating to error')
+      this.router.navigate(['/connection-error']);
     }
   }
-
-  onDisconnected(): void {
-    console.log('navigating to error')
-    this.router.navigate(['/connection-error']);
-  }
 }
 
-export class RouterGamePhaseListener implements GamePhaseListener {
-  constructor(private router: Router) {
-  }
-
-  onGamePhaseChange(phase: Phase) {
-    AppRoutingModule.navigateAccordingPhase(phase, this.router)
-  }
-}

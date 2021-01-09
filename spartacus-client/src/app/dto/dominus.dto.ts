@@ -7,10 +7,10 @@ import {IntrigueCardDto} from "./intrigue.card.dto";
 
 export class DominusDto {
    dominusBoard: DominusBoardDto ;
-   activePlayer:PlayerDto ;
+   player:PlayerDto ;
    gladiators:GladiatorCardDto[] ;
    slaves:SlaveCardDto[];
-   equipments:EquipmentCardDto[] ;
+   equipment:EquipmentCardDto[] ;
    hand:IntrigueCardDto[];
    guardsNumber:number ;
    goldCoins:number ;

@@ -1,5 +1,8 @@
 package com.freetimers.spartacus.gamebox;
 
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,8 +15,9 @@ public class Deck<T> {
         this(new LinkedList<>());
     }
 
-    public Deck(List<T> cards) {
-        cardList = new LinkedList<>(cards);
+    @PersistenceConstructor
+    public Deck(List<T> cardList) {
+        this.cardList = new LinkedList<>(cardList);
     }
 
     public void shuffle() {

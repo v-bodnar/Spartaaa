@@ -3,6 +3,7 @@ import type {Payload, ReactiveSocket,} from 'rsocket-types';
 import {IdentitySerializer, JsonSerializer, RSocketClient} from 'rsocket-core';
 import {Flowable, Single} from 'rsocket-flowable';
 import RSocketWebSocketClient from 'rsocket-websocket-client';
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +11,17 @@ import RSocketWebSocketClient from 'rsocket-websocket-client';
 export class RsocketService {
   private socket: ReactiveSocket<string, string>
   private _connected: boolean;
-  private listeners: ConnectionStateListener[];
+  private _connectedSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
     this._connected = false;
-    this.listeners = [];
     this.connect().subscribe({
       onComplete: (socket) => {
         this.socket = socket;
         this.socket.connectionStatus().subscribe(
           status => {
             console.log('Connection status:', status);
-            this.listeners.forEach(value => status.kind==='CONNECTED'?value.onConnected(): value.onDisconnected())
+            this._connectedSubject.next(status.kind==='CONNECTED')
           }
         );
         this._connected = true;
@@ -29,7 +29,7 @@ export class RsocketService {
       },
       onError: error => {
         console.error("Error in ws connect: %s", error)
-        this.listeners.forEach(value => value.onDisconnected())
+        this._connectedSubject.next(false)
       }
     });
   }
@@ -65,7 +65,7 @@ export class RsocketService {
    * This method sends data/metadata to the server, which returns a single response. The data is sent lazily when the
    * returned Single is subscribed to.
    */
-  public requestResponse(data: string, endpoint: string): Single<Payload<string, string>> {
+  public requestResponse(data, endpoint: string): Single<Payload<string, string>> {
     return this.socket.requestResponse({
       data: data,
       metadata: String.fromCharCode(endpoint.length) + endpoint,
@@ -117,14 +117,8 @@ export class RsocketService {
     return this._connected;
   }
 
-  public registerStateListener(stateListener: ConnectionStateListener): void {
-    this.listeners.push(stateListener)
+
+  get connectedSubject(): Subject<boolean> {
+    return this._connectedSubject;
   }
-
-}
-
-export interface ConnectionStateListener {
-  onConnected(): void;
-
-  onDisconnected(): void;
 }

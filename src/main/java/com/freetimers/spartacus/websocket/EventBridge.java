@@ -1,76 +1,57 @@
 package com.freetimers.spartacus.websocket;
 
+import com.freetimers.spartacus.dto.GameEventDto;
+import com.freetimers.spartacus.game.GameMapper;
 import com.freetimers.spartacus.game.event.GameEvent;
-import org.springframework.context.event.EventListener;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
+import org.springframework.util.ReflectionUtils;
 import reactor.core.publisher.FluxSink;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-import static java.util.UUID.randomUUID;
+import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.function.Consumer;
 
 @Component
-class EventBridge {
+class EventBridge implements ApplicationListener<GameEvent>, Consumer<FluxSink<GameEventDto>> {
 
-        private static class Subscriber {
-        private final UUID sessionId;
-        private final FluxSink<ProcessState> sink;
-        private boolean eventEmitted;
+    private final Executor executor;
+    private final LinkedBlockingQueue<GameEvent> queue;
+    private final Logger logger;
+    private final GameMapper gameMapper;
+
+    @Autowired
+    EventBridge(@Qualifier("SingleThreadExecutor") Executor executor, Logger logger, GameMapper gameMapper) {
+        this(executor, new LinkedBlockingQueue<>(), logger, gameMapper);
     }
 
-    private final Map<UUID, Subscriber> subscribers = new ConcurrentHashMap<>();
-
-    @EventListener
-    void stateChanged(GameEvent event) {
-        notifySubscribers(event);
+    private EventBridge(Executor executor, LinkedBlockingQueue<GameEvent> queue, Logger logger, GameMapper gameMapper) {
+        this.executor = executor;
+        this.queue = queue;
+        this.logger = logger;
+        this.gameMapper = gameMapper;
     }
 
-    Flux<ProcessState> register(UUID userId) {
-        return Flux.push(emitter -> addSubscriber(userId, emitter));
+    @Override
+    public void onApplicationEvent(GameEvent event) {
+        this.queue.offer(event);
     }
 
-    private Subscriber addSubscriber(UUID userId, FluxSink<ProcessState> sink) {
-        var subscriptionId = randomUUID();
-        var subscriber = new Subscriber(userId, sink);
-        subscribers.put(subscriptionId, subscriber);
-        sink
-                .onRequest(n -> poll(subscriber))
-                .onDispose(() -> removeSubscriber(subscriptionId));
-        return subscriber;
+    @Override
+    public void accept(FluxSink<GameEventDto> sink) {
+        this.executor.execute(() -> {
+            while (true)
+                try {
+                    GameEvent gameEvent = queue.take();
+                    GameEventDto event = gameMapper.gameEventToGameEventDto(gameEvent);
+                    sink.next(event);
+                    logger.debug("Published new game event: {}", event);
+                } catch (InterruptedException e) {
+                    ReflectionUtils.rethrowRuntimeException(e);
+                }
+        });
     }
-
-    private void poll(Subscriber subscriber) {
-        emit(subscriber, loadCurrentState(subscriber), true);
-    }
-
-    private ProcessState loadCurrentState(Subscriber subscriber) {
-        return repository.findById(subscriber.sessionId).getProcessState();
-    }
-
-    private void removeSubscriber(UUID subscriptionId) {
-        subscribers.remove(subscriptionId);
-    }
-
-    private void notifySubscribers(GameEvent event) {
-        subscribers.values().stream()
-                .filter(subscriber -> subscriber.sessionId.equals(event.getUserId()))
-                .forEach(subscriber -> emit(subscriber, event.getNewState(), false));
-    }
-
-    private void emit(Subscriber subscriber, ProcessState processState, boolean onlyIfFirst) {
-        synchronized (subscriber) {
-            if (onlyIfFirst && subscriber.eventEmitted) {
-                return;
-            }
-            subscriber.sink.next(processState);
-            if (processState.isTerminalState()) {
-                subscriber.sink.complete();
-            }
-            subscriber.eventEmitted = true;
-        }
-    }
-
 }

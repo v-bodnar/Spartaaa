@@ -14,4 +14,9 @@ public class DominusSelectedEvent extends GameEvent {
     public DominusSelectedEvent(Object source, CoreGame coreGame) {
         super(source, coreGame);
     }
+
+    @Override
+    public String toString() {
+        return "DominusSelectedEvent{} " + super.toString();
+    }
 }

@@ -1,5 +1,9 @@
 package com.freetimers.spartacus;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InjectionPoint;
@@ -9,6 +13,9 @@ import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoCo
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ResourceBundleMessageSource;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 
 @SpringBootApplication(exclude = {EmbeddedMongoAutoConfiguration.class})
@@ -35,4 +42,18 @@ public class SpartacusApplication {
         return LoggerFactory.getLogger(classOnWired);
     }
 
+    @Bean(name = "SingleThreadExecutor")
+    Executor executor() {
+        return Executors.newSingleThreadExecutor();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        mapper.enable(JsonParser.Feature.ALLOW_SINGLE_QUOTES);
+        return mapper;
+    }
 }

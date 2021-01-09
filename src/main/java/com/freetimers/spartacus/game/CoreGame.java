@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 
 public class CoreGame implements Game {
 
@@ -174,7 +175,7 @@ public class CoreGame implements Game {
     @Override
     public void selectDominus(DominusBoard dominusBoard, String playersName, String sessionToken) {
         Player player = new Player(playersName, sessionToken, FileUtils.getInstance().getBase64encodedFile
-                ("images/defaultava.jpg"));
+                ("images/defaultava.png"));
         Dominus selectedDominus = new Dominus(dominusBoard, player, new LinkedList<>(), new LinkedList<>(),
                 new LinkedList<>(), new LinkedList<>());
         dominusList.add(selectedDominus);
@@ -182,5 +183,24 @@ public class CoreGame implements Game {
 
     public void releaseSelectedDominus(String playersName){
         dominusList.removeIf(dominus -> playersName.equals(dominus.getPlayersName()));
+    }
+
+    @Override
+    public String toString() {
+        return "CoreGame{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", startTime=" + startTime +
+                ", finishedTime=" + finishedTime +
+                ", dominusList=" + dominusList.stream().map(Object::toString).collect(Collectors.joining(",")) +
+                ", marketDeck=" + marketDeck +
+                ", intrigueDeck=" + intrigueDeck +
+                ", gamePhase=" + gamePhase +
+                ", gameState=" + gameState +
+                ", upkeepPhase=" + upkeepPhase +
+                ", intriguePhase=" + intriguePhase +
+                ", marketPhase=" + marketPhase +
+                ", arenaPhase=" + arenaPhase +
+                '}';
     }
 }

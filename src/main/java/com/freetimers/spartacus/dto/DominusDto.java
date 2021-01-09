@@ -6,24 +6,24 @@ import java.util.Objects;
 public class DominusDto {
 
     private final DominusBoardDto dominusBoard;
-    private final PlayerDto activePlayer;
+    private final PlayerDto player;
     private final List<GladiatorCardDto> gladiators;
     private final  List<SlaveCardDto> slaves;
-    private final  List<EquipmentCardDto> equipments;
+    private final  List<EquipmentCardDto> equipment;
     private final  List<IntrigueCardDto> hand;
     private final  Integer guardsNumber;
     private final  Integer goldCoins;
     private final  Integer influence;
     private final  boolean host;
 
-    public DominusDto(DominusBoardDto dominusBoard, PlayerDto activePlayer, List<GladiatorCardDto> gladiators,
-                      List<SlaveCardDto> slaves, List<EquipmentCardDto> equipments, List<IntrigueCardDto> hand,
+    public DominusDto(DominusBoardDto dominusBoard, PlayerDto player, List<GladiatorCardDto> gladiators,
+                      List<SlaveCardDto> slaves, List<EquipmentCardDto> equipment, List<IntrigueCardDto> hand,
                       Integer guardsNumber, Integer goldCoins, Integer influence, boolean host) {
         this.dominusBoard = dominusBoard;
-        this.activePlayer = activePlayer;
+        this.player = player;
         this.gladiators = gladiators;
         this.slaves = slaves;
-        this.equipments = equipments;
+        this.equipment = equipment;
         this.hand = hand;
         this.guardsNumber = guardsNumber;
         this.goldCoins = goldCoins;
@@ -35,8 +35,8 @@ public class DominusDto {
         return dominusBoard;
     }
 
-    public PlayerDto getActivePlayer() {
-        return activePlayer;
+    public PlayerDto getPlayer() {
+        return player;
     }
 
     public List<GladiatorCardDto> getGladiators() {
@@ -47,8 +47,8 @@ public class DominusDto {
         return slaves;
     }
 
-    public List<EquipmentCardDto> getEquipments() {
-        return equipments;
+    public List<EquipmentCardDto> getEquipment() {
+        return equipment;
     }
 
     public List<IntrigueCardDto> getHand() {
@@ -78,10 +78,10 @@ public class DominusDto {
         DominusDto that = (DominusDto) o;
         return host == that.host &&
                 Objects.equals(dominusBoard, that.dominusBoard) &&
-                Objects.equals(activePlayer, that.activePlayer) &&
+                Objects.equals(player, that.player) &&
                 Objects.equals(gladiators, that.gladiators) &&
                 Objects.equals(slaves, that.slaves) &&
-                Objects.equals(equipments, that.equipments) &&
+                Objects.equals(equipment, that.equipment) &&
                 Objects.equals(hand, that.hand) &&
                 Objects.equals(guardsNumber, that.guardsNumber) &&
                 Objects.equals(goldCoins, that.goldCoins) &&
@@ -90,17 +90,17 @@ public class DominusDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(dominusBoard, activePlayer, gladiators, slaves, equipments, hand, guardsNumber, goldCoins, influence, host);
+        return Objects.hash(dominusBoard, player, gladiators, slaves, equipment, hand, guardsNumber, goldCoins, influence, host);
     }
 
     @Override
     public String toString() {
         return "DominusDto{" +
                 "dominusBoard=" + dominusBoard +
-                ", activePlayer=" + activePlayer +
+                ", player=" + player +
                 ", gladiators=" + gladiators +
                 ", slaves=" + slaves +
-                ", equipments=" + equipments +
+                ", equipments=" + equipment +
                 ", hand=" + hand +
                 ", guardsNumber=" + guardsNumber +
                 ", goldCoins=" + goldCoins +
