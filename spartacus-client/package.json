@@ -22,6 +22,8 @@
     "@angular/platform-browser-dynamic": "~13.0.2",
     "@angular/router": "~13.0.2",
     "@reactivex/rxjs": "^6.6.7",
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
     "rsocket-core": "^0.0.27",
     "rsocket-websocket-client": "^0.0.27",
     "rxjs": "~6.6.0",
