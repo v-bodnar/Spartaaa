@@ -4,10 +4,11 @@ import com.freetimers.spartacus.mongodb.ClassDocumentConverter;
 import com.freetimers.spartacus.mongodb.DocumentClassConverter;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.process.config.IRuntimeConfig;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
+import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.process.config.RuntimeConfig;
 import de.flapdoodle.embed.process.distribution.Distribution;
-import de.flapdoodle.embed.process.extract.IExtractedFileSet;
+import de.flapdoodle.embed.process.extract.ExtractedFileSet;
 import de.flapdoodle.embed.process.runtime.Starter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
@@ -39,15 +40,14 @@ import static de.flapdoodle.embed.process.distribution.Distribution.detectFor;
 @EnableConfigurationProperties({MongoProperties.class, EmbeddedMongoProperties.class})
 public class EmbeddedConfig extends EmbeddedMongoAutoConfiguration {
 
-    private static IMongodConfig iMongodConfig;
+    private static MongodConfig mongodConfig;
     private static MongodExecutable mongodExecutable;
     private final MongoProperties properties;
     private final ApplicationContext context;
 
     public EmbeddedConfig(MongoProperties properties,
-                          EmbeddedMongoProperties embeddedProperties,
                           ApplicationContext context) {
-        super(properties, embeddedProperties);
+        super(properties);
         this.properties = properties;
         this.context = context;
     }
@@ -63,8 +63,8 @@ public class EmbeddedConfig extends EmbeddedMongoAutoConfiguration {
     @Bean(initMethod = "start", destroyMethod = "stop")
     @ConditionalOnMissingBean
     @Override
-    public MongodExecutable embeddedMongoServer(IMongodConfig mongodConfig, IRuntimeConfig runtimeConfig,
-                                                ApplicationContext context) throws IOException {
+    public MongodExecutable embeddedMongoServer(MongodConfig mongodConfig, RuntimeConfig runtimeConfig,
+                                                ApplicationContext context) {
         Integer configuredPort = this.properties.getPort();
         if (configuredPort == null || configuredPort == 0) {
             setEmbeddedPort(mongodConfig.net().getPort());
@@ -80,12 +80,12 @@ public class EmbeddedConfig extends EmbeddedMongoAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     @Override
-    public IMongodConfig embeddedMongoConfiguration(EmbeddedMongoProperties embeddedProperties) throws IOException {
-        if (iMongodConfig != null) {
-            return iMongodConfig;
+    public MongodConfig embeddedMongoConfiguration(EmbeddedMongoProperties embeddedProperties) throws IOException {
+        if (mongodConfig != null) {
+            return mongodConfig;
         }
-        iMongodConfig = super.embeddedMongoConfiguration(embeddedProperties);
-        return iMongodConfig;
+        mongodConfig = super.embeddedMongoConfiguration(embeddedProperties);
+        return mongodConfig;
     }
 
     private void setEmbeddedPort(int port) {
@@ -113,14 +113,14 @@ public class EmbeddedConfig extends EmbeddedMongoAutoConfiguration {
         return (Map<String, Object>) propertySource.getSource();
     }
 
-    private static class SingleInstanceMongodStarter extends Starter<IMongodConfig, MongodExecutable, MongodProcess> {
+    private static class SingleInstanceMongodStarter extends Starter<MongodConfig, MongodExecutable, MongodProcess> {
 
-        public SingleInstanceMongodStarter(IRuntimeConfig config) {
+        public SingleInstanceMongodStarter(RuntimeConfig config) {
             super(config);
         }
 
         @Override
-        protected MongodExecutable newExecutable(IMongodConfig config, Distribution distribution, IRuntimeConfig runtime, IExtractedFileSet exe) {
+        protected MongodExecutable newExecutable(MongodConfig config, Distribution distribution, RuntimeConfig runtime, ExtractedFileSet exe) {
             try {
                 return new SingleInstanceMongodExecutable(config, runtime);
             } catch (IOException e) {
@@ -134,17 +134,17 @@ public class EmbeddedConfig extends EmbeddedMongoAutoConfiguration {
         private MongodProcess process;
         private final AtomicInteger counter = new AtomicInteger(0);
 
-        public SingleInstanceMongodExecutable(IMongodConfig mongodConfig, IRuntimeConfig runtimeConfig) throws IOException {
+        public SingleInstanceMongodExecutable(MongodConfig mongodConfig, RuntimeConfig runtimeConfig) throws IOException {
             super(
                     detectFor(mongodConfig.version()),
                     mongodConfig,
                     runtimeConfig,
-                    runtimeConfig.getArtifactStore().extractFileSet(detectFor(mongodConfig.version()))
+                    runtimeConfig.artifactStore().extractFileSet(detectFor(mongodConfig.version())).orElseThrow(() -> new RuntimeException("Can't set up mongo"))
             );
         }
 
         @Override
-        protected MongodProcess start(Distribution distribution, IMongodConfig config, IRuntimeConfig runtime) throws IOException {
+        protected MongodProcess start(Distribution distribution, MongodConfig config, RuntimeConfig runtime) throws IOException {
             synchronized (counter) {
                 if (counter.get() > 0) {
                     counter.incrementAndGet();
