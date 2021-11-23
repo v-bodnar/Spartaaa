@@ -2,7 +2,6 @@ package com.freetimers.spartacus.gamebox;
 
 import com.freetimers.spartacus.gamebox.action.ActionFactory;
 import com.freetimers.spartacus.repository.*;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,11 +9,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import static com.freetimers.spartacus.gamebox.action.ActionFactory.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 
 @Service
