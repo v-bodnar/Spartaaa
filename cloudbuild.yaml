@@ -5,5 +5,5 @@ steps:
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['set', 'image', 'deployment/spartacus', 'spartacus=gcr.io/lucky-almanac-297122/spartacus:latest']
     env:
-      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1'
       - 'CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1'
