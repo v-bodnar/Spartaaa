@@ -1,9 +1,9 @@
 
 <div class="form-group">
-  <textarea  placeholder="Game ID:" readonly></textarea>
+  <textarea  placeholder="Game ID:" [(ngModel)]="gameId"></textarea>
 </div>
 <div class="form-group">
-  <input type="password" placeholder="Password:" >
+  <input type="password" placeholder="Password:" [(ngModel)]="gamePassword">
   <button> Start game</button>
 </div>
 

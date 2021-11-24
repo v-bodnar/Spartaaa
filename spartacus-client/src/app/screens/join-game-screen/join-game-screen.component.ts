@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-join-game-screen',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./join-game-screen.component.css']
 })
 export class JoinGameScreenComponent implements OnInit {
-
+  @Input()
+  gameId: string;
+  @Input()
+  gamePassword: string;
   constructor() { }
-
   ngOnInit(): void {
   }
 
+  public onJoinBtnClicked(): void{
+  }
 }
