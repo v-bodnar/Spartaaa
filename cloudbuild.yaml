@@ -1,5 +1,5 @@
 steps:
-  - name: gradle:17-jdk-alpine
+  - name: gradle:7.3.0-jdk17
     entrypoint: gradle
     args: ['jib']
   - name: 'gcr.io/cloud-builders/kubectl'
