@@ -15,7 +15,7 @@ export class GameService {
   private _gameStateSubject: Subject<GameDto> = new Subject<GameDto>();
   private _playersNameSubject: Subject<string> = new Subject<string>();
 
-  constructor(private  rsocketService: RsocketService) {
+  constructor(private rsocketService: RsocketService) {
     this.rsocketService.connectedSubject.subscribe(value => {
       if (value) {
         this.subscribeForGameEvents();
@@ -23,7 +23,7 @@ export class GameService {
     });
   }
 
-  subscribeForGameEvents(): void{
+  subscribeForGameEvents(): void {
     console.log('subscribing for game events:');
     this.rsocketService.requestStream('', 'subscribeForGameEvents').map((payload) => {
       console.log('new event arrived:' + JSON.stringify(payload.data));
@@ -54,10 +54,40 @@ export class GameService {
     const data = {gameId: this.currentGame.id, dominusBoardId: dominusBoardDto.id, playersName: this._playersName};
     return this.rsocketService.requestResponse(data, 'selectDominus').subscribe({
       onComplete: value => {
-        console.log('dominus selected: ');
+        console.log('dominus selected');
       },
       onError: error => {
         console.error('Failed to select dominus' + error);
+      }
+    });
+  }
+
+  startGame(): void {
+    const data = {gameId: this.currentGame.id};
+    return this.rsocketService.requestResponse(data, 'startGame').subscribe({
+      onComplete: value => {
+        console.log('game started');
+      },
+      onError: error => {
+        console.error('Failed to start game' + error);
+      }
+    });
+  }
+
+  joinGame(gameIdStr: string, gamePasswordStr: string): boolean {
+    const data = {gameId: gameIdStr, gamePassword: gamePasswordStr};
+    return this.rsocketService.requestResponse(data, 'joinGame').subscribe({
+      onComplete: payload => {
+        this._currentGame = new GameDto(payload.data.key);
+        for (const value of payload.data.value) {
+          this._dominusBoardsDto.push(new DominusBoardDto(value));
+        }
+        this._gameStateSubject.next(this._currentGame);
+        console.log('joined game: ' + this._currentGame.id);
+        return this._currentGame == null;
+      },
+      onError: error => {
+        console.error('Failed to start game' + error);
       }
     });
   }

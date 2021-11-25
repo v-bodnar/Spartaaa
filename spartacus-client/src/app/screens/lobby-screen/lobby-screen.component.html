@@ -31,5 +31,5 @@
   <app-dominus-selector [dominusBoard]="dominusBoard" [playersName]="getPlayersName(dominusBoard)" [currentPlayersName]="playersName"></app-dominus-selector>
 </div>
 <div class="p-2">
-  <button type="button" class="form-control btn bg-primary" disabled>Start game</button>
+  <button type="button" class="form-control btn bg-primary" [disabled]="game?game.dominusList.length>=2:false" (click)="startGame()">Start game</button>
 </div>
