@@ -25,4 +25,14 @@ export class JoinGameScreenComponent implements OnInit {
   joinGame(playerName: string, gameId: string, gamePassword: string): void {
     this.gameService.joinGame(playerName, gameId, gamePassword);
   }
+
+  async pasteFromClipboard(inputElement){
+    if(inputElement.id === "playerName"){
+      this.playerName = await navigator.clipboard.readText();
+    }else if (inputElement.id === "gameId"){
+      this.gameId = await navigator.clipboard.readText();
+    }else if (inputElement.id === "gamePassword"){
+      this.gamePassword = await navigator.clipboard.readText();
+    }
+  }
 }

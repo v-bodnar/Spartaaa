@@ -20,7 +20,7 @@
 
 <div class="input-group p-2">
   <label for="playersName" class="form-control">Your name: </label>
-  <input type="text" class="form-control" id="playersName" placeholder="Put your name here" readonly value="{{playersName}}">
+  <input type="text" class="form-control" id="playersName" readonly value="{{playersName}}">
   <div class="input-group-prepend">
     <button class="btn btn-outline-secondary rounded-right" type="button" (click)="copyToClipboard(playersName)">
       Copy

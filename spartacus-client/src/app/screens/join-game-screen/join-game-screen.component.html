@@ -1,26 +1,33 @@
-<div class="form-group">
-  <input type="text" class="form-control" placeholder="Put your name here" [(ngModel)]="playerName" >
-</div>
-<div class="form-group">
-  <textarea  placeholder="Game ID:" [(ngModel)]="gameId"></textarea>
-</div>
-<div class="form-group">
-  <input type="password" placeholder="Password:" [(ngModel)]="gamePassword">
-  <button (click)="joinGame(playerName, gameId, gamePassword)"> Join game</button>
+<div class="input-group p-2">
+  <label for="gameId" class="form-control">Game id: </label>
+  <input type="text" class="form-control" id="gameId" [(ngModel)]="gameId" #gameId_>
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary rounded-right" type="button" (click)="pasteFromClipboard(gameId_)">
+      Paste
+    </button>
+  </div>
 </div>
 
-<style>
-textarea {
-resize:none;width:100%;
-height: 30px;
-}
-input {
-height:30px;
-width: 50%;
-display: inline-block;
-margin-right: 10px;
-}
-button{
-width:45%;
-}
-</style>
+<div class="input-group p-2">
+  <label for="gamePassword" class="form-control">Password: </label>
+  <input type="text" class="form-control" id="gamePassword" [(ngModel)]="gamePassword" #gamePassword_>
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary rounded-right" type="button" (click)="pasteFromClipboard(gamePassword_)">
+      Paste
+    </button>
+  </div>
+</div>
+
+<div class="input-group p-2">
+  <label for="playerName" class="form-control">Your name: </label>
+  <input type="text" class="form-control" id="playerName"  [(ngModel)]="playerName" #playerName_>
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary rounded-right" type="button" (click)="pasteFromClipboard(playerName_)">
+      Paste
+    </button>
+  </div>
+</div>
+
+<div class="p-2">
+  <button type="button" class="form-control btn bg-primary" (click)="joinGame(playerName, gameId, gamePassword)"> Join game</button>
+</div>

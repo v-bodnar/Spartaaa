@@ -1,9 +1,10 @@
-<div class="form-group">
-  <input type="text" class="form-control" placeholder="Put your name here" [(ngModel)]="playersName" >
+<div class="input-group p-2">
+  <label for="playerName" class="form-control">Put your name here: </label>
+  <input type="text" class="form-control" id="playerName" [(ngModel)]="playersName" >
 </div>
-<div class="form-group">
-  <button type="button" class="form-control btn btn-primary" (click)="onStartBtnClicked()">Create New Game</button>
+<div class="input-group p-2">
+  <button type="button" class="form-control btn bg-primary" (click)="onStartBtnClicked()">Create New Game</button>
 </div>
-<div class="form-group">
-  <button type="button" class="form-control btn btn-primary" routerLink="/join">Join Game</button>
+<div class="input-group p-2">
+  <button type="button" class="form-control btn bg-primary" routerLink="/join">Join Game</button>
 </div>
