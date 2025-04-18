@@ -28,8 +28,8 @@
   </div>
 </div>
 <div class="p-2" *ngFor="let dominusBoard of dominusBoards">
-  <app-dominus-selector [dominusBoard]="dominusBoard" [playersName]="getPlayersName(dominusBoard)" [currentPlayersName]="playersName"></app-dominus-selector>
+  <app-dominus-selector [dominusBoard]="dominusBoard" [playersName]="getPlayersName(dominusBoard)" [currentPlayersName]="playersName" [dominusAlreadySelectedByCurrentPlayer] = "dominusAlreadySelectedByCurrentPlayer()"></app-dominus-selector>
 </div>
 <div class="p-2">
-  <button type="button" class="form-control btn bg-primary" [disabled]="game?game.dominusList.length>=2:false" (click)="startGame()">Start game</button>
+  <button type="button" class="form-control btn bg-primary" [disabled]="!enableStartGameButton()" *ngIf="showStartButton()" (click)="startGame()">Start game</button>
 </div>

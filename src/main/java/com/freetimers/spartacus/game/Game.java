@@ -2,7 +2,6 @@ package com.freetimers.spartacus.game;
 
 import com.freetimers.spartacus.gamebox.*;
 
-import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 public interface Game {
@@ -10,7 +9,9 @@ public interface Game {
 
     boolean connect(String password);
 
-    void selectDominus(DominusBoard dominusBoard, String playersName, String sessionToken);
+    void selectDominus(DominusBoard dominusBoard, String playersName, String sessionId, boolean gameOwner);
+
+    void resetPlayersSessionId(String playersName, String sessionId);
 
     int getRound();
 

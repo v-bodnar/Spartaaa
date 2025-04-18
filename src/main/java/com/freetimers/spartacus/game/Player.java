@@ -7,10 +7,13 @@ import java.util.Objects;
     private final String sessionToken;
     private final String avatar;
 
-    public Player(String name, String sessionToken, String avatar) {
+    private final boolean gameOwner;
+
+    public Player(String name, String sessionToken, String avatar, boolean gameOwner) {
         this.name = name;
         this.sessionToken = sessionToken;
         this.avatar = avatar;
+        this.gameOwner = gameOwner;
     }
 
      public String getName() {
@@ -25,6 +28,10 @@ import java.util.Objects;
         return avatar;
     }
 
+        public boolean isGameOwner() {
+            return gameOwner;
+        }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,12 +39,13 @@ import java.util.Objects;
         Player player = (Player) o;
         return Objects.equals(name, player.name) &&
                 Objects.equals(sessionToken, player.sessionToken) &&
-                Objects.equals(avatar, player.avatar);
+                Objects.equals(avatar, player.avatar)
+                && gameOwner == player.gameOwner;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, sessionToken, avatar);
+        return Objects.hash(name, sessionToken, avatar, gameOwner);
     }
 
     @Override
@@ -46,6 +54,7 @@ import java.util.Objects;
                 "name='" + name + '\'' +
                 ", sesionToken='" + sessionToken + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", gameOwner=" + gameOwner +
                 '}';
     }
 }

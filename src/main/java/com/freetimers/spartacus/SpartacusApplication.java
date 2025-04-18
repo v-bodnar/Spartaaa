@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -19,9 +18,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 
-@SpringBootApplication(exclude = {EmbeddedMongoAutoConfiguration.class})
-
-
+@SpringBootApplication
 public class SpartacusApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpartacusApplication.class, args);

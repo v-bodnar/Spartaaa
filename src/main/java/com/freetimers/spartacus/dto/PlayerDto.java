@@ -6,11 +6,12 @@ public class PlayerDto {
     private final String name;
     private final String sessionToken;
     private final String avatar;
-
-    public PlayerDto(String name, String sessionToken, String avatar) {
+    private final boolean gameOwner;
+    public PlayerDto(String name, String sessionToken, String avatar, boolean gameOwner) {
         this.name = name;
         this.sessionToken = sessionToken;
         this.avatar = avatar;
+        this.gameOwner = gameOwner;
     }
 
     public String getName() {
@@ -25,6 +26,9 @@ public class PlayerDto {
         return avatar;
     }
 
+    public boolean isGameOwner() {
+        return gameOwner;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,12 +36,13 @@ public class PlayerDto {
         PlayerDto playerDto = (PlayerDto) o;
         return Objects.equals(name, playerDto.name) &&
                 Objects.equals(sessionToken, playerDto.sessionToken) &&
-                Objects.equals(avatar, playerDto.avatar);
+                Objects.equals(avatar, playerDto.avatar)
+                && gameOwner == playerDto.gameOwner;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, sessionToken, avatar);
+        return Objects.hash(name, sessionToken, avatar, gameOwner);
     }
 
     @Override
@@ -46,6 +51,7 @@ public class PlayerDto {
                 "name='" + name + '\'' +
                 ", sessionToken='" + sessionToken + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", gameOwner=" + gameOwner +
                 '}';
     }
 }

@@ -8,6 +8,8 @@ import {GameService} from '../../game.service';
 })
 export class JoinGameScreenComponent implements OnInit {
   @Input()
+  playerName: string;
+  @Input()
   gameId: string;
   @Input()
   gamePassword: string;
@@ -20,7 +22,7 @@ export class JoinGameScreenComponent implements OnInit {
   public onJoinBtnClicked(): void{
   }
 
-  joinGame(gameId: string, gamePassword: string): void {
-    this.gameService.joinGame(gameId, gamePassword);
+  joinGame(playerName: string, gameId: string, gamePassword: string): void {
+    this.gameService.joinGame(playerName, gameId, gamePassword);
   }
 }

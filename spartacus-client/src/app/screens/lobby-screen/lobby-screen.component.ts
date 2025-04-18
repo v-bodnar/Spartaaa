@@ -40,6 +40,34 @@ export class LobbyScreenComponent implements OnInit {
     return null;
   }
 
+  public dominusAlreadySelectedByCurrentPlayer():boolean{
+    if (this.game) {
+      for (const dominusDto of this.game.dominusList) {
+        if (dominusDto.player.name === this.playersName) {
+          return true;
+        }
+      }
+    }
+  }
+
+  public enableStartGameButton(): boolean {
+    if (this.game) {
+      let playersCount:number = 0;
+      for (const dominusDto of this.game.dominusList) {
+        if (dominusDto.player.name) {
+          playersCount++;
+        }
+      }
+      console.log("Enable start game button: " + playersCount);
+      return playersCount > 1
+    }
+    return false;
+  }
+
+  showStartButton(): boolean {
+    return this.gameService.isCurrentPlayerGameOwner();
+  }
+
 
   copyToClipboard(inputElement): void {
     inputElement.select();

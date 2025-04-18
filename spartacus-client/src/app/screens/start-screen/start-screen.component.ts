@@ -19,6 +19,7 @@ export class StartScreenComponent implements OnInit {
 
   public onStartBtnClicked(): void {
     this.gameService.playersName = this.playersName ? this.playersName : this.animals[Math.floor(Math.random() * this.animals.length)];
+    this.gameService.setCurrentPlayerAsGameOwner();
     this.gameService.createNewGame()
       .subscribe({
         onComplete: (newGame) => {

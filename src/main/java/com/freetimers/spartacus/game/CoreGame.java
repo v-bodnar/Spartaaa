@@ -26,6 +26,8 @@ public class CoreGame implements Game {
     private List<MarketPhase> marketPhase;
     private List<ArenaPhase> arenaPhase;
 
+    private int round = 0;
+
 
     public CoreGame(Deck<MarketCard> marketDeck, Deck<IntrigueCard> intrigueDeck) {
         this.startTime = Instant.now();
@@ -51,9 +53,23 @@ public class CoreGame implements Game {
         return false;
     }
 
+    public void startGame() {
+        dominusList.forEach(dominus -> {
+            dominus.setInfluence(7);
+            dominus.giveGold(dominus.getDominusBoard().getStartingGold());
+            dominus.giveCards(marketDeck.getFiltered(dominus.getDominusBoard().getStartingGladiators(),
+                    GladiatorCard.class::isInstance));
+            dominus.giveCards(marketDeck.getFiltered(dominus.getDominusBoard().getStartingSlaves(),
+                    SlaveCard.class::isInstance));
+            dominus.giveCards(intrigueDeck.getFiltered(dominus.getDominusBoard().getStartingGuards(),
+                    GuardCard.class::isInstance));
+        });
+        gamePhase = Phase.INTRIGUE;
+    }
+
     @Override
     public int getRound() {
-        return 0;
+        return round;
     }
 
     @Override
@@ -173,12 +189,25 @@ public class CoreGame implements Game {
     }
 
     @Override
-    public void selectDominus(DominusBoard dominusBoard, String playersName, String sessionToken) {
-        Player player = new Player(playersName, sessionToken, FileUtils.getInstance().getBase64encodedFile
-                ("images/defaultava.png"));
-        Dominus selectedDominus = new Dominus(dominusBoard, player, new LinkedList<>(), new LinkedList<>(),
-                new LinkedList<>(), new LinkedList<>());
+    public void selectDominus(DominusBoard dominusBoard, String playersName, String sessionId, boolean gameOwner) {
+        Player player = new Player(playersName, sessionId, FileUtils.getInstance().getBase64encodedFile
+                ("images/defaultava.png"),gameOwner);
+        Dominus selectedDominus = new Dominus(dominusBoard, player);
         dominusList.add(selectedDominus);
+    }
+
+    @Override
+    public void resetPlayersSessionId(String playerName, String sessionId) {
+        Optional<Dominus> dominusOpt = dominusList.stream()
+                .filter(dominus -> dominus.getPlayer().getName().equals(playerName))
+                .findFirst();
+        if (dominusOpt.isPresent()) {
+            Dominus dominus = dominusOpt.get();
+            dominus.setPlayersSessionId(sessionId);
+        } else {
+            throw new IllegalStateException("Dominus not found for player: " + playerName);
+        }
+
     }
 
     public void releaseSelectedDominus(String playersName){

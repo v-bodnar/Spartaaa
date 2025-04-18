@@ -14,6 +14,7 @@ export class GameService {
   private _dominusBoardsDto: DominusBoardDto[] = [];
   private _gameStateSubject: Subject<GameDto> = new Subject<GameDto>();
   private _playersNameSubject: Subject<string> = new Subject<string>();
+  private _currentPlayerIsGameOwner: boolean = false;
 
   constructor(private rsocketService: RsocketService) {
     this.rsocketService.connectedSubject.subscribe(value => {
@@ -74,20 +75,19 @@ export class GameService {
     });
   }
 
-  joinGame(gameIdStr: string, gamePasswordStr: string): boolean {
-    const data = {gameId: gameIdStr, gamePassword: gamePasswordStr};
+  joinGame(playerNameStr: string, gameIdStr: string, gamePasswordStr: string): boolean {
+    const data = {playerName: playerNameStr,gameId: gameIdStr, gamePassword: gamePasswordStr};
     return this.rsocketService.requestResponse(data, 'joinGame').subscribe({
       onComplete: payload => {
+        this._playersName = playerNameStr;
         this._currentGame = new GameDto(payload.data.key);
         for (const value of payload.data.value) {
           this._dominusBoardsDto.push(new DominusBoardDto(value));
         }
-        this._gameStateSubject.next(this._currentGame);
-        console.log('joined game: ' + this._currentGame.id);
-        return this._currentGame == null;
+        this._gameStateSubject.next(this._currentGame)
       },
       onError: error => {
-        console.error('Failed to start game' + error);
+        console.error('Failed to join game' + error);
       }
     });
   }
@@ -116,5 +116,13 @@ export class GameService {
 
   get playersNameSubject(): Subject<string> {
     return this._playersNameSubject;
+  }
+
+  setCurrentPlayerAsGameOwner(): void{
+    this._currentPlayerIsGameOwner = true;
+  }
+
+  isCurrentPlayerGameOwner(): boolean{
+    return this._currentPlayerIsGameOwner;
   }
 }

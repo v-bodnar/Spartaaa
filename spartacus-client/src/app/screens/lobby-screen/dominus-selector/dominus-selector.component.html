@@ -39,6 +39,6 @@
     </div>
   </div>
   <div class="col-2">
-    <button type="button" class="form-control btn btn-primary" (click)="selectDominus(dominusBoard)" [disabled]="isDominusSelected()">Select</button>
+    <button type="button" class="form-control btn btn-primary" (click)="selectDominus(dominusBoard)" [disabled]="isDominusSelected() || dominusAlreadySelectedByCurrentPlayer">Select</button>
   </div>
 </div>

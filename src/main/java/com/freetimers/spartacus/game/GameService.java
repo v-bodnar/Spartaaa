@@ -1,6 +1,8 @@
 package com.freetimers.spartacus.game;
 
 import com.freetimers.spartacus.game.event.DominusSelectedEvent;
+import com.freetimers.spartacus.game.event.GameStartedEvent;
+import com.freetimers.spartacus.game.event.PlayerJoinedEvent;
 import com.freetimers.spartacus.gamebox.*;
 import com.freetimers.spartacus.repository.*;
 import org.slf4j.Logger;
@@ -15,8 +17,6 @@ import java.util.stream.Stream;
 
 @Service
 public class GameService {
-    private final static int GUARDS_NUMBER = 10; //todo put real number
-
     private final Logger logger;
     private final GameRepository gameRepository;
     private final EquipmentCardsRepo equipmentCardsRepo;
@@ -49,27 +49,21 @@ public class GameService {
     }
 
     public CoreGame createNewCoreGame() {
+        logger.info("Creating new game");
         Deck<MarketCard> marketDeck = new Deck<>(Stream.of(
                 equipmentCardsRepo.findAll(),
                 gladiatorCardsRepo.findAll(),
                 slaveCardsRepo.findAll())
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList()));
+        marketDeck.shuffle();
 
         Deck<IntrigueCard> intrigueDeck = new Deck<>(Stream.of(
                 reactionCardsRepo.findAll(),
                 schemeCardsRepo.findAll())
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList()));
-
-        Optional<ReactionCard> guardOpt = reactionCardsRepo.findFirstByTitleKey("card.reactionCard.guard.title");
-        if (guardOpt.isPresent()) {
-            for (int i = 0; i < GUARDS_NUMBER; i++) {
-                intrigueDeck.addCard(guardOpt.get());
-            }
-        } else {
-            logger.warn("No guards were added to the game");
-        }
+        intrigueDeck.shuffle();
 
         CoreGame newGame = new CoreGame(marketDeck, intrigueDeck);
         newGame.prepareNewGame();
@@ -77,18 +71,43 @@ public class GameService {
         return newGame;
     }
 
-    public synchronized void selectDominus(String gameId, String dominusBoardId, String playersName, String sessionToken) {
+    public synchronized void selectDominus(String gameId, String dominusBoardId, String playersName, String sessionId, boolean gameOwner) {
+        logger.info("GameId: %s Player: %s Session %s Selected Dominus: %s", gameId, playersName, sessionId, dominusBoardId);
         Optional<CoreGame> coreGameOpt = gameRepository.findById(gameId);
         CoreGame coreGame = coreGameOpt.orElseThrow();
 
         Optional<DominusBoard> dominusBoardOpt = dominusBoardRepo.findById(dominusBoardId);
         DominusBoard dominusBoard = dominusBoardOpt.orElseThrow();
 
-        coreGame.selectDominus(dominusBoard, playersName, sessionToken);
+        coreGame.selectDominus(dominusBoard, playersName, sessionId, gameOwner);
 
         coreGame = gameRepository.save(coreGame);
 
         applicationEventPublisher.publishEvent(new DominusSelectedEvent(this, coreGame));
+    }
+
+    public synchronized void startTheGame(String gameId) {
+        logger.info("Starting the game: %s", gameId);
+        Optional<CoreGame> coreGameOpt = gameRepository.findById(gameId);
+        CoreGame coreGame = coreGameOpt.orElseThrow();
+        coreGame.startGame();
+        gameRepository.save(coreGame);
+
+        applicationEventPublisher.publishEvent(new GameStartedEvent(this, coreGame));
+    }
+
+    public synchronized Optional<CoreGame> joinGame(String playerName, String gameId, String password, String sessionId) {
+        Optional<CoreGame> gameOpt = gameRepository.findById(gameId);
+        if (gameOpt.isPresent() && gameOpt.get().getPassword().equals(password)) {
+            CoreGame coreGame = gameOpt.get();
+            if(!coreGame.getGamePhase().equals(Phase.LOBBY)){
+                coreGame.resetPlayersSessionId(playerName, sessionId);
+            }
+            applicationEventPublisher.publishEvent(new PlayerJoinedEvent(this, coreGame));
+            return gameOpt;
+        } else {
+            return Optional.empty();
+        }
     }
 
 }

@@ -6,9 +6,10 @@ import com.freetimers.spartacus.dto.GameEventDto;
 import com.freetimers.spartacus.dto.SelectDominusDto;
 import com.freetimers.spartacus.game.GameMapper;
 import com.freetimers.spartacus.game.GameService;
-import com.freetimers.spartacus.game.event.GameEvent;
 import com.freetimers.spartacus.repository.DominusBoardRepo;
 import com.freetimers.spartacus.repository.GladiatorCardsRepo;
+import com.freetimers.spartacus.websocket.dto.JoinGameRequest;
+import com.freetimers.spartacus.websocket.dto.StartGameRequest;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -16,12 +17,10 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.annotation.ConnectMapping;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Controller
@@ -45,6 +44,11 @@ public class SpartacusController {
         this.logger = logger;
         this.sessionService = sessionService;
         this.gameEventPublisher = Flux.create(eventBridge).share();
+
+        gameEventPublisher.doOnNext(event -> logger.debug("New game event published: {}", event))
+                .doOnError(error -> logger.error("Error in game event publisher: {}", error.getMessage()))
+                .doFinally(signalType -> logger.info("Game event publisher completed with signal: {}", signalType))
+                .subscribe();
     }
 
     @ConnectMapping
@@ -81,12 +85,34 @@ public class SpartacusController {
         Optional<Session> sessionOpt = sessionService.getSessionByRequester(requester);
 
         if (sessionOpt.isPresent()) {
-            gameService.selectDominus(selectDominusDto.getGameId(), selectDominusDto.getDominusBoardId(), selectDominusDto.getPlayersName(), sessionOpt.get().getId());
+            gameService.selectDominus(selectDominusDto.getGameId(), selectDominusDto.getDominusBoardId(), selectDominusDto.getPlayersName(), sessionOpt.get().getId(), selectDominusDto.isGameOwner());
             return Mono.empty();
         } else {
             return Mono.error(new Exception("Session not found"));
         }
+    }
 
+    @MessageMapping("joinGame")
+    public Mono<SerializablePair> joinGame(RSocketRequester requester, JoinGameRequest joinGameRequest){
+        Optional<Session> sessionOpt = sessionService.getSessionByRequester(requester);
+        List<DominusBoardDto> dominusList = dominusBoardRepo.findAll().stream()
+                .map(gameMapper::dominusBoardToDominusBoardDto)
+                .collect(Collectors.toList());
+        return gameService.joinGame(joinGameRequest.getPlayerName(),joinGameRequest.getGameId(), joinGameRequest.getGamePassword(), sessionOpt.get().getId())
+                .map(coreGame -> Mono.just(new SerializablePair(gameMapper.gameToGameDto(coreGame), dominusList)))
+                .orElseGet(() -> Mono.error(new Exception("Game not found")));
+    }
+
+    @MessageMapping("startGame")
+    public Mono<Void> startGame(RSocketRequester requester, StartGameRequest startGameRequest) {
+        Optional<Session> sessionOpt = sessionService.getSessionByRequester(requester);
+
+        if (sessionOpt.isPresent()) {
+            gameService.startTheGame(startGameRequest.getGameId());
+            return Mono.empty();
+        } else {
+            return Mono.error(new Exception("Session not found"));
+        }
     }
 
     @MessageMapping("subscribeForGameEvents")

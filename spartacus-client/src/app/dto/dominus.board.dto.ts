@@ -8,6 +8,7 @@ export class DominusBoardDto {
   startingGladiators: Number;
   startingSlaves: Number;
   startingGuards: Number;
+  playerName: String;
 
   constructor(jsonObj: Object) {
     for (let prop in jsonObj) {

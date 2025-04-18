@@ -1,5 +1,6 @@
 package com.freetimers.spartacus.gamebox;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.freetimers.spartacus.gamebox.action.Action;
 
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.Objects;
 public abstract class IntrigueCard extends AbstractCard {
     private final Integer requiredInfluence;
     private final RequiredInfluenceCondition requiredInfluenceCondition;
+
+    @JsonIgnore
     private final List<Action> actions;
 
     public IntrigueCard(String id, String titleKey, String title, String descriptionKey, String description,

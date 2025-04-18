@@ -17,6 +17,9 @@ export class DominusSelectorComponent implements OnInit {
   @Input()
   currentPlayersName: string;
 
+  @Input()
+  dominusAlreadySelectedByCurrentPlayer: boolean;
+
   constructor(private gameService: GameService) {
   }
 
