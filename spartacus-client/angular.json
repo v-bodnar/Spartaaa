@@ -124,7 +124,6 @@
       }
     }
   },
-  "defaultProject": "spartacus-client",
   "cli": {
     "analytics": "861bfd30-0734-486c-83b9-d8fce9bc91ab"
   }
