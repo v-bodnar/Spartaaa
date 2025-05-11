@@ -13,6 +13,7 @@ import { MarketPhaseScreenComponent } from './screens/market-phase-screen/market
 import { ArenaPhaseScreenComponent } from './screens/arena-phase-screen/arena-phase-screen.component';
 import { JupitersCockScreenComponent } from './screens/jupiters-cock-screen/jupiters-cock-screen.component';
 import { DominusSelectorComponent } from './screens/lobby-screen/dominus-selector/dominus-selector.component';
+import {DominusCardsComponent} from "./screens/intrigue-phase-screen/dominus-cards/dominus-cards.component";
 
 @NgModule({
   declarations: [
@@ -27,12 +28,13 @@ import { DominusSelectorComponent } from './screens/lobby-screen/dominus-selecto
     JupitersCockScreenComponent,
     DominusSelectorComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        DominusCardsComponent
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

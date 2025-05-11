@@ -39,6 +39,8 @@ public interface GameMapper {
 
     SlaveCardDto slaveCardToSlaveCardDto(SlaveCard slaveCard);
 
+    GuardCardDto guardCardToGuardCardDto(GuardCard guardCard);
+
     EquipmentCardDto equipmentCardToEquipmentCardDto(EquipmentCard equipmentCard);
 
     GameEventDto gameEventToGameEventDto(GameEvent gameEvent);

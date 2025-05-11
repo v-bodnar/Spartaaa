@@ -1,0 +1,39 @@
+
+
+<mat-grid-list cols="8" rowHeight="300px">
+  <mat-grid-tile [colspan]=1 [rowspan]=1>
+    <mat-card class="dominus-card" appearance="outlined">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{dominus.dominusBoard.title}}</mat-card-title>
+        <mat-card-subtitle>{{dominus.dominusBoard.playerName}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{getAvatarPath()}}">
+      <mat-card-content>
+        <p>
+          {{dominus.dominusBoard.description}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <div *ngFor="let card of dominus.hand">
+    <mat-grid-tile [colspan]=1 [rowspan]=1>
+      <mat-card class="dominus-card" appearance="outlined">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image">{{card.requiredInfluence}}</div>
+          <mat-card-title>{{card.title}}</mat-card-title>
+        </mat-card-header>
+    <!--    <img mat-card-image src="{{getAvatarPath()}}">-->
+        <mat-card-content>
+          <p>
+            {{card.description}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <p>{{card.price}}</p>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </div>
+</mat-grid-list>
+

@@ -90,6 +90,8 @@ class Dominus {
             gladiators.add(gladiatorCard);
         } else if (card instanceof SlaveCard slaveCard) {
             slaves.add(slaveCard);
+        }else if (card instanceof GuardCard guardCard) {
+            guards.add(guardCard);
         } else if (card instanceof IntrigueCard intrigueCard) {
             hand.add(intrigueCard);
         } else if (card instanceof EquipmentCard equipmentCard) {

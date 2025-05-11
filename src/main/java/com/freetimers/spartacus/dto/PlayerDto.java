@@ -1,10 +1,13 @@
 package com.freetimers.spartacus.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 public class PlayerDto {
     private final String name;
     private final String sessionToken;
+    @JsonIgnore
     private final String avatar;
     private final boolean gameOwner;
     public PlayerDto(String name, String sessionToken, String avatar, boolean gameOwner) {

@@ -1,14 +1,12 @@
 package com.freetimers.spartacus.dto;
 
-import com.freetimers.spartacus.gamebox.IntrigueCard;
-
-public class IntrigueCardDto {
+public class GuardCardDto {
     private final String title;
     private final String description;
     private final Integer price;
     private final Integer requiredInfluence;
 
-    public IntrigueCardDto(String title, String description, Integer price, Integer requiredInfluence) {
+    public GuardCardDto(String title, String description, Integer price, Integer requiredInfluence) {
         this.title = title;
         this.description = description;
         this.price = price;

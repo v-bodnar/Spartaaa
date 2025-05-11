@@ -63,6 +63,9 @@ public class CoreGame implements Game {
                     SlaveCard.class::isInstance));
             dominus.giveCards(intrigueDeck.getFiltered(dominus.getDominusBoard().getStartingGuards(),
                     GuardCard.class::isInstance));
+            for (int i = 0; i < 5; i++) {
+                intrigueDeck.getTop().ifPresent(dominus::giveCard);
+            }
         });
         gamePhase = Phase.INTRIGUE;
     }
